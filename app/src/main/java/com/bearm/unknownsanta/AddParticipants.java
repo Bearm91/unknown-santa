@@ -36,7 +36,7 @@ public class AddParticipants extends AppCompatActivity {
             }
         });
 
-        //Cancel button will close ativity and return to previous
+        //Cancel button will close ativity and return to main
         Button cancelBtn = findViewById(R.id.btn_cancel);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,12 +72,18 @@ public class AddParticipants extends AppCompatActivity {
         return avatar;
     }
 
-    //Saves the name and email of every participan created
+    //Saves the name and email of every participant created
     //TODO Save data on database
     public void saveParticipant(){
         String name = String.valueOf(et_name.getText());
         String email = String.valueOf(et_email.getText());
 
-        Toast.makeText(getApplicationContext(), "Name: " + name + ", Email: " + email, Toast.LENGTH_LONG).show();
+        if((name.equals("")) || (email.equals(""))) {
+            Toast.makeText(getApplicationContext(), "There are some empty fields.", Toast.LENGTH_LONG).show();
+
+        } else {
+
+            Toast.makeText(getApplicationContext(), "Name: " + name + ", Email: " + email, Toast.LENGTH_LONG).show();
+        }
     }
 }
