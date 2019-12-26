@@ -25,12 +25,10 @@
             android:padding="18dp">
 
             <TextView
+                style="@style/myMainTitles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Event info"
-                android:textColor="@color/white_color"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:text="Event info" />
 
             <LinearLayout
                 android:id="@+id/layout_no_event"
@@ -39,22 +37,19 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/myMainSubTitles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="There are no events yet. Create one here:"
-                    android:textColor="@color/white_color"
-                    android:textSize="20dp" />
+                    android:text="There are no events yet. Create one here:" />
 
                 <Button
                     android:id="@+id/btn_new_event"
+                    style="@style/myAcceptButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="8dp"
-                    android:text="Create new event"
-                    android:textColor="@color/white_color"
-                    android:textSize="20dp"
-                    app:backgroundTint="@color/colorPrimary" />
+                    android:text="Create new event" />
 
             </LinearLayout>
 
@@ -67,24 +62,24 @@
 
                 <TextView
                     android:id="@+id/tv_event_name"
+                    style="@style/myMainSubTitles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name: Christmas 2019"
-                    android:textSize="20sp" />
+                    android:text="Name: Christmas 2019" />
 
                 <TextView
                     android:id="@+id/tv_event_place"
+                    style="@style/myMainSubTitles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Place: Bea's house"
-                    android:textSize="20sp" />
+                    android:text="Place: Bea's house" />
 
                 <TextView
                     android:id="@+id/tv_event_money"
+                    style="@style/myMainSubTitles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Money limit: 20€"
-                    android:textSize="20sp" />
+                    android:text="Money limit: 20€" />
 
             </LinearLayout>
         </LinearLayout>
@@ -101,12 +96,10 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/myMainTitles"
                     android:layout_width="320dp"
                     android:layout_height="wrap_content"
-                    android:text="Participants"
-                    android:textColor="@color/white_color"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:text="Participants" />
 
                 <ImageView
                     android:id="@+id/btn_add"

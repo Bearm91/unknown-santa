@@ -12,9 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create new event"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="30dp"
+        style="@style/myFormTitle"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +33,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/myFormEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name">
@@ -54,7 +52,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/myFormEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Date">
@@ -74,7 +72,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout3"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/myFormEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Place">
@@ -95,7 +93,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout4"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/myFormEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Money limit">
@@ -124,32 +122,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_gravity="bottom"
         android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cancel"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+            style="@style/mySCancelButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:layout_weight="2"
             android:text="Cancel"
             android:textColor="@color/colorPrimary"
-            android:textSize="20dp" />
+           />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_save"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            style="@style/myAcceptButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:layout_weight="2"
             android:text="Save"
-            android:textColor="@color/white_color"
-            android:textSize="20dp"
-            app:backgroundTint="@color/colorPrimary" />
-
+            />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
