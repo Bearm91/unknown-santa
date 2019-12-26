@@ -8,10 +8,10 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="341dp"
-        android:layout_height="476dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:textAlignment="center"
+        android:padding="@dimen/padding_form"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,13 +59,16 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout2"
                 style="@style/myFormEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
                 android:hint="@string/emailField">
 
 

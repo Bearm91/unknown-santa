@@ -5,125 +5,127 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/createEventFormTitle"
-        style="@style/myFormTitle"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="80dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="@dimen/padding_form"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.466">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
-            style="@style/myFormEditText"
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/myFormTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/nameField">
+            android:paddingBottom="20dp"
+            android:text="@string/createEventFormTitle" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_event_name"
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout"
+                style="@style/myFormEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:hint="@string/nameField">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_event_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <Space
-            android:layout_width="match_parent"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Space
+                android:layout_width="match_parent"
             android:layout_height="20dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout2"
-            style="@style/myFormEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/dateField">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_event_date"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout2"
+                style="@style/myFormEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:hint="@string/dateField">
 
-        </com.google.android.material.textfield.TextInputLayout>
 
-        <Space
-            android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_event_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Space
+                android:layout_width="match_parent"
             android:layout_height="20dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout3"
-            style="@style/myFormEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/placeField">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_event_place"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout3"
+                style="@style/myFormEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/placeField">
 
 
-        <Space
-            android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_event_place"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Space
+                android:layout_width="match_parent"
             android:layout_height="20dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout4"
-            style="@style/myFormEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/expenseField">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_event_money"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout4"
+                style="@style/myFormEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:hint="@string/expenseField">
 
-        </com.google.android.material.textfield.TextInputLayout>
 
-        <Space
-            android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_event_money"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Space
+                android:layout_width="match_parent"
             android:layout_height="50dp" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_christmas_tree"
-            android:contentDescription="@string/christmasTree"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/christmasTree"
+                android:src="@drawable/ic_christmas_tree" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
-        android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.button.MaterialButton
@@ -132,8 +134,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="@string/cancelButton"
-           />
+            android:text="@string/cancelButton" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_save"
@@ -141,8 +142,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="@string/saveButton"
-            />
+            android:text="@string/saveButton" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
