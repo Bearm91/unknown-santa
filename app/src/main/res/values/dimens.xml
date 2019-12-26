@@ -1,3 +1,15 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin_top_main">30dp</dimen>
+    <dimen name="margin_bottom_main">50dp</dimen>
+    <dimen name="padding_main_item">18dp</dimen>
+    <dimen name="padding_form">30dp</dimen>
+    <dimen name="padding_bottom_form_title">12dp</dimen>
+    <dimen name="padding_participant_avatar">20dp</dimen>
+    <dimen name="width_participant_avatar">200dp</dimen>
+    <dimen name="height_participant_avatar">200dp</dimen>
+    <dimen name="padding_form_fields">12dp</dimen>
+    <dimen name="padding_form_buttons">12dp</dimen>
+    <dimen name="height_form_field_space">20dp</dimen>
+    <dimen name="height_form_field_bottom_space">50dp</dimen>
 </resources>

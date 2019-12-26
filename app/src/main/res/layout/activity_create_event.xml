@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="@dimen/padding_form_fields">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
@@ -48,7 +48,7 @@
 
             <Space
                 android:layout_width="match_parent"
-            android:layout_height="20dp" />
+                android:layout_height="@dimen/height_form_field_space" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout2"
@@ -68,7 +68,7 @@
 
             <Space
                 android:layout_width="match_parent"
-            android:layout_height="20dp" />
+                android:layout_height="@dimen/height_form_field_space" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout3"
@@ -89,7 +89,7 @@
 
             <Space
                 android:layout_width="match_parent"
-            android:layout_height="20dp" />
+                android:layout_height="@dimen/height_form_field_space" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout4"
@@ -109,7 +109,7 @@
 
             <Space
                 android:layout_width="match_parent"
-            android:layout_height="50dp" />
+                android:layout_height="@dimen/height_form_field_bottom_space" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -125,7 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
-        android:layout_gravity="bottom"
+        android:padding="@dimen/padding_form_buttons"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.button.MaterialButton
