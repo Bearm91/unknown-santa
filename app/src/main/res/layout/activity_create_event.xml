@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,7 +10,7 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create new event"
+        android:text="@string/createEventFormTitle"
         style="@style/myFormTitle"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +35,7 @@
             style="@style/myFormEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name">
+            android:hint="@string/nameField">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_event_name"
@@ -55,7 +54,7 @@
             style="@style/myFormEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Date">
+            android:hint="@string/dateField">
 
 
             <com.google.android.material.textfield.TextInputEditText
@@ -75,7 +74,7 @@
             style="@style/myFormEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Place">
+            android:hint="@string/placeField">
 
 
             <com.google.android.material.textfield.TextInputEditText
@@ -96,7 +95,7 @@
             style="@style/myFormEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Money limit">
+            android:hint="@string/expenseField">
 
 
             <com.google.android.material.textfield.TextInputEditText
@@ -114,7 +113,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_christmas_tree" />
+            android:src="@drawable/ic_christmas_tree"
+            android:contentDescription="@string/christmasTree"/>
     </LinearLayout>
 
     <LinearLayout
@@ -128,12 +128,11 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cancel"
-            style="@style/mySCancelButton"
+            style="@style/myCancelButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Cancel"
-            android:textColor="@color/colorPrimary"
+            android:text="@string/cancelButton"
            />
 
         <com.google.android.material.button.MaterialButton
@@ -142,7 +141,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Save"
+            android:text="@string/saveButton"
             />
     </LinearLayout>
 

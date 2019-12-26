@@ -73,7 +73,7 @@
 
     </style>
 
-    <style name="mySCancelButton" parent="@style/myMainButton">
+    <style name="myCancelButton" parent="@style/myMainButton">
         <item name="backgroundTint">@color/white_color</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>

@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">UnknownSanta</string>
     <string name="action_settings">Settings</string>
+    <string name="MainEventInfoTitle">Event info</string>
+    <string name="MainEventInfoSubtitle">There are no events yet. Create one here:</string>
+    <string name="eventButton">Create event</string>
+    <string name="MainParticipantTitle">Participants</string>
+    <string name="cancelButton">Cancel</string>
+    <string name="saveButton">Save</string>
+    <string name="createEventFormTitle">Create new event</string>
+    <string name="nameField">Name</string>
+    <string name="dateField">Date</string>
+    <string name="placeField">Place</string>
+    <string name="expenseField">Expense limit</string>
+    <string name="christmasTree">Christmas tree drawing</string>
+    <string name="AddParticipantFormTitle">Add a new participant</string>
+    <string name="avatarFormContentDescription">Participant avatar</string>
+    <string name="emailField">Email</string>
 </resources>
