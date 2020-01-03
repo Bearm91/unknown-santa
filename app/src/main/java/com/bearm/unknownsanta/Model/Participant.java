@@ -5,6 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.SET_NULL;
@@ -13,11 +15,13 @@ import static androidx.room.ForeignKey.SET_NULL;
         foreignKeys = @ForeignKey(entity = Event.class,
                 parentColumns = "id",
                 childColumns = "eventId",
-                onDelete = SET_NULL))
+                onDelete = SET_NULL),
+        indices = {@Index("eventId"),
+                @Index(value = {"eventId", "email"})})
 
 public class Participant {
 
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = true)
     public int id;
 
     @ColumnInfo
@@ -41,6 +45,7 @@ public class Participant {
     @ColumnInfo
     int idGiver;
 
+    @Ignore
     public Participant(int id, String name, String email, String avatarName, int eventId) {
         this.id = id;
         this.name = name;
@@ -49,6 +54,12 @@ public class Participant {
         this.eventId = eventId;
     }
 
+    public Participant(@NonNull String name, @NonNull String email, String avatarName) {
+        this.name = name;
+        this.email = email;
+        this.avatarName = avatarName;
+        this.eventId = eventId;
+    }
 
     public int getId() {
         return id;

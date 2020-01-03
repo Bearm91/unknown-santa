@@ -68,6 +68,13 @@
                     android:text="Name: Christmas 2019" />
 
                 <TextView
+                    android:id="@+id/tv_event_date"
+                    style="@style/myMainSubTitles"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Date: 20 December 2019" />
+
+                <TextView
                     android:id="@+id/tv_event_place"
                     style="@style/myMainSubTitles"
                     android:layout_width="match_parent"
@@ -112,6 +119,7 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_participants_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">

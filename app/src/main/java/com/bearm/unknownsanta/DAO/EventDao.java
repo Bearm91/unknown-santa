@@ -22,4 +22,7 @@ public interface EventDao {
 
     @Delete
     void delete(Event event);
+
+    @Query ("DELETE FROM event")
+    void deleteAll();
 }

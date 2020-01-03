@@ -7,6 +7,7 @@
     android:padding="@dimen/padding_list_item">
 
     <ImageView
+        android:id="@+id/iv_avatar"
         android:layout_width="@dimen/width_list_item_avatar"
         android:layout_height="@dimen/height_list_item_avatar"
         android:layout_gravity="center_vertical"
@@ -21,6 +22,7 @@
         android:padding="@dimen/padding_list_item_data">
 
         <TextView
+            android:id="@+id/tv_part_name"
             style="@style/myMainSubTitles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,6 +30,7 @@
             tool:text="Bea R" />
 
         <TextView
+            android:id="@+id/tv_part_email"
             style="@style/myMainSubTitles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bearm.unknownsanta.Model.Event;
+import com.bearm.unknownsanta.Model.Participant;
+
 public class CreateEvent extends AppCompatActivity {
 
     EditText eventName;
@@ -30,7 +33,7 @@ public class CreateEvent extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveEvent();
+                createEvent();
             }
         });
 
@@ -45,19 +48,19 @@ public class CreateEvent extends AppCompatActivity {
 
     }
 
-    private void saveEvent() {
+    private void createEvent() {
         String name = String.valueOf(eventName.getText());
         String place = String.valueOf(eventPlace.getText());
         String date = String.valueOf(eventDate.getText());
-        String limit = String.valueOf(eventLimit.getText());
+        String expense = String.valueOf(eventLimit.getText());
 
-        Log.i("DATA", "Name: " + name + ", Place: " + place + ", Date: " + date + ", Limit: " + limit );
+        Log.i("DATA", "Name: " + name + ", Place: " + place + ", Date: " + date + ", Limit: " + expense );
 
-        if((name.equals("")) || (place.equals("")) || (date.equals("")) || (limit.equals(""))) {
+        if((name.equals("")) || (place.equals("")) || (date.equals("")) || (expense.equals(""))) {
             Toast.makeText(getApplicationContext(), "There are some empty fields.", Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(getApplicationContext(), "Name: " + name + ", Place: " + place + ", Date: " + date + ", Limit: " + limit, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Name: " + name + ", Place: " + place + ", Date: " + date + ", Expense limit: " + expense, Toast.LENGTH_LONG).show();
 
         }
 

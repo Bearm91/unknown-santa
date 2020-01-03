@@ -1,5 +1,6 @@
 package com.bearm.unknownsanta.DAO;
 
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -8,6 +9,7 @@ import com.bearm.unknownsanta.Model.Participant;
 
 import java.util.List;
 
+@Dao
 public interface ParticipantDao {
     @Query("SELECT * FROM participant")
     List<Participant> getAll();

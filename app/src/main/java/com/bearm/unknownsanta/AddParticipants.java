@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bearm.unknownsanta.Model.Participant;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Random;
@@ -16,6 +17,7 @@ public class AddParticipants extends AppCompatActivity {
 
     TextInputEditText et_email;
     TextInputEditText et_name;
+    ImageView iv_avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +29,13 @@ public class AddParticipants extends AppCompatActivity {
 
         et_email = findViewById(R.id.edit_email);
         et_name = findViewById(R.id.edit_name);
+        iv_avatar = findViewById(R.id.iv_avatar);
 
         Button saveBtn = findViewById(R.id.btn_save);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveParticipant();
+                createParticipant();
             }
         });
 
@@ -74,7 +77,7 @@ public class AddParticipants extends AppCompatActivity {
 
     //Saves the name and email of every participant created
     //TODO Save data on database
-    public void saveParticipant(){
+    public void createParticipant(){
         String name = String.valueOf(et_name.getText());
         String email = String.valueOf(et_email.getText());
 

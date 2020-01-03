@@ -1,13 +1,23 @@
 package com.bearm.unknownsanta;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import com.bearm.unknownsanta.Adapters.MyAdapter;
+import com.bearm.unknownsanta.Database.DatabaseClient;
+import com.bearm.unknownsanta.Model.Event;
+import com.bearm.unknownsanta.Model.Participant;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.View;
@@ -15,14 +25,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     Button btnNewEvent;
     ImageView btnAddParticipant;
-    TextView tvNoEvent;
-    TextView tvEventInfo;
+    LinearLayout lyNoEvent;
+    LinearLayout lyEventInfo;
+    TextView tvEventName;
+    TextView tvEventPlace;
+    TextView tvEventDate;
+    TextView tvEventExpense;
+
+    RecyclerView recyclerView;
+    RecyclerView.Adapter mAdapter;
+    ArrayList<Participant> arrayParticipant;
+    List<Event> eventList;
+
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        lyEventInfo = findViewById(R.id.layout_event_data);
+        lyNoEvent = findViewById(R.id.layout_no_event);
+        tvEventName = findViewById(R.id.tv_event_name);
+        tvEventPlace = findViewById(R.id.tv_event_place);
+        tvEventDate = findViewById(R.id.tv_event_date);
+        tvEventExpense = findViewById(R.id.tv_event_money);
         btnNewEvent = findViewById(R.id.btn_new_event);
         btnNewEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +93,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void loadEventInfo(List<Event> eventList) {
+        if (!eventList.isEmpty()) {
+            tvEventName.setText(eventList.get(0).getName());
+            tvEventPlace.setText(eventList.get(0).getPlace());
+            tvEventDate.setText(eventList.get(0).getDate());
+            tvEventExpense.setText(eventList.get(0).getExpense());
+
+            lyNoEvent.setVisibility(View.GONE);
+            lyEventInfo.setVisibility(View.VISIBLE);
+        } else {
+            lyNoEvent.setVisibility(View.VISIBLE);
+            lyEventInfo.setVisibility(View.GONE);
+        }
+
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -77,11 +125,19 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_add) {
-
+        if (id == R.id.action_delete) {
+            deleteEvents();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+    void deleteEvents() {
+        class DeleteEvents extends AsyncTask<Void, Void, List<Event>> {
+
+            @Override
+            protected List<Event> doInBackground(Void... voids) {
+                DatabaseClient
+                        .getInstance(getApplicationContext())
+                        .getAppDatabase()
 }

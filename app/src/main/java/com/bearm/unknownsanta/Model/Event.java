@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 @Entity (tableName = "event")
 public class Event {
 
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = true)
     public int id;
     public String name;
     public String place;
