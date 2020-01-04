@@ -33,6 +33,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int REQUEST_CODE_CREATEVENT = 1;
     Button btnNewEvent;
     ImageView btnAddParticipant;
     LinearLayout lyNoEvent;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     List<Event> eventList;
 
     Context context;
+    EventViewModel eventViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("New event", "CREATE");
                 Intent eventForm;
                 eventForm = new Intent(v.getContext(), CreateEvent.class);
-                startActivity(eventForm);
+                startActivityForResult(eventForm, REQUEST_CODE_CREATEVENT);
             }
         });
 
@@ -89,8 +91,26 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Enviando emails", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+        ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
             }
         });
+        eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent eventData) {
+        // Check which request it is that we're responding to
+        super.onActivityResult(requestCode, resultCode, eventData);
+        //CREATE EVENT
+        if (requestCode == REQUEST_CODE_CREATEVENT) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // Get the URI that points to the selected contact
+                Event newEvent =    new Event (eventData.getStringExtra("name"),
+                                                    eventData.getStringExtra("place"),
+                                                    eventData.getStringExtra("date"),
+                                                    eventData.getStringExtra("expense"));
+
+                eventViewModel.insert(newEvent);
+
     }
 
     public void loadEventInfo(List<Event> eventList) {
