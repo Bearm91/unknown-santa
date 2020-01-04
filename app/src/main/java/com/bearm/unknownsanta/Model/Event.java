@@ -2,6 +2,7 @@ package com.bearm.unknownsanta.Model;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity (tableName = "event")
@@ -14,11 +15,16 @@ public class Event {
     public String date;
     public String expense;
 
+    @Ignore
     public Event(String name, String place, String date, String expense) {
         this.name = name;
         this.place = place;
         this.date = date;
         this.expense = expense;
+    }
+
+    public Event() {
+
     }
 
     public String getName() {

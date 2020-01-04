@@ -1,7 +1,6 @@
 package com.bearm.unknownsanta.Model;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -33,8 +32,7 @@ public class Participant {
     public String email;
 
     @ColumnInfo
-    String avatarName;
-
+    public String avatarName;
 
     @ColumnInfo
     int eventId;
@@ -54,11 +52,16 @@ public class Participant {
         this.eventId = eventId;
     }
 
+    @Ignore
     public Participant(@NonNull String name, @NonNull String email, String avatarName) {
         this.name = name;
         this.email = email;
         this.avatarName = avatarName;
         this.eventId = eventId;
+    }
+
+    public Participant() {
+
     }
 
     public int getId() {
