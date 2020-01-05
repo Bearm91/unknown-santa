@@ -31,11 +31,12 @@ public class EventViewModel extends AndroidViewModel {
         eventRepository.insert(event);
     }
 
-    public void deleteAllEvents() {
-        eventRepository.deleteAll();
+
+    public void deleteEvent(int eventId){
+        eventRepository.delete(eventId);
     }
 
-    public LiveData<List<Event>> getAllEvents() {
+    public LiveData<List<Event>> getEventList() {
         return eventList;
     }
 }

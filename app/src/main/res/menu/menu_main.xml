@@ -3,14 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.bearm.unknownsanta.MainActivity">
     <item
-        android:id="@+id/action_add"
+        android:id="@+id/action_change_event"
         android:orderInCategory="100"
-        android:title="Add participant"
+        android:title="Select other event"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_delete"
+        android:id="@+id/action_delete_event"
         android:orderInCategory="100"
-        android:title="Delete all"
+        android:title="Delete current event"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_close_event"
+        android:orderInCategory="100"
+        android:title="Close current event"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="100"
+        android:title="About Unknown Santa"
         app:showAsAction="never" />
 </menu>

@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface EventDao {
     @Query("SELECT * FROM event")
-    LiveData<List<Event>> getAll();
+    LiveData<List<Event>> getEventList();
 
     @Query("SELECT * FROM event WHERE name LIKE :eventName LIMIT 1")
     LiveData<Event> findByName(String eventName);
@@ -21,8 +21,8 @@ public interface EventDao {
     @Insert
     void insertEvent(Event event);
 
-    @Delete
-    void delete(Event event);
+    @Query("DELETE FROM event WHERE id = :id")
+    void delete(int id);
 
     @Query("DELETE FROM event")
     void deleteAll();

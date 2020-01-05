@@ -28,13 +28,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.bearm.unknownsanta.Model.Event;
+import com.bearm.unknownsanta.Model.EventViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_CREATEVENT = 1;
+    private static final int REQUEST_CODE_SELECTEVENT = 3;
     Button btnNewEvent;
+    Button btnSelectEvent;
     ImageView btnAddParticipant;
     LinearLayout lyNoEvent;
     LinearLayout lyEventInfo;
@@ -51,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     EventViewModel eventViewModel;
 
+    SharedPreferences currentEventData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +87,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnSelectEvent = findViewById(R.id.btn_select_event);
+        btnSelectEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSelectEvent(v);
+            }
+        });
+
         btnAddParticipant = findViewById(R.id.btn_add);
         btnAddParticipant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,15 +114,42 @@ public class MainActivity extends AppCompatActivity {
         ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
             }
         });
+
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
+
+        currentEventData = this.getSharedPreferences("my_us_event", Context.MODE_PRIVATE);
+
+        loadEventInfo();
+
+    }
+    private void openSelectEvent(View v) {
+        Log.e("Select event", "SELECT");
+        Intent eventSelection;
+        if (v != null) {
+            eventSelection = new Intent(v.getContext(), EventsActivity.class);
+        } else {
+            eventSelection = new Intent(getApplicationContext(), EventsActivity.class);
+        }
+        startActivityForResult(eventSelection, REQUEST_CODE_SELECTEVENT);
+    }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent eventData) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request it is that we're responding to
-        super.onActivityResult(requestCode, resultCode, eventData);
+        super.onActivityResult(requestCode, resultCode, data);
         //CREATE EVENT
         if (requestCode == REQUEST_CODE_CREATEVENT) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
+                Event newEvent = new Event(data.getStringExtra("name"),
+                        data.getStringExtra("place"),
+                        data.getStringExtra("date"),
+                        data.getStringExtra("expense"));
+
+                eventViewModel.insert(newEvent);
+
+            }
+        }
                 // Get the URI that points to the selected contact
                 Event newEvent =    new Event (eventData.getStringExtra("name"),
                                                     eventData.getStringExtra("place"),
@@ -111,22 +158,37 @@ public class MainActivity extends AppCompatActivity {
 
                 eventViewModel.insert(newEvent);
 
+        //SELECT EVENT
+        if (requestCode == REQUEST_CODE_SELECTEVENT) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                loadEventInfo();
+            }
+        }
     }
 
-    public void loadEventInfo(List<Event> eventList) {
-        if (!eventList.isEmpty()) {
-            tvEventName.setText(eventList.get(0).getName());
-            tvEventPlace.setText(eventList.get(0).getPlace());
-            tvEventDate.setText(eventList.get(0).getDate());
-            tvEventExpense.setText(eventList.get(0).getExpense());
+    public void loadEventInfo() {
+
+        if (getCurrentEventId() != null) {
+            tvEventName.setText(getApplicationContext().getString(R.string.nameField) + currentEventData.getString("eventName", null));
+            tvEventPlace.setText(getApplicationContext().getString(R.string.placeField) + currentEventData.getString("eventPlace", null));
+            tvEventDate.setText(getApplicationContext().getString(R.string.dateField) + currentEventData.getString("eventDate", null));
+            tvEventExpense.setText(getApplicationContext().getString(R.string.expenseField) + currentEventData.getString("eventExpense", null));
 
             lyNoEvent.setVisibility(View.GONE);
             lyEventInfo.setVisibility(View.VISIBLE);
+
+            btnAddParticipant.setEnabled(true);
         } else {
             lyNoEvent.setVisibility(View.VISIBLE);
             lyEventInfo.setVisibility(View.GONE);
+            btnAddParticipant.setEnabled(false);
         }
 
+    }
+
+    public String getCurrentEventId() {
+        return currentEventData.getString("eventId", null);
     }
 
 
@@ -145,19 +207,33 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_delete) {
-            deleteEvents();
+        if (id == R.id.action_delete_event) {
+            eventViewModel.deleteEvent(Integer.parseInt(getCurrentEventId()));
+            closeCurrentEvent();
+            loadEventInfo();
+            return true;
+        }
+
+        if (id == R.id.action_change_event) {
+            openSelectEvent(null);
+            return true;
+        }
+
+        if (id == R.id.action_close_event) {
+            closeCurrentEvent();
+            loadEventInfo();
+            return true;
+        }
+
+        if (id == R.id.action_about) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-    void deleteEvents() {
-        class DeleteEvents extends AsyncTask<Void, Void, List<Event>> {
 
-            @Override
-            protected List<Event> doInBackground(Void... voids) {
-                DatabaseClient
-                        .getInstance(getApplicationContext())
-                        .getAppDatabase()
+    public void closeCurrentEvent() {
+        currentEventData.edit().clear().apply();
+    }
+
 }

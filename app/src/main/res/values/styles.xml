@@ -42,13 +42,25 @@
         <item name="android:textColor">@color/white_color</item>
     </style>
 
-    <style name="myMainTitles" parent="myMainText">
+    <style name="myMainTitle" parent="myMainText">
         <item name="android:textSize">30sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="myMainSubTitles" parent="myMainText">
+    <style name="myMainDarkTitle" parent="myMainText">
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="myMainSubTitle" parent="myMainText">
         <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="myMainDarkSubtitle" parent="myMainSubTitle">
+        <item name="android:textColor">@color/colorSecondaryText</item>
+        <item name="android:textSize">20sp</item>
+
     </style>
 
     <style name="myMainButton" parent="@style/Widget.MaterialComponents.Button.UnelevatedButton">
@@ -61,6 +73,13 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="myListTitle" parent="myFormTitle">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="myFormEditText" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="hintTextColor">@color/colorSecondaryText</item>
         <item name="boxStrokeColor">@color/colorSecondaryText</item></style>
@@ -69,8 +88,6 @@
     <style name="myAcceptButton" parent="@style/myMainButton">
         <item name="backgroundTint">@color/colorPrimary</item>
         <item name="android:textColor">@color/white_color</item>
-
-
     </style>
 
     <style name="myCancelButton" parent="@style/myMainButton">

@@ -15,6 +15,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".EventsActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.MaterialComponents" />
+        <activity
             android:name=".CreateEvent"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.MaterialComponents" />

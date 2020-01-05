@@ -13,20 +13,22 @@ import java.util.List;
 
 public class EventRepository {
 
-    EventDao eventDao;
-    Event event;
-    LiveData<List<Event>> eventList;
+    private EventDao eventDao;
+    private Event event;
+    private LiveData<List<Event>> eventList;
+    private int eventId;
 
     public EventRepository(Application application) {
 
         AppDatabase db = AppDatabase.getInstance(application.getApplicationContext());
 
         eventDao = db.eventDao();
-        eventList = eventDao.getAll();
+        eventList = eventDao.getEventList();
+
 
     }
 
-    public  LiveData<List<Event>> getEventList() {
+    public LiveData<List<Event>> getEventList() {
         return eventList;
     }
 
@@ -48,19 +50,20 @@ public class EventRepository {
         }
     }
 
-    public void deleteAll() {
-        new DeleteEventAsyncTask(eventDao).execute();
+    public void delete(int eventId) {
+        new DeleteEventAsyncTask(eventDao, eventId).execute();
     }
 
     private class DeleteEventAsyncTask extends AsyncTask<EventDao, String, String> {
 
-        DeleteEventAsyncTask(EventDao eDao) {
+        DeleteEventAsyncTask(EventDao eDao, int id) {
             eventDao = eDao;
+            eventId = id;
         }
 
         @Override
         protected String doInBackground(EventDao... eventDaos) {
-            eventDao.deleteAll();
+            eventDao.delete(eventId);
             return null;
         }
     }

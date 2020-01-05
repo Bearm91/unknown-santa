@@ -25,7 +25,7 @@
             android:padding="@dimen/padding_main_item">
 
             <TextView
-                style="@style/myMainTitles"
+                style="@style/myMainTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/MainEventInfoTitle" />
@@ -37,19 +37,37 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/myMainSubTitles"
+                    style="@style/myMainSubTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/MainEventInfoSubtitle" />
 
-                <Button
-                    android:id="@+id/btn_new_event"
-                    style="@style/myAcceptButton"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="8dp"
-                    android:text="@string/eventButton" />
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding_main_buttons"
+                    >
+
+                    <Button
+                        android:id="@+id/btn_new_event"
+                        style="@style/myAcceptButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/createEventButton"
+                        android:layout_weight="2"
+                        android:visibility="visible"/>
+
+                    <Button
+                        android:id="@+id/btn_select_event"
+                        style="@style/myAcceptButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/SelectEventButton"
+                        android:layout_weight="2"
+                        android:visibility="visible"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -62,28 +80,28 @@
 
                 <TextView
                     android:id="@+id/tv_event_name"
-                    style="@style/myMainSubTitles"
+                    style="@style/myMainSubTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Name: Christmas 2019" />
 
                 <TextView
                     android:id="@+id/tv_event_date"
-                    style="@style/myMainSubTitles"
+                    style="@style/myMainSubTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Date: 20 December 2019" />
 
                 <TextView
                     android:id="@+id/tv_event_place"
-                    style="@style/myMainSubTitles"
+                    style="@style/myMainSubTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Place: Bea's house" />
 
                 <TextView
                     android:id="@+id/tv_event_money"
-                    style="@style/myMainSubTitles"
+                    style="@style/myMainSubTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Money limit: 20€" />
@@ -103,17 +121,17 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/myMainTitles"
+                    style="@style/myMainTitle"
                     android:layout_width="0dp"
-                    android:layout_weight="2"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:text="@string/MainParticipantTitle" />
 
                 <ImageView
                     android:id="@+id/btn_add"
                     android:layout_width="0dp"
-                    android:layout_weight="0.5"
                     android:layout_height="match_parent"
+                    android:layout_weight="0.5"
                     android:src="@drawable/ic_greenplus" />
 
             </LinearLayout>
