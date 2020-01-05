@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/tv_part_name"
-            style="@style/myMainSubTitles"
+            style="@style/myMainSubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -31,7 +31,7 @@
 
         <TextView
             android:id="@+id/tv_part_email"
-            style="@style/myMainSubTitles"
+            style="@style/myMainSubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tool:text="beabea@bea.com" />

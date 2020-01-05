@@ -1,28 +1,14 @@
 package com.bearm.unknownsanta;
 
+
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import com.bearm.unknownsanta.Adapters.MyAdapter;
-import com.bearm.unknownsanta.Database.DatabaseClient;
-import com.bearm.unknownsanta.Model.Event;
-import com.bearm.unknownsanta.Model.Participant;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,16 +20,23 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bearm.unknownsanta.Adapters.ParticipantAdapter;
 import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.Model.EventViewModel;
+import com.bearm.unknownsanta.Model.Participant;
+import com.bearm.unknownsanta.Model.ParticipantViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_CREATEVENT = 1;
+    private static final int REQUEST_CODE_ADDPARTICIPANT = 2;
     private static final int REQUEST_CODE_SELECTEVENT = 3;
+
     Button btnNewEvent;
     Button btnSelectEvent;
     ImageView btnAddParticipant;
@@ -55,14 +48,15 @@ public class MainActivity extends AppCompatActivity {
     TextView tvEventExpense;
 
     RecyclerView recyclerView;
-    RecyclerView.Adapter mAdapter;
-    ArrayList<Participant> arrayParticipant;
-    List<Event> eventList;
+    ParticipantAdapter mParticipantAdapter;
+    List<Participant> participantList;
 
-    Context context;
+    ParticipantViewModel participantViewModel;
     EventViewModel eventViewModel;
 
+
     SharedPreferences currentEventData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.e("New Participant", "ADD");
-                Intent form = new Intent(v.getContext(), AddParticipants.class);
-                startActivity(form);
+                Intent participantForm = new Intent(v.getContext(), AddParticipants.class);
+                startActivityForResult(participantForm, REQUEST_CODE_ADDPARTICIPANT);
             }
         });
 
@@ -150,13 +144,19 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-                // Get the URI that points to the selected contact
-                Event newEvent =    new Event (eventData.getStringExtra("name"),
-                                                    eventData.getStringExtra("place"),
-                                                    eventData.getStringExtra("date"),
-                                                    eventData.getStringExtra("expense"));
 
-                eventViewModel.insert(newEvent);
+        //ADD PARTICIPANT
+        if (requestCode == REQUEST_CODE_ADDPARTICIPANT) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // Get the URI that points to the selected contact
+                Participant newParticipant = new Participant(data.getStringExtra("name"),
+                        data.getStringExtra("email"),
+                        data.getStringExtra("avatarName"));
+
+                participantViewModel.insert(newParticipant);
+            }
+        }
 
         //SELECT EVENT
         if (requestCode == REQUEST_CODE_SELECTEVENT) {
