@@ -2,34 +2,34 @@ package com.bearm.unknownsanta;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bearm.unknownsanta.Model.Participant;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Random;
 
 public class AddParticipants extends AppCompatActivity {
 
-    TextInputEditText et_email;
-    TextInputEditText et_name;
-    ImageView iv_avatar;
+    private TextInputEditText etEmail;
+    private TextInputEditText etName;
+    int avatarId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_participants);
 
-        ImageView avatar = findViewById(R.id.iv_avatar);
-        avatar.setImageResource(getRandomAvatar());
+        ImageView ivAvatar = findViewById(R.id.iv_rndm_avatar);
+        avatarId = getRandomAvatar();
+        ivAvatar.setImageResource(avatarId);
 
-        et_email = findViewById(R.id.edit_email);
-        et_name = findViewById(R.id.edit_name);
-        iv_avatar = findViewById(R.id.iv_avatar);
+        etEmail = findViewById(R.id.edit_email);
+        etName = findViewById(R.id.edit_name);
 
         Button saveBtn = findViewById(R.id.btn_save);
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +55,7 @@ public class AddParticipants extends AppCompatActivity {
         Random random = new Random();
         int avatar;
 
-        switch (random.nextInt(5)){
+        switch (random.nextInt(5)) {
             case 1:
                 avatar = R.drawable.ic_deer;
                 break;
@@ -75,18 +75,24 @@ public class AddParticipants extends AppCompatActivity {
         return avatar;
     }
 
-    //Saves the name and email of every participant created
-    //TODO Save data on database
-    public void createParticipant(){
-        String name = String.valueOf(et_name.getText());
-        String email = String.valueOf(et_email.getText());
+    //Sends the name and email of the participant created to MainActivity
+    public void createParticipant() {
+        String name = String.valueOf(etName.getText());
+        String email = String.valueOf(etEmail.getText());
 
-        if((name.equals("")) || (email.equals(""))) {
+        if ((name.equals("")) || (email.equals(""))) {
             Toast.makeText(getApplicationContext(), "There are some empty fields.", Toast.LENGTH_LONG).show();
 
         } else {
 
             Toast.makeText(getApplicationContext(), "Name: " + name + ", Email: " + email, Toast.LENGTH_LONG).show();
+
+            Intent output = new Intent();
+            output.putExtra("name", name);
+            output.putExtra("email", email);
+            output.putExtra("avatar", String.valueOf(avatarId));
+            setResult(RESULT_OK, output);
+            finish();
         }
     }
 }
