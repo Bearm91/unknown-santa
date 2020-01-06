@@ -55,6 +55,7 @@
 
     <style name="myMainSubTitle" parent="myMainText">
         <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">italic</item>
     </style>
 
     <style name="myMainDarkSubtitle" parent="myMainSubTitle">
@@ -93,5 +94,12 @@
     <style name="myCancelButton" parent="@style/myMainButton">
         <item name="backgroundTint">@color/white_color</item>
         <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="myMessageText" parent="">
+        <item name="backgroundTint">@color/colorPrimaryText</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">italic</item>
+
     </style>
 </resources>

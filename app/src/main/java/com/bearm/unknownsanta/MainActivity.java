@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
         loadEventInfo();
 
+        eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
     }
     private void openSelectEvent(View v) {
         Log.e("Select event", "SELECT");
@@ -152,7 +153,8 @@ public class MainActivity extends AppCompatActivity {
                 // Get the URI that points to the selected contact
                 Participant newParticipant = new Participant(data.getStringExtra("name"),
                         data.getStringExtra("email"),
-                        data.getStringExtra("avatarName"));
+                        data.getStringExtra("avatar"),
+                        Integer.parseInt(getCurrentEventId()));
 
                 participantViewModel.insert(newParticipant);
             }
@@ -169,26 +171,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadEventInfo() {
 
-        if (getCurrentEventId() != null) {
-            tvEventName.setText(getApplicationContext().getString(R.string.nameField) + currentEventData.getString("eventName", null));
-            tvEventPlace.setText(getApplicationContext().getString(R.string.placeField) + currentEventData.getString("eventPlace", null));
-            tvEventDate.setText(getApplicationContext().getString(R.string.dateField) + currentEventData.getString("eventDate", null));
-            tvEventExpense.setText(getApplicationContext().getString(R.string.expenseField) + currentEventData.getString("eventExpense", null));
+        if (Integer.parseInt(getCurrentEventId()) > 0) {
+            tvEventName.setText(currentEventData.getString("eventName", null));
+            tvEventPlace.setText(currentEventData.getString("eventPlace", null));
+            tvEventDate.setText(currentEventData.getString("eventDate", null));
+            tvEventExpense.setText(currentEventData.getString("eventExpense", null));
 
             lyNoEvent.setVisibility(View.GONE);
             lyEventInfo.setVisibility(View.VISIBLE);
-
-            btnAddParticipant.setEnabled(true);
+            lyPartciipantInfo.setVisibility(View.VISIBLE);
         } else {
             lyNoEvent.setVisibility(View.VISIBLE);
             lyEventInfo.setVisibility(View.GONE);
-            btnAddParticipant.setEnabled(false);
+            lyPartciipantInfo.setVisibility(View.INVISIBLE);
         }
 
     }
 
     public String getCurrentEventId() {
-        return currentEventData.getString("eventId", null);
+        return currentEventData.getString("eventId", "0");
     }
 
 
@@ -208,10 +209,13 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete_event) {
-            eventViewModel.deleteEvent(Integer.parseInt(getCurrentEventId()));
-            closeCurrentEvent();
-            loadEventInfo();
+            if (getCurrentEventId() != null) {
+                eventViewModel.deleteEvent(Integer.parseInt(getCurrentEventId()));
+                closeCurrentEvent();
+                loadEventInfo();
+            }
             return true;
+
         }
 
         if (id == R.id.action_change_event) {

@@ -3,8 +3,10 @@ package com.bearm.unknownsanta;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +35,27 @@ public class EventsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_event);
 
+        final TextView tvNoData = findViewById(R.id.no_data_message);
+
+        final Button selectBtn = findViewById(R.id.btn_select_event);
+        selectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent output = new Intent();
+                output.putExtra("load", "LOAD");
+                setResult(RESULT_OK, output);
+                finish();
+            }
+        });
+
+        final Button cancelBtn = findViewById(R.id.btn_cancel_event);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         recyclerView = findViewById(R.id.rv_events_list);
         eventList = new ArrayList<>();
         mEventAdapter = new EventAdapter(eventList, getApplicationContext());
@@ -48,22 +71,26 @@ public class EventsActivity extends AppCompatActivity {
 
             @Override
             public void onChanged(List<Event> events) {
-                mEventAdapter.setEvents(events);
+                Log.e("EVENTVIEWMODELOBSERVER", "onChanged");
+                if(events.isEmpty()){
+                    tvNoData.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                    selectBtn.setVisibility(View.GONE);
+                    cancelBtn.setVisibility(View.VISIBLE);
+
+                } else {
+                    tvNoData.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    selectBtn.setVisibility(View.VISIBLE);
+                    cancelBtn.setVisibility(View.GONE);
+
+                    mEventAdapter.setEvents(events);
+                }
             }
         });
 
 
-        //Cancel button will close activity and return to main
-        Button backBtn = findViewById(R.id.btn_select_event);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent output = new Intent();
-                output.putExtra("load", "LOAD");
-                setResult(RESULT_OK, output);
-                finish();
-            }
-        });
+
     }
 
 }

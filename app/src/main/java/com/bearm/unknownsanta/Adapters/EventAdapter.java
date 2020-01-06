@@ -86,7 +86,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             holder.layoutEventItem.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
         } else {
             holder.layoutEventItem.setBackgroundColor(context.getResources().getColor(R.color.white_color));
-
         }
     }
 
@@ -95,7 +94,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 context.getSharedPreferences("my_us_event", Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = eventSelected.edit();
-        editor.putString("eventId", String.valueOf(eventId));
+        editor.putString("eventId", String.valueOf(eventList.get(position).id));
         editor.putString("eventName", eventList.get(position).name);
         editor.putString("eventPlace", eventList.get(position).place);
         editor.putString("eventDate", eventList.get(position).date);
@@ -112,8 +111,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         return eventList.size();
     }
 
-    public void setEvents(List<Event> participants) {
-        this.eventList = participants;
+    public void setEvents(List<Event> events) {
+        this.eventList = events;
         notifyDataSetChanged();
     }
 

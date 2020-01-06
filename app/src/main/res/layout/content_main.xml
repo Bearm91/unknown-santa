@@ -34,7 +34,9 @@
                 android:id="@+id/layout_no_event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:visibility="visible">
 
                 <TextView
                     style="@style/myMainSubTitle"
@@ -46,26 +48,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="@dimen/padding_main_buttons"
-                    >
+                    android:padding="@dimen/padding_main_buttons">
 
                     <Button
                         android:id="@+id/btn_new_event"
                         style="@style/myAcceptButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/createEventButton"
                         android:layout_weight="2"
-                        android:visibility="visible"/>
+                        android:text="@string/createEventButton" />
 
                     <Button
                         android:id="@+id/btn_select_event"
                         style="@style/myAcceptButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/SelectEventButton"
                         android:layout_weight="2"
-                        android:visibility="visible"/>
+                        android:text="@string/SelectEventButton" />
 
                 </LinearLayout>
 
@@ -76,40 +75,107 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:padding="8dp"
                 android:visibility="gone">
 
-                <TextView
-                    android:id="@+id/tv_event_name"
-                    style="@style/myMainSubTitle"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name: Christmas 2019" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_event_date"
-                    style="@style/myMainSubTitle"
+
+                    <TextView
+                        android:id="@+id/tv_event_name"
+                        style="@style/myMainSubTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Christmas 2019"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Date: 20 December 2019" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_event_place"
-                    style="@style/myMainSubTitle"
+                    <TextView
+                        android:id="@+id/tv_event_et_date"
+                        style="@style/myMainSubTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dateField" />
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/tv_event_date"
+                        style="@style/myMainSubTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="20 December 2019" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Place: Bea's house" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_event_money"
-                    style="@style/myMainSubTitle"
+                    <TextView
+                        android:id="@+id/tv_event_et_place"
+                        style="@style/myMainSubTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeField" />
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/tv_event_place"
+                        style="@style/myMainSubTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Bea's house" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Money limit: 20€" />
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/tv_event_et_money"
+                        style="@style/myMainSubTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/expenseField" />
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/tv_event_money"
+                        style="@style/myMainSubTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Money limit: 20€" />
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_participant_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

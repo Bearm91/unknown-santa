@@ -18,7 +18,16 @@
         android:id="@+id/rv_events_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/no_data_message"
+        style="@style/myMessageText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_data_available"
+        android:paddingStart="12dp"/>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -31,12 +40,20 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_select_event"
-            style="@style/myCancelButton"
+            style="@style/myAcceptButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="@string/selectButton" />
+            android:text="@string/SelectEventButton"
+            android:visibility="gone"/>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel_event"
+            style="@style/myAcceptButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="@string/cancelButton" />
 
     </LinearLayout>
 </LinearLayout>
