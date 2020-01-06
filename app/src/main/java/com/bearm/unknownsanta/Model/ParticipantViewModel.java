@@ -20,7 +20,6 @@ public class ParticipantViewModel extends AndroidViewModel {
         super(application);
 
         participantRepository = new ParticipantRepository(application);
-        participantList = participantRepository.getParticipantList();
 
     }
 
@@ -32,7 +31,8 @@ public class ParticipantViewModel extends AndroidViewModel {
         participantRepository.delete(participant);
     }
 
-    public LiveData<List<Participant>> getParticipantList() {
-        return participantList;
+
+    public LiveData<List<Participant>> getParticipantList(int currentEventId) {
+        return participantRepository.getParticipantList(currentEventId);
     }
 }

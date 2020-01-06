@@ -20,7 +20,7 @@ import static androidx.room.ForeignKey.SET_NULL;
 
 public class Participant {
 
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     public int id;
 
     @ColumnInfo
@@ -44,21 +44,13 @@ public class Participant {
     int idGiver;
 
     @Ignore
-    public Participant(int id, String name, String email, String avatarName, int eventId) {
-        this.id = id;
+    public Participant(String name, String email, String avatarName, int eventId) {
         this.name = name;
         this.email = email;
         this.avatarName = avatarName;
         this.eventId = eventId;
     }
 
-    @Ignore
-    public Participant(@NonNull String name, @NonNull String email, String avatarName) {
-        this.name = name;
-        this.email = email;
-        this.avatarName = avatarName;
-        this.eventId = eventId;
-    }
 
     public Participant() {
 

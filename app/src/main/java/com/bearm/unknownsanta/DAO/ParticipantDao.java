@@ -16,8 +16,8 @@ public interface ParticipantDao {
     @Query("SELECT * FROM participant")
     LiveData<List<Participant>> getAll();
 
-    @Query("SELECT * FROM participant where eventId = :eventID")
-    LiveData<List<Participant>> findAllByEventId(int eventID);
+    @Query("SELECT * FROM participant where eventId = :eventId")
+    LiveData<List<Participant>> findByEventId(int eventId);
 
     @Query("SELECT * FROM participant WHERE name LIKE :participantName LIMIT 1")
     LiveData<Participant> findByName(String participantName);

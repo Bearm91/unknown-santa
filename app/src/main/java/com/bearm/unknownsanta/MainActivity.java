@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView btnAddParticipant;
     LinearLayout lyNoEvent;
     LinearLayout lyEventInfo;
+    LinearLayout lyPartciipantInfo;
     TextView tvEventName;
     TextView tvEventPlace;
     TextView tvEventDate;
@@ -89,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        lyPartciipantInfo = findViewById(R.id.layout_participant_data);
+
         btnAddParticipant = findViewById(R.id.btn_add);
         btnAddParticipant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,24 +102,47 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        //TODO set action
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Enviando emails", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-        ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
+                //Will be added at the end
             }
         });
 
-        eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
+
 
         currentEventData = this.getSharedPreferences("my_us_event", Context.MODE_PRIVATE);
 
         loadEventInfo();
 
+        participantList = new ArrayList<>();
+        mParticipantAdapter = new ParticipantAdapter(participantList, getApplication());
+
+        recyclerView = findViewById(R.id.rv_participants_list);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setAdapter(mParticipantAdapter);
+
+        ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
+        participantViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(ParticipantViewModel.class);
+        participantViewModel.getParticipantList(Integer.parseInt(getCurrentEventId())).observe(this, new Observer<List<Participant>>() {
+
+            @Override
+            public void onChanged(List<Participant> participants) {
+                mParticipantAdapter.setParticipants(participants);
+            }
+        });
+
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
+
     }
+
+
     private void openSelectEvent(View v) {
         Log.e("Select event", "SELECT");
         Intent eventSelection;

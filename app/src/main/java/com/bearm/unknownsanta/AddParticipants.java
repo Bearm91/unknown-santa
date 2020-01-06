@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -53,26 +54,26 @@ public class AddParticipants extends AppCompatActivity {
     private int getRandomAvatar() {
 
         Random random = new Random();
-        int avatar;
+        avatarId = random.nextInt(5);
 
-        switch (random.nextInt(5)) {
+        switch (avatarId) {
             case 1:
-                avatar = R.drawable.ic_deer;
+                avatarId = R.drawable.ic_deer;
                 break;
             case 2:
-                avatar = R.drawable.ic_elf;
+                avatarId = R.drawable.ic_elf;
                 break;
             case 3:
-                avatar = R.drawable.ic_gingerbread_man;
+                avatarId = R.drawable.ic_gingerbread_man;
                 break;
             case 4:
-                avatar = R.drawable.ic_snowman;
+                avatarId = R.drawable.ic_snowman;
                 break;
             default:
-                avatar = R.drawable.ic_angel;
+                avatarId = R.drawable.ic_angel;
         }
 
-        return avatar;
+        return avatarId;
     }
 
     //Sends the name and email of the participant created to MainActivity
@@ -85,7 +86,7 @@ public class AddParticipants extends AppCompatActivity {
 
         } else {
 
-            Toast.makeText(getApplicationContext(), "Name: " + name + ", Email: " + email, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Name: " + name + ", Email: " + email + ", Avatar:v"+ avatarId,  Toast.LENGTH_LONG).show();
 
             Intent output = new Intent();
             output.putExtra("name", name);

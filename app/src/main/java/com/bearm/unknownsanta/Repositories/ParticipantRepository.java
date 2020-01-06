@@ -23,12 +23,11 @@ public class ParticipantRepository {
 
         participant = new Participant();
         participantDao = db.participantDao();
-        participantList = participantDao.getAll();
 
     }
 
-    public LiveData<List<Participant>> getParticipantList() {
-        return participantList;
+    public LiveData<List<Participant>> getParticipantList(int eventId) {
+        return participantDao.findByEventId(eventId);
     }
 
 

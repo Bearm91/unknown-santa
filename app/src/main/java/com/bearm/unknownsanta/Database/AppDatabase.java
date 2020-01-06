@@ -13,7 +13,7 @@ import com.bearm.unknownsanta.DAO.ParticipantDao;
 import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.Model.Participant;
 
-@Database(entities = {Event.class, Participant.class}, version = 1, exportSchema = false)
+@Database(entities = {Event.class, Participant.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract EventDao eventDao();
 
