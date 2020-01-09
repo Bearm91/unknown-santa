@@ -140,6 +140,19 @@ public class MainActivity extends AppCompatActivity {
 
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
 
+        //Checks selected event info
+        loadEventInfo();
+
+        //ParticipantAdapter init
+        participantList = new ArrayList<>();
+        mParticipantAdapter = new ParticipantAdapter(participantList, participantViewModel);
+
+        recyclerView = findViewById(R.id.rv_participants_list);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setAdapter(mParticipantAdapter);
     }
 
 
@@ -183,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
                         Integer.parseInt(getCurrentEventId()));
 
                 participantViewModel.insert(newParticipant);
+                mParticipantAdapter.notifyDataSetChanged();
             }
         }
 

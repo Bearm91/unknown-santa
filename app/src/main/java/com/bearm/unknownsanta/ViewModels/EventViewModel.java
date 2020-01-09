@@ -1,4 +1,4 @@
-package com.bearm.unknownsanta.Model;
+package com.bearm.unknownsanta.ViewModels;
 
 import android.app.Application;
 
@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.Repositories.EventRepository;
 
 import java.util.List;
@@ -21,8 +22,6 @@ public class EventViewModel extends AndroidViewModel {
 
         eventRepository = new EventRepository(application);
 
-        Event event = new Event();
-
         eventList = eventRepository.getEventList();
 
     }
@@ -32,7 +31,7 @@ public class EventViewModel extends AndroidViewModel {
     }
 
 
-    public void deleteEvent(int eventId){
+    public void deleteEvent(int eventId) {
         eventRepository.delete(eventId);
     }
 

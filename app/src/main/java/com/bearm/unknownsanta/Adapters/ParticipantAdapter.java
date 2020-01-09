@@ -1,6 +1,5 @@
 package com.bearm.unknownsanta.Adapters;
 
-import android.app.Application;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,24 +7,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.Model.Participant;
-import com.bearm.unknownsanta.Model.ParticipantViewModel;
+import com.bearm.unknownsanta.ViewModels.ParticipantViewModel;
 import com.bearm.unknownsanta.R;
 
 import java.util.List;
 
-public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.ViewHolder> {
+public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.MyViewHolder> {
 
-    public List<Participant> participantList;
-    public Application application;
+    private List<Participant> participantList;
 
-    ParticipantViewModel participantViewModel;
+    private ParticipantViewModel participantViewModel;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvName;
         TextView tvDate;
@@ -33,8 +29,7 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
         ImageView btnDelete;
 
 
-
-        public ViewHolder(@NonNull View v) {
+        MyViewHolder(@NonNull View v) {
             super(v);
             tvName = v.findViewById(R.id.tv_part_name);
             tvDate = v.findViewById(R.id.tv_part_email);
@@ -43,35 +38,30 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
             btnDelete = v.findViewById(R.id.btn_delete);
 
 
-
         }
 
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public ParticipantAdapter(List<Participant> myDataset, Application application) {
+    public ParticipantAdapter(List<Participant> myDataset, ParticipantViewModel participantViewModel) {
         participantList = myDataset;
-        this.application = application;
+
+        this.participantViewModel = participantViewModel;
 
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(application);
-        participantViewModel = new ViewModelProvider((ViewModelStoreOwner) this, myViewModelProviderFactory).get(ParticipantViewModel.class);
-
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.participant_list_item, parent, false);
 
-        return new ViewHolder(v);
+        return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         holder.tvName.setText(participantList.get(position).name);
         holder.tvDate.setText(participantList.get(position).email);
 
@@ -85,6 +75,7 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                deleteParticipant(participantList.get(position));
                 participantList.remove(participantList.get(position));
                 notifyDataSetChanged();
             }
@@ -96,13 +87,15 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
         return participantList.size();
     }
 
+    //Loads participant list from database
     public void setParticipants(List<Participant> participants) {
         this.participantList = participants;
         notifyDataSetChanged();
     }
 
-    public void deleteParticipant() {
-        participantViewModel.delete();
+    //Deletes participant from database
+    private void deleteParticipant(Participant participant) {
+        participantViewModel.delete(participant);
 
     }
 

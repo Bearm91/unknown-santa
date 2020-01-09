@@ -1,4 +1,4 @@
-package com.bearm.unknownsanta.Model;
+package com.bearm.unknownsanta.ViewModels;
 
 import android.app.Application;
 
@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.bearm.unknownsanta.Model.Participant;
 import com.bearm.unknownsanta.Repositories.ParticipantRepository;
 
 import java.util.List;
@@ -14,7 +15,6 @@ public class ParticipantViewModel extends AndroidViewModel {
 
 
     private ParticipantRepository participantRepository;
-    private LiveData<List<Participant>> participantList;
 
     public ParticipantViewModel(@NonNull Application application) {
         super(application);
