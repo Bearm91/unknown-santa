@@ -64,14 +64,6 @@ public class Participant {
         return name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getAvatarName() {
-        return avatarName;
-    }
-
     public int getEventId() {
         return eventId;
     }

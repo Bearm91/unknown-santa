@@ -15,11 +15,12 @@ import com.bearm.unknownsanta.Model.Participant;
 
 @Database(entities = {Event.class, Participant.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
+
     public abstract EventDao eventDao();
 
     public abstract ParticipantDao participantDao();
 
-    static AppDatabase instance;
+    private static AppDatabase instance;
 
     public static AppDatabase getInstance(Context context) {
         if (instance == null) {

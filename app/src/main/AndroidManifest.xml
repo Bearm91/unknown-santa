@@ -15,15 +15,15 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".EventsActivity"
+            android:name=".Activities.EventsActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.MaterialComponents" />
         <activity
-            android:name=".CreateEvent"
+            android:name=".Activities.CreateEventActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.MaterialComponents" />
         <activity
-            android:name=".AddParticipants"
+            android:name=".Activities.AddParticipantActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.MaterialComponents" />
         <activity

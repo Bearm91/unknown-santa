@@ -23,8 +23,7 @@ public class EventRepository {
         AppDatabase db = AppDatabase.getInstance(application.getApplicationContext());
 
         eventDao = db.eventDao();
-        eventList = eventDao.getEventList();
-
+        eventList = eventDao.findAll();
 
     }
 
@@ -38,14 +37,14 @@ public class EventRepository {
 
     private class InsertEventAsyncTask extends AsyncTask<EventDao, Event, String> {
 
-        InsertEventAsyncTask(EventDao eDao, Event eventoSave) {
+        InsertEventAsyncTask(EventDao eDao, Event eventSave) {
             eventDao = eDao;
-            event = eventoSave;
+            event = eventSave;
         }
 
         @Override
         protected String doInBackground(EventDao... eventDaos) {
-            eventDao.insertEvent(event);
+            eventDao.insert(event);
             return null;
         }
     }

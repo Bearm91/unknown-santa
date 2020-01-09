@@ -1,4 +1,4 @@
-package com.bearm.unknownsanta;
+package com.bearm.unknownsanta.Activities;
 
 
 import android.content.Intent;
@@ -17,7 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.Adapters.EventAdapter;
 import com.bearm.unknownsanta.Model.Event;
-import com.bearm.unknownsanta.Model.EventViewModel;
+import com.bearm.unknownsanta.R;
+import com.bearm.unknownsanta.ViewModels.EventViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class EventsActivity extends AppCompatActivity {
 
         final TextView tvNoData = findViewById(R.id.no_data_message);
 
+        //Sends a signal to MainActivity to change displayed info about selected event
         final Button selectBtn = findViewById(R.id.btn_select_event);
         selectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +50,7 @@ public class EventsActivity extends AppCompatActivity {
             }
         });
 
+        //Closes activity
         final Button cancelBtn = findViewById(R.id.btn_cancel_event);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,14 +68,15 @@ public class EventsActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(mEventAdapter);
 
+        //ViewModel
         ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
         eventViewModel.getEventList().observe(this, new Observer<List<Event>>() {
 
             @Override
             public void onChanged(List<Event> events) {
-                Log.e("EVENTVIEWMODELOBSERVER", "onChanged");
-                if(events.isEmpty()){
+                //Changes layout to show a message when there are no events to list
+                if (events.isEmpty()) {
                     tvNoData.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
                     selectBtn.setVisibility(View.GONE);
@@ -88,9 +92,5 @@ public class EventsActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
-
 }

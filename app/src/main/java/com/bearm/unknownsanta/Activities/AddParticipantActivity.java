@@ -1,24 +1,25 @@
-package com.bearm.unknownsanta;
+package com.bearm.unknownsanta.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bearm.unknownsanta.R;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Random;
 
-public class AddParticipants extends AppCompatActivity {
+public class AddParticipantActivity extends AppCompatActivity {
 
     private TextInputEditText etEmail;
     private TextInputEditText etName;
     int avatarId;
+    static final String EMAIL_REGEX = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class AddParticipants extends AppCompatActivity {
         });
     }
 
-    //Set a random avatar everytime the activity is opened
+    //Sets a random avatar every time the activity is opened
     private int getRandomAvatar() {
 
         Random random = new Random();
@@ -76,24 +77,31 @@ public class AddParticipants extends AppCompatActivity {
         return avatarId;
     }
 
-    //Sends the name and email of the participant created to MainActivity
+    //Sends the name and email of the participant to MainActivity
     public void createParticipant() {
         String name = String.valueOf(etName.getText());
         String email = String.valueOf(etEmail.getText());
 
         if ((name.equals("")) || (email.equals(""))) {
-            Toast.makeText(getApplicationContext(), "There are some empty fields.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Oops! There are empty fields.", Toast.LENGTH_LONG).show();
 
         } else {
+            if (emailIsValid(email)) {
+                Intent output = new Intent();
+                output.putExtra("name", name);
+                output.putExtra("email", email);
+                output.putExtra("avatar", String.valueOf(avatarId));
+                setResult(RESULT_OK, output);
+                finish();
+            } else {
+                Toast.makeText(getApplicationContext(), "Looks like there is something wrong with that email.", Toast.LENGTH_LONG).show();
+            }
 
-            Toast.makeText(getApplicationContext(), "Name: " + name + ", Email: " + email + ", Avatar:v"+ avatarId,  Toast.LENGTH_LONG).show();
-
-            Intent output = new Intent();
-            output.putExtra("name", name);
-            output.putExtra("email", email);
-            output.putExtra("avatar", String.valueOf(avatarId));
-            setResult(RESULT_OK, output);
-            finish();
         }
+    }
+
+    //Checks if the email input is valid
+    public boolean emailIsValid(String email) {
+        return email.matches(EMAIL_REGEX);
     }
 }

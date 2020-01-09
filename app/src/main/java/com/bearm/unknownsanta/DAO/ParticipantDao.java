@@ -13,20 +13,11 @@ import java.util.List;
 @Dao
 public interface ParticipantDao {
 
-    @Query("SELECT * FROM participant")
-    LiveData<List<Participant>> getAll();
-
     @Query("SELECT * FROM participant where eventId = :eventId")
-    LiveData<List<Participant>> findByEventId(int eventId);
-
-    @Query("SELECT * FROM participant WHERE name LIKE :participantName LIMIT 1")
-    LiveData<Participant> findByName(String participantName);
-
-    @Query("SELECT * FROM participant WHERE email LIKE :participantEmail LIMIT 1")
-    LiveData<Participant> findByEmail(String participantEmail);
+    LiveData<List<Participant>> findById(int eventId);
 
     @Insert
-    void insertParticipant(Participant participant);
+    void insert(Participant participant);
 
     @Delete
     void delete(Participant participant);

@@ -2,7 +2,6 @@ package com.bearm.unknownsanta.DAO;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -13,17 +12,11 @@ import java.util.List;
 @Dao
 public interface EventDao {
     @Query("SELECT * FROM event")
-    LiveData<List<Event>> getEventList();
-
-    @Query("SELECT * FROM event WHERE name LIKE :eventName LIMIT 1")
-    LiveData<Event> findByName(String eventName);
+    LiveData<List<Event>> findAll();
 
     @Insert
-    void insertEvent(Event event);
+    void insert(Event event);
 
     @Query("DELETE FROM event WHERE id = :id")
     void delete(int id);
-
-    @Query("DELETE FROM event")
-    void deleteAll();
 }

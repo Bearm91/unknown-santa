@@ -15,7 +15,6 @@ public class ParticipantRepository {
 
     private ParticipantDao participantDao;
     private Participant participant;
-    private LiveData<List<Participant>> participantList;
 
     public ParticipantRepository(Application application) {
 
@@ -27,7 +26,7 @@ public class ParticipantRepository {
     }
 
     public LiveData<List<Participant>> getParticipantList(int eventId) {
-        return participantDao.findByEventId(eventId);
+        return participantDao.findById(eventId);
     }
 
 
@@ -37,14 +36,14 @@ public class ParticipantRepository {
 
     private class InsertParticipantAsyncTask extends AsyncTask<ParticipantDao, Participant, String> {
 
-        InsertParticipantAsyncTask(ParticipantDao partDao, Participant participantoSave) {
+        InsertParticipantAsyncTask(ParticipantDao partDao, Participant participantSave) {
             participantDao = partDao;
-            participant = participantoSave;
+            participant = participantSave;
         }
 
         @Override
         protected String doInBackground(ParticipantDao... participantDaos) {
-            participantDao.insertParticipant(participant);
+            participantDao.insert(participant);
             return null;
         }
     }

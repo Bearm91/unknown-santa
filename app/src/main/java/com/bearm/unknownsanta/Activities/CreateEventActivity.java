@@ -1,4 +1,4 @@
-package com.bearm.unknownsanta;
+package com.bearm.unknownsanta.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +10,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bearm.unknownsanta.R;
 
-public class CreateEvent extends AppCompatActivity {
+
+public class CreateEventActivity extends AppCompatActivity {
 
     EditText eventName;
     EditText eventPlace;
@@ -53,14 +55,10 @@ public class CreateEvent extends AppCompatActivity {
         String date = String.valueOf(eventDate.getText());
         String expense = String.valueOf(eventLimit.getText());
 
-        Log.i("DATA", "Name: " + name + ", Place: " + place + ", Date: " + date + ", Limit: " + expense);
-
         if ((name.equals("")) || (place.equals("")) || (date.equals("")) || (expense.equals(""))) {
-            Toast.makeText(getApplicationContext(), "There are some empty fields.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getText(R.string.event_creation_error), Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(getApplicationContext(), "Name: " + name + ", Place: " + place + ", Date: " + date + ", Expense limit: " + expense, Toast.LENGTH_LONG).show();
-
             Intent output = new Intent();
             output.putExtra("name", name);
             output.putExtra("place", place);
