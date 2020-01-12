@@ -35,4 +35,8 @@ public class ParticipantViewModel extends AndroidViewModel {
     public LiveData<List<Participant>> getParticipantList(int currentEventId) {
         return participantRepository.getParticipantList(currentEventId);
     }
+
+    public List<Participant> getParticipants(int currentEventId) {
+        return participantRepository.getParticipants (currentEventId);
+    }
 }

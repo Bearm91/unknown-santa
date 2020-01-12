@@ -8,13 +8,14 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import static androidx.room.ForeignKey.CASCADE;
 import static androidx.room.ForeignKey.SET_NULL;
 
 @Entity(tableName = "participant",
         foreignKeys = @ForeignKey(entity = Event.class,
                 parentColumns = "id",
                 childColumns = "eventId",
-                onDelete = SET_NULL),
+                onDelete = CASCADE),
         indices = {@Index("eventId"),
                 @Index(value = {"eventId", "email"})})
 

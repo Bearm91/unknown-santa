@@ -42,4 +42,27 @@ public class Event {
         this.name = name;
     }
 
+    public String getPlace() {
+        return place;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getExpense() {
+        return expense;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setExpense(String expense) {
+        this.expense = expense;
+    }
 }

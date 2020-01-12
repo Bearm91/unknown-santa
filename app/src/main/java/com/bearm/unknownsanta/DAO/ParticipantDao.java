@@ -14,7 +14,10 @@ import java.util.List;
 public interface ParticipantDao {
 
     @Query("SELECT * FROM participant where eventId = :eventId")
-    LiveData<List<Participant>> findById(int eventId);
+    LiveData<List<Participant>> findByEventId(int eventId);
+
+    @Query("SELECT * FROM participant where eventId = :eventId")
+    List<Participant> findByEvent(int eventId);
 
     @Insert
     void insert(Participant participant);

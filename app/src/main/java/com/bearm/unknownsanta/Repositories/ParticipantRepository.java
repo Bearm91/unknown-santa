@@ -10,11 +10,13 @@ import com.bearm.unknownsanta.Database.AppDatabase;
 import com.bearm.unknownsanta.Model.Participant;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ParticipantRepository {
 
     private ParticipantDao participantDao;
     private Participant participant;
+    private Integer id;
 
     public ParticipantRepository(Application application) {
 
@@ -22,12 +24,34 @@ public class ParticipantRepository {
 
         participant = new Participant();
         participantDao = db.participantDao();
-
     }
 
     public LiveData<List<Participant>> getParticipantList(int eventId) {
-        return participantDao.findById(eventId);
+        return participantDao.findByEventId(eventId);
     }
+
+    public List<Participant> getParticipants(int eventId) {
+        try {
+            return new SelectParticipantAsyncTask(participantDao, eventId).execute().get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private class SelectParticipantAsyncTask extends AsyncTask<ParticipantDao, Integer, List<Participant>> {
+
+        SelectParticipantAsyncTask(ParticipantDao partDao, Integer eventId ) {
+            participantDao = partDao;
+            id = eventId;
+        }
+
+        @Override
+        protected List<Participant> doInBackground(ParticipantDao... participantDaos) {
+           return participantDao.findByEvent(id);
+        }
+    }
+
 
 
     public void insert(Participant participant) {

@@ -90,13 +90,13 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
     //Loads participant list from database
     public void setParticipants(List<Participant> participants) {
         this.participantList = participants;
-        notifyDataSetChanged();
+        //notifyDataSetChanged();
     }
 
     //Deletes participant from database
     private void deleteParticipant(Participant participant) {
         participantViewModel.delete(participant);
-
+        //notifyDataSetChanged();
     }
 
 }

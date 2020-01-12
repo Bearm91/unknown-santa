@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     ParticipantViewModel participantViewModel;
     EventViewModel eventViewModel;
+    Observer <List<Participant>> participantObserver;
 
     SharedPreferences currentEventData;
 
@@ -127,14 +128,17 @@ public class MainActivity extends AppCompatActivity {
         //ViewModels init
         ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
         participantViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(ParticipantViewModel.class);
-        participantViewModel.getParticipantList(Integer.parseInt(getCurrentEventId())).observe(this, new Observer<List<Participant>>() {
-
+        participantObserver = new Observer<List<Participant>>() {
             @Override
             public void onChanged(List<Participant> participants) {
+                if (participants != null) {
+                    Log.e("Select participant size", String.valueOf(participants.size()));
+                }
                 mParticipantAdapter.setParticipants(participants);
             }
-        });
+        };
 
+        participantViewModel.getParticipantList(Integer.parseInt(getCurrentEventId())).observeForever(participantObserver);
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
 
         //Checks selected event info
@@ -150,6 +154,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setAdapter(mParticipantAdapter);
+    }
+
+    private void selectParticipantList() {
+        Log.e("Select participant", "SELECT");
+
+        participantViewModel.getParticipantList(Integer.parseInt(getCurrentEventId())).removeObserver(participantObserver);
+        mParticipantAdapter.setParticipants(participantViewModel.getParticipants(Integer.parseInt(getCurrentEventId())));
+        participantViewModel.getParticipantList(Integer.parseInt(getCurrentEventId())).observeForever(participantObserver);
+        mParticipantAdapter.notifyDataSetChanged();
     }
 
 
@@ -197,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
                         Integer.parseInt(getCurrentEventId()));
 
                 participantViewModel.insert(newParticipant);
-                mParticipantAdapter.notifyDataSetChanged();
+                selectParticipantList(); //test remove
 
                 Toast.makeText(getApplicationContext(), "Yay! A new participant joined the event!", Toast.LENGTH_LONG).show();
             }
@@ -208,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 loadEventInfo();
+                selectParticipantList();
             }
         }
     }
@@ -242,6 +256,9 @@ public class MainActivity extends AppCompatActivity {
     //Deletes info about selected event from SharedPreferences so there is no event marked as selected
     public void closeCurrentEvent() {
         currentEventData.edit().clear().apply();
+        participantList.clear();
+        mParticipantAdapter.setParticipants(participantList);
+        //mParticipantAdapter.notifyDataSetChanged();
     }
 
 
@@ -269,12 +286,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        //Opens EventsActivity to select a different event
-        if (id == R.id.action_change_event) {
-            openSelectEvent(null);
-            return true;
-        }
-
         //Closes selected event
         if (id == R.id.action_close_event) {
             closeCurrentEvent();
@@ -282,12 +293,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        //TODO Displayes info about the app
+        //TODO Displays info about the app
         if (id == R.id.action_about) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 }
