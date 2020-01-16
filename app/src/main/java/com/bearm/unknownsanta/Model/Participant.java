@@ -32,6 +32,7 @@ public class Participant {
     @NonNull
     public String email;
 
+
     @ColumnInfo
     public String avatarName;
 
@@ -87,6 +88,23 @@ public class Participant {
 
     public void setIdGiver(int idGiver) {
         this.idGiver = idGiver;
+    }
+
+    @NonNull
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(@NonNull String email) {
+        this.email = email;
+    }
+
+    public String getAvatarName() {
+        return avatarName;
+    }
+
+    public void setAvatarName(String avatarName) {
+        this.avatarName = avatarName;
     }
 }
 

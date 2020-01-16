@@ -24,7 +24,7 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvName;
-        TextView tvDate;
+        TextView tvEmail;
         ImageView ivAvatar;
         ImageView btnDelete;
 
@@ -32,7 +32,7 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
         MyViewHolder(@NonNull View v) {
             super(v);
             tvName = v.findViewById(R.id.tv_part_name);
-            tvDate = v.findViewById(R.id.tv_part_email);
+            tvEmail = v.findViewById(R.id.tv_part_email);
 
             ivAvatar = v.findViewById(R.id.iv_rndm_avatar);
             btnDelete = v.findViewById(R.id.btn_delete);
@@ -43,7 +43,7 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
     }
 
     public ParticipantAdapter(List<Participant> myDataset, ParticipantViewModel participantViewModel) {
-        participantList = myDataset;
+        this.participantList = myDataset;
 
         this.participantViewModel = participantViewModel;
 
@@ -62,10 +62,10 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        holder.tvName.setText(participantList.get(position).name);
-        holder.tvDate.setText(participantList.get(position).email);
+        holder.tvName.setText(participantList.get(position).getName());
+        holder.tvEmail.setText(participantList.get(position).getEmail());
 
-        String avatarName = participantList.get(position).avatarName;
+        String avatarName = participantList.get(position).getAvatarName();
 
         if (avatarName != null) {
             holder.ivAvatar.setImageResource(Integer.parseInt(avatarName));
@@ -77,7 +77,6 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
             public void onClick(View v) {
                 deleteParticipant(participantList.get(position));
                 participantList.remove(participantList.get(position));
-                notifyDataSetChanged();
             }
         });
     }
@@ -90,13 +89,12 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
     //Loads participant list from database
     public void setParticipants(List<Participant> participants) {
         this.participantList = participants;
-        //notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     //Deletes participant from database
     private void deleteParticipant(Participant participant) {
         participantViewModel.delete(participant);
-        //notifyDataSetChanged();
     }
 
 }
