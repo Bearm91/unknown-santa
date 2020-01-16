@@ -15,6 +15,7 @@ public class ParticipantRepository {
 
     private ParticipantDao participantDao;
     private Participant participant;
+    private Integer id;
 
     public ParticipantRepository(Application application) {
 
@@ -22,13 +23,11 @@ public class ParticipantRepository {
 
         participant = new Participant();
         participantDao = db.participantDao();
-
     }
 
     public LiveData<List<Participant>> getParticipantList(int eventId) {
-        return participantDao.findById(eventId);
+        return participantDao.findByEventId(eventId);
     }
-
 
     public void insert(Participant participant) {
         new InsertParticipantAsyncTask(participantDao, participant).execute();

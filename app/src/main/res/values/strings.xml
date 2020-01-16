@@ -21,4 +21,7 @@
     <string name="selectButton">Select</string>
     <string name="no_data_available">There is no data available.</string>
     <string name="event_creation_error">Oh! There are still empty fields.</string>
+    <string name="menu_close_event">Close event</string>
+    <string name="menu_delete_event">Delete event</string>
+    <string name="menu_about_unknownsanta">About UnknownSanta</string>
 </resources>

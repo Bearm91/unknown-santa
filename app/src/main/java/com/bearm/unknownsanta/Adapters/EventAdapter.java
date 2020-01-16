@@ -62,8 +62,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        holder.tvName.setText(eventList.get(position).name);
-        holder.tvDate.setText(eventList.get(position).date);
+        holder.tvName.setText(eventList.get(position).getName());
+        holder.tvDate.setText(eventList.get(position).getDate());
 
         holder.layoutEventItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,11 +88,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
                 context.getSharedPreferences("my_us_event", Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = eventSelected.edit();
-        editor.putString("eventId", String.valueOf(eventList.get(position).id));
-        editor.putString("eventName", eventList.get(position).name);
-        editor.putString("eventPlace", eventList.get(position).place);
-        editor.putString("eventDate", eventList.get(position).date);
-        editor.putString("eventExpense", eventList.get(position).expense);
+        editor.putString("eventId", String.valueOf(eventList.get(position).getId()));
+        editor.putString("eventName", eventList.get(position).getName());
+        editor.putString("eventPlace", eventList.get(position).getPlace());
+        editor.putString("eventDate", eventList.get(position).getDate());
+        editor.putString("eventExpense", eventList.get(position).getExpense());
 
         editor.apply();
     }

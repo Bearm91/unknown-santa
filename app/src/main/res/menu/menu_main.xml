@@ -2,27 +2,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.bearm.unknownsanta.MainActivity">
+
     <item
-        android:id="@+id/action_change_event"
+        android:id="@+id/action_close_event"
         android:orderInCategory="100"
-        android:title="Select other event"
+        android:title="@string/menu_close_event"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_delete_event"
         android:orderInCategory="100"
-        android:title="Delete current event"
+        android:title="@string/menu_delete_event"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_close_event"
-        android:orderInCategory="100"
-        android:title="Close current event"
-        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_about"
         android:orderInCategory="100"
-        android:title="About Unknown Santa"
+        android:title="@string/menu_about_unknownsanta"
         app:showAsAction="never" />
 </menu>

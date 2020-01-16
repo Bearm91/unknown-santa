@@ -8,13 +8,14 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import static androidx.room.ForeignKey.CASCADE;
 import static androidx.room.ForeignKey.SET_NULL;
 
 @Entity(tableName = "participant",
         foreignKeys = @ForeignKey(entity = Event.class,
                 parentColumns = "id",
                 childColumns = "eventId",
-                onDelete = SET_NULL),
+                onDelete = CASCADE),
         indices = {@Index("eventId"),
                 @Index(value = {"eventId", "email"})})
 
@@ -30,6 +31,7 @@ public class Participant {
     @ColumnInfo
     @NonNull
     public String email;
+
 
     @ColumnInfo
     public String avatarName;
@@ -86,6 +88,23 @@ public class Participant {
 
     public void setIdGiver(int idGiver) {
         this.idGiver = idGiver;
+    }
+
+    @NonNull
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(@NonNull String email) {
+        this.email = email;
+    }
+
+    public String getAvatarName() {
+        return avatarName;
+    }
+
+    public void setAvatarName(String avatarName) {
+        this.avatarName = avatarName;
     }
 }
 
