@@ -12,6 +12,9 @@
     <string name="dateField">Date</string>
     <string name="placeField">Place</string>
     <string name="expenseField">Expense limit</string>
+    <string name="dateFieldColon">Date:</string>
+    <string name="placeFieldColon">Place:</string>
+    <string name="expenseFieldColon">Expense limit:</string>
     <string name="christmasTree">Christmas tree drawing</string>
     <string name="AddParticipantFormTitle">Add a new participant</string>
     <string name="avatarFormContentDescription">Participant avatar</string>

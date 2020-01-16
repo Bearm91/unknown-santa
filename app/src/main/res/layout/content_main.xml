@@ -25,17 +25,19 @@
             android:padding="@dimen/padding_main_item">
 
             <TextView
-                style="@style/myMainTitle"
+                android:id="@+id/tv_event_title"
+                style="@style/myEventTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/MainEventInfoTitle" />
+                android:text="@string/MainEventInfoTitle"
+                android:visibility="visible"/>
 
             <LinearLayout
                 android:id="@+id/layout_no_event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="8dp"
+                android:padding="12dp"
                 android:visibility="visible">
 
                 <TextView
@@ -48,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="@dimen/padding_main_buttons">
+                    android:padding="16dp">
 
                     <Button
                         android:id="@+id/btn_new_event"
@@ -75,24 +77,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="8dp"
+                android:padding="@dimen/padding_eventinfo_layout"
                 android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/padding_bottom_event_title">
 
 
                     <TextView
                         android:id="@+id/tv_event_name"
-                        style="@style/myMainSubTitle"
+                        style="@style/myEventTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Christmas 2019"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="25sp"
-                        android:textStyle="bold" />
+                        android:text="Christmas 2019" />
 
                 </LinearLayout>
 
@@ -104,14 +104,14 @@
 
                     <TextView
                         android:id="@+id/tv_event_et_date"
-                        style="@style/myMainSubTitle"
+                        style="@style/myMainSubTitleTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/dateField" />
+                        android:text="@string/dateFieldColon" />
 
                     <Space
-                        android:layout_width="12dp"
-                        android:layout_height="0dp" />
+                        android:layout_width="@dimen/width_space"
+                        android:layout_height="@dimen/height_space" />
 
                     <TextView
                         android:id="@+id/tv_event_date"
@@ -129,21 +129,21 @@
 
                     <TextView
                         android:id="@+id/tv_event_et_place"
-                        style="@style/myMainSubTitle"
+                        style="@style/myMainSubTitleTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/placeField" />
+                        android:text="@string/placeFieldColon" />
 
                     <Space
-                        android:layout_width="12dp"
-                        android:layout_height="0dp" />
+                        android:layout_width="@dimen/width_space"
+                        android:layout_height="@dimen/height_space" />
 
                     <TextView
                         android:id="@+id/tv_event_place"
                         style="@style/myMainSubTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Bea's house" />
+                        android:text="My house" />
 
                 </LinearLayout>
 
@@ -154,21 +154,21 @@
 
                     <TextView
                         android:id="@+id/tv_event_et_money"
-                        style="@style/myMainSubTitle"
+                        style="@style/myMainSubTitleTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/expenseField" />
+                        android:text="@string/expenseFieldColon" />
 
                     <Space
-                        android:layout_width="12dp"
-                        android:layout_height="0dp" />
+                        android:layout_width="@dimen/width_space"
+                        android:layout_height="@dimen/height_space" />
 
                     <TextView
                         android:id="@+id/tv_event_money"
                         style="@style/myMainSubTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Money limit: 20€" />
+                        android:text="20€" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -206,7 +206,7 @@
                 android:id="@+id/rv_participants_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="@dimen/margin_top_recyclerview_participantlist">
 
 
             </androidx.recyclerview.widget.RecyclerView>

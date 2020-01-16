@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvEventPlace;
     TextView tvEventDate;
     TextView tvEventExpense;
+    TextView tvEventTitle;
 
     RecyclerView recyclerView;
     ParticipantAdapter mParticipantAdapter;
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         lyEventInfo = findViewById(R.id.layout_event_data);
         lyNoEvent = findViewById(R.id.layout_no_event);
 
+        tvEventTitle = findViewById(R.id.tv_event_title);
         tvEventName = findViewById(R.id.tv_event_name);
         tvEventPlace = findViewById(R.id.tv_event_place);
         tvEventDate = findViewById(R.id.tv_event_date);
@@ -239,15 +241,18 @@ public class MainActivity extends AppCompatActivity {
             tvEventDate.setText(currentEventData.getString("eventDate", null));
             tvEventExpense.setText(currentEventData.getString("eventExpense", null));
 
-            //Hide and display elements in the layout
+            //Hide and display elements in the layout when an event is selected
             lyNoEvent.setVisibility(View.GONE);
             lyEventInfo.setVisibility(View.VISIBLE);
             lyParticipantInfo.setVisibility(View.VISIBLE);
+            tvEventTitle.setVisibility(View.GONE);
         } else {
-            //Hide and display elements in the layout
+            //Hide and display elements in the layout when no event is selected
             lyNoEvent.setVisibility(View.VISIBLE);
             lyEventInfo.setVisibility(View.GONE);
             lyParticipantInfo.setVisibility(View.INVISIBLE);
+            tvEventTitle.setVisibility(View.VISIBLE);
+
         }
 
     }

@@ -76,9 +76,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
         //Checks selected element to change its background color
         if (index == position) {
-            holder.layoutEventItem.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+            holder.layoutEventItem.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
         } else {
-            holder.layoutEventItem.setBackgroundColor(ContextCompat.getColor(context, R.color.white_color));
+            holder.layoutEventItem.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
         }
     }
 
