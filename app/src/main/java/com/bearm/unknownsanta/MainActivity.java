@@ -159,16 +159,12 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        participantViewModel.getParticipantList().observe(this, participantObserver);
+        participantViewModel.setFilter(getCurrentEventId());
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
 
         //Checks selected event info
         loadEventInfo();
-        selectParticipantList();
-    }
-
-    private void selectParticipantList () {
-        Log.e("Select participant", "SELECT");
-        participantViewModel.getParticipantList().observe(this, participantObserver);
     }
 
 
