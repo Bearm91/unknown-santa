@@ -119,4 +119,12 @@
         <item name="android:textStyle">italic</item>
 
     </style>
+
+    <style name="datepicker" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
 </resources>
