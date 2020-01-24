@@ -53,6 +53,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_name"
+                    android:drawableStart="@drawable/ic_part_name"
+                    android:drawablePadding="@dimen/drawablePadding_form_icons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -74,6 +76,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_email"
+                    android:drawableStart="@drawable/ic_part_email"
+                    android:drawablePadding="@dimen/drawablePadding_form_icons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />

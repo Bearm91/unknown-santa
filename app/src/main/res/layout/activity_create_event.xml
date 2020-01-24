@@ -41,6 +41,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_event_name"
                     android:layout_width="match_parent"
+                    android:drawableStart="@drawable/ic_event_name"
+                    android:drawablePadding="@dimen/drawablePadding_form_icons"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -60,6 +62,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_event_date"
+                    android:drawableStart="@drawable/ic_event_date"
+                    android:drawablePadding="@dimen/drawablePadding_form_icons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -80,6 +84,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_event_place"
+                    android:drawableStart="@drawable/ic_event_place"
+                    android:drawablePadding="@dimen/drawablePadding_form_icons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -101,6 +107,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_event_money"
+                    android:drawableStart="@drawable/ic_event_expense"
+                    android:drawablePadding="@dimen/drawablePadding_form_icons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
