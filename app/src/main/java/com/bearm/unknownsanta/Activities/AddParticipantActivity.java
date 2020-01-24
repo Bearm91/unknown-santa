@@ -55,7 +55,7 @@ public class AddParticipantActivity extends AppCompatActivity {
     private int getRandomAvatar() {
 
         Random random = new Random();
-        avatarId = random.nextInt(5);
+        avatarId = random.nextInt(7);
 
         switch (avatarId) {
             case 1:
@@ -69,6 +69,12 @@ public class AddParticipantActivity extends AppCompatActivity {
                 break;
             case 4:
                 avatarId = R.drawable.ic_snowman;
+                break;
+            case 5:
+                avatarId = R.drawable.ic_gift;
+                break;
+            case 6:
+                avatarId = R.drawable.ic_milk;
                 break;
             default:
                 avatarId = R.drawable.ic_angel;

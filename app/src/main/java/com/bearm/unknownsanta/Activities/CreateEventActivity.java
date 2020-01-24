@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bearm.unknownsanta.R;
 
 import java.util.Calendar;
+import java.util.Random;
 
 
 public class CreateEventActivity extends AppCompatActivity{
@@ -23,6 +25,9 @@ public class CreateEventActivity extends AppCompatActivity{
     EditText eventPlace;
     EditText eventDate;
     EditText eventLimit;
+    ImageView ivIcon;
+
+    int avatarId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,10 @@ public class CreateEventActivity extends AppCompatActivity{
         eventPlace = findViewById(R.id.edit_event_place);
         eventDate = findViewById(R.id.edit_event_date);
         eventLimit = findViewById(R.id.edit_event_money);
+        ivIcon = findViewById(R.id.event_icon);
+
+        avatarId = getRandomAvatar();
+        ivIcon.setImageResource(avatarId);
 
         Button saveBtn = findViewById(R.id.btn_save);
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -104,5 +113,28 @@ public class CreateEventActivity extends AppCompatActivity{
             finish();
         }
 
+    }
+
+    //Sets a random avatar every time the activity is opened
+    private int getRandomAvatar() {
+
+        Random random = new Random();
+        avatarId = random.nextInt(4);
+
+        switch (avatarId) {
+            case 1:
+                avatarId = R.drawable.ic_snow;
+                break;
+            case 2:
+                avatarId = R.drawable.ic_star;
+                break;
+            case 3:
+                avatarId = R.drawable.ic_wreath;
+                break;
+            default:
+                avatarId = R.drawable.ic_muffin;
+        }
+
+        return avatarId;
     }
 }
