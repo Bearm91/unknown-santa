@@ -1,10 +1,12 @@
 package com.bearm.unknownsanta.Activities;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -12,8 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bearm.unknownsanta.R;
 
+import java.util.Calendar;
 
-public class CreateEventActivity extends AppCompatActivity {
+
+public class CreateEventActivity extends AppCompatActivity{
 
     EditText eventName;
     EditText eventPlace;
@@ -47,6 +51,32 @@ public class CreateEventActivity extends AppCompatActivity {
             }
         });
 
+        eventDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+
+    }
+
+    private void showDatePickerDialog() {
+        final Calendar c = Calendar.getInstance();
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String day;
+                if(dayOfMonth < 10){
+                    day = "0" + dayOfMonth;
+                } else {
+                    day = String.valueOf(dayOfMonth);
+                }
+                eventDate.setText(day +"/"+ month+1 +"/"+ year);
+            }
+        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+
+        datePickerDialog.show();
     }
 
     private void createEvent() {
