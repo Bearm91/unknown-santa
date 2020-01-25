@@ -23,6 +23,11 @@
     <string name="placeField">Place</string>
     <string name="expenseField">Expense limit</string>
     <string name="christmasTree">Christmas tree drawing</string>
+    <string name="error_empty_name">Name cannot be empty</string>
+    <string name="error_format_email">Email format is not valid</string>
+    <string name="error_emtpy_email">Email cannot be empty</string>
+    <string name="error_empty_date">Date cannot be empty</string>
+    <string name="error_empty_expense">Expense cannot be empty</string>
 
     <!--Event list screen-->
     <string name="event_list">Event list</string>

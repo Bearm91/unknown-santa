@@ -32,11 +32,12 @@
             android:padding="@dimen/padding_form_fields">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
+                android:id="@+id/ti_event_name"
                 style="@style/myFormEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/nameField">
+                android:hint="@string/nameField"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_event_name"
@@ -53,11 +54,12 @@
                 android:layout_height="@dimen/height_form_field_space" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout2"
+                android:id="@+id/ti_event_date"
                 style="@style/myFormEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/dateField">
+                android:hint="@string/dateField"
+                app:errorEnabled="true">
 
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -77,11 +79,12 @@
                 android:layout_height="@dimen/height_form_field_space" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout3"
+                android:id="@+id/ti_event_place"
                 style="@style/myFormEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/placeField">
+                android:hint="@string/placeField"
+                app:errorEnabled="true">
 
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -100,11 +103,12 @@
                 android:layout_height="@dimen/height_form_field_space" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout4"
+                android:id="@+id/ti_event_expense"
                 style="@style/myFormEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/expenseField">
+                android:hint="@string/expenseField"
+                app:errorEnabled="true">
 
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -119,11 +123,12 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_form_field_bottom_space" />
+                android:layout_height="10dp" />
 
             <ImageView
+                android:id="@+id/event_icon"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="120dp"
                 android:contentDescription="@string/christmasTree"
                 android:src="@drawable/ic_christmas_tree" />
         </LinearLayout>

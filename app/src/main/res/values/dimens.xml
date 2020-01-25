@@ -10,7 +10,7 @@
     <dimen name="height_participant_avatar">200dp</dimen>
     <dimen name="padding_form_fields">12dp</dimen>
     <dimen name="padding_form_buttons">12dp</dimen>
-    <dimen name="height_form_field_space">20dp</dimen>
+    <dimen name="height_form_field_space">8dp</dimen>
     <dimen name="height_form_field_bottom_space">50dp</dimen>
     <dimen name="padding_list_item">8dp</dimen>
     <dimen name="width_list_item_avatar">90dp</dimen>

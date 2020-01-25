@@ -3,17 +3,16 @@ package com.bearm.unknownsanta.Activities;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bearm.unknownsanta.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
 import java.util.Random;
@@ -24,8 +23,12 @@ public class CreateEventActivity extends AppCompatActivity{
     EditText eventName;
     EditText eventPlace;
     EditText eventDate;
-    EditText eventLimit;
+    EditText eventExpense;
     ImageView ivIcon;
+
+    TextInputLayout tiName;
+    TextInputLayout tiDate;
+    TextInputLayout tiExpense;
 
     int avatarId;
 
@@ -37,8 +40,12 @@ public class CreateEventActivity extends AppCompatActivity{
         eventName = findViewById(R.id.edit_event_name);
         eventPlace = findViewById(R.id.edit_event_place);
         eventDate = findViewById(R.id.edit_event_date);
-        eventLimit = findViewById(R.id.edit_event_money);
+        eventExpense = findViewById(R.id.edit_event_money);
+
         ivIcon = findViewById(R.id.event_icon);
+        tiName = findViewById(R.id.ti_event_name);
+        tiDate = findViewById(R.id.ti_event_date);
+        tiExpense = findViewById(R.id.ti_event_expense);
 
         avatarId = getRandomAvatar();
         ivIcon.setImageResource(avatarId);
@@ -98,12 +105,35 @@ public class CreateEventActivity extends AppCompatActivity{
         String name = String.valueOf(eventName.getText());
         String place = String.valueOf(eventPlace.getText());
         String date = String.valueOf(eventDate.getText());
-        String expense = String.valueOf(eventLimit.getText());
+        String expense = String.valueOf(eventExpense.getText());
 
-        if ((name.equals("")) || (place.equals("")) || (date.equals("")) || (expense.equals(""))) {
-            Toast.makeText(getApplicationContext(), getText(R.string.event_creation_error), Toast.LENGTH_LONG).show();
-
+        boolean ok = false;
+        if (name.isEmpty()){
+            tiName.setError(getString(R.string.error_empty_name));
         } else {
+            tiName.setError(null);
+        }
+
+        if (date.isEmpty()) {
+            tiDate.setError(getString(R.string.error_empty_date));
+        } else {
+            tiDate.setError(null);
+        }
+
+        if (expense.isEmpty()){
+            tiExpense.setError(getString(R.string.error_empty_expense));
+        } else {
+            tiExpense.setError(null);
+        }
+
+        if (place.isEmpty()){
+            place = "No place selected";
+        }
+        if ((!name.isEmpty()) && (!date.isEmpty()) && (!expense.isEmpty())) {
+            ok = true;
+        }
+        
+        if(ok) {
             Intent output = new Intent();
             output.putExtra("name", name);
             output.putExtra("place", place);

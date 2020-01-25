@@ -44,11 +44,12 @@
             android:padding="@dimen/padding_form_fields">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
+                android:id="@+id/ti_name"
                 style="@style/myFormEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/nameField">
+                android:hint="@string/nameField"
+                app:errorEnabled="true">
 
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -63,14 +64,15 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:layout_height="@dimen/height_form_field_space" />
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout2"
+                android:id="@+id/ti_email"
                 style="@style/myFormEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:errorEnabled="true"
                 android:hint="@string/emailField">
 
 

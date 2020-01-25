@@ -11,11 +11,14 @@ import android.widget.Toast;
 
 import com.bearm.unknownsanta.R;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Random;
 
 public class AddParticipantActivity extends AppCompatActivity {
 
+    private TextInputLayout tiEmail;
+    private TextInputLayout tiName;
     private TextInputEditText etEmail;
     private TextInputEditText etName;
     int avatarId;
@@ -32,6 +35,8 @@ public class AddParticipantActivity extends AppCompatActivity {
 
         etEmail = findViewById(R.id.edit_email);
         etName = findViewById(R.id.edit_name);
+        tiEmail = findViewById(R.id.ti_email);
+        tiName = findViewById(R.id.ti_name);
 
         Button saveBtn = findViewById(R.id.btn_save);
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -88,22 +93,32 @@ public class AddParticipantActivity extends AppCompatActivity {
         String name = String.valueOf(etName.getText());
         String email = String.valueOf(etEmail.getText());
 
-        if ((name.equals("")) || (email.equals(""))) {
-            Toast.makeText(getApplicationContext(), "Oops! There are empty fields.", Toast.LENGTH_LONG).show();
-
+        boolean ok = false;
+        if (name.equals("")) {
+            tiName.setError(getString(R.string.error_empty_name));
         } else {
-            if (emailIsValid(email)) {
-                Intent output = new Intent();
-                output.putExtra("name", name);
-                output.putExtra("email", email);
-                output.putExtra("avatar", String.valueOf(avatarId));
-                setResult(RESULT_OK, output);
-                finish();
-            } else {
-                Toast.makeText(getApplicationContext(), "Looks like there is something wrong with that email.", Toast.LENGTH_LONG).show();
-            }
+            tiName.setError(null);
+        }
+
+        if (emailIsValid(email)) {
+            ok = true;
+            tiEmail.setError(null);
+        } else {
+            tiEmail.setError(getString(R.string.error_format_email));
+        }
+        if (email.equals("")) {
+            tiEmail.setError(getString(R.string.error_emtpy_email));
+        }
+        if (ok) {
+            Intent output = new Intent();
+            output.putExtra("name", name);
+            output.putExtra("email", email);
+            output.putExtra("avatar", String.valueOf(avatarId));
+            setResult(RESULT_OK, output);
+            finish();
 
         }
+
     }
 
     //Checks if the email input is valid
