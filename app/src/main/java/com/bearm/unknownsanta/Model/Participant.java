@@ -106,5 +106,18 @@ public class Participant {
     public void setAvatarName(String avatarName) {
         this.avatarName = avatarName;
     }
+
+    @Override
+    public String toString() {
+        return "Participant{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", avatarName='" + avatarName + '\'' +
+                ", eventId=" + eventId +
+                ", idReceiver=" + idReceiver +
+                ", idGiver=" + idGiver +
+                '}';
+    }
 }
 

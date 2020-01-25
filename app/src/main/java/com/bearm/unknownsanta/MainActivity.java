@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bearm.unknownsanta.Activities.AddParticipantActivity;
 import com.bearm.unknownsanta.Activities.CreateEventActivity;
 import com.bearm.unknownsanta.Activities.EventsActivity;
+import com.bearm.unknownsanta.Activities.ParticipantShuffleActivity;
 import com.bearm.unknownsanta.Adapters.ParticipantAdapter;
 import com.bearm.unknownsanta.Database.AppDatabase;
 import com.bearm.unknownsanta.Model.Event;
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     Observer<List<Participant>> participantObserver;
 
     SharedPreferences currentEventData;
+
+    ParticipantShuffleActivity participantShuffleActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,8 +128,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO set action
-                //Intent intent = new Intent(v.getContext(), );
-                // startActivityForResult(intent, REQUEST_CODE_ADDPARTICIPANT);
+                participantShuffleActivity.setParticipants(participantList);
+                participantShuffleActivity.shuffleList();
+                participantShuffleActivity.assignGivers();
             }
         });
 
@@ -155,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
                 if (participants != null) {
                     Log.e("Select participant size", String.valueOf(participants.size()));
                     mParticipantAdapter.setParticipants(participants);
+                    participantList = participants;
                 }
             }
         };
@@ -162,6 +167,8 @@ public class MainActivity extends AppCompatActivity {
         participantViewModel.getParticipantList().observe(this, participantObserver);
         participantViewModel.setFilter(getCurrentEventId());
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
+
+        participantShuffleActivity = new ParticipantShuffleActivity(participantList);
 
         //Checks selected event info
         loadEventInfo();
