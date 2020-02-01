@@ -4,9 +4,7 @@ package com.bearm.unknownsanta;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +17,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -29,8 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bearm.unknownsanta.Activities.AddParticipantActivity;
 import com.bearm.unknownsanta.Activities.CreateEventActivity;
 import com.bearm.unknownsanta.Activities.EventsActivity;
+import com.bearm.unknownsanta.Activities.ParticipantShuffleActivity;
 import com.bearm.unknownsanta.Adapters.ParticipantAdapter;
-import com.bearm.unknownsanta.Database.AppDatabase;
 import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.ViewModels.EventViewModel;
 import com.bearm.unknownsanta.Model.Participant;
@@ -68,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
     Observer<List<Participant>> participantObserver;
 
     SharedPreferences currentEventData;
+
+    ParticipantShuffleActivity participantShuffleActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,9 +123,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO set action
-                //Intent intent = new Intent(v.getContext(), );
-                // startActivityForResult(intent, REQUEST_CODE_ADDPARTICIPANT);
+                participantShuffleActivity.setParticipants(participantList);
+                participantShuffleActivity.shuffleList();
+                participantShuffleActivity.assignGivers();
             }
         });
 
@@ -155,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
                 if (participants != null) {
                     Log.e("Select participant size", String.valueOf(participants.size()));
                     mParticipantAdapter.setParticipants(participants);
+                    participantList = participants;
                 }
             }
         };
@@ -162,6 +162,8 @@ public class MainActivity extends AppCompatActivity {
         participantViewModel.getParticipantList().observe(this, participantObserver);
         participantViewModel.setFilter(getCurrentEventId());
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
+
+        participantShuffleActivity = new ParticipantShuffleActivity();
 
         //Checks selected event info
         loadEventInfo();
