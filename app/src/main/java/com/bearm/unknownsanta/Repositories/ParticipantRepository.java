@@ -9,12 +9,14 @@ import com.bearm.unknownsanta.DAO.ParticipantDao;
 import com.bearm.unknownsanta.Database.AppDatabase;
 import com.bearm.unknownsanta.Model.Participant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParticipantRepository {
 
     private ParticipantDao participantDao;
     private Participant participant;
+    private List<Participant> participantList;
     private Integer id;
 
     public ParticipantRepository(Application application) {
@@ -22,6 +24,7 @@ public class ParticipantRepository {
         AppDatabase db = AppDatabase.getInstance(application.getApplicationContext());
 
         participant = new Participant();
+        participantList = new ArrayList<>();
         participantDao = db.participantDao();
     }
 
@@ -54,14 +57,31 @@ public class ParticipantRepository {
 
     private class DeleteParticipantAsyncTask extends AsyncTask<ParticipantDao, Participant, String> {
 
-        DeleteParticipantAsyncTask(ParticipantDao eDao, Participant part) {
-            participantDao = eDao;
+        DeleteParticipantAsyncTask(ParticipantDao pDao, Participant part) {
+            participantDao = pDao;
             participant = part;
         }
 
         @Override
-        protected String doInBackground(ParticipantDao... eventDaos) {
+        protected String doInBackground(ParticipantDao... participantDaos) {
             participantDao.delete(participant);
+            return null;
+        }
+    }
+
+    public void update(List<Participant> participant) {
+        new UpdateParticipantAsyncTask(participantDao, participant).execute();
+    }
+
+    private class UpdateParticipantAsyncTask extends AsyncTask<ParticipantDao, List<Participant>, String> {
+        UpdateParticipantAsyncTask(ParticipantDao pDao, List<Participant> pList) {
+            participantDao = pDao;
+            participantList = pList;
+        }
+
+        @Override
+        protected String doInBackground(ParticipantDao... participantDaos) {
+            participantDao.update(participantList);
             return null;
         }
     }

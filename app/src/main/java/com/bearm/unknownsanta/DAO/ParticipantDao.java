@@ -6,6 +6,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.bearm.unknownsanta.Model.Participant;
 
@@ -22,4 +23,7 @@ public interface ParticipantDao {
 
     @Delete
     void delete(Participant participant);
+
+    @Update
+    void update(List<Participant> participantList);
 }

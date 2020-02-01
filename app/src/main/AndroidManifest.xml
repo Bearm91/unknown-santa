@@ -36,7 +36,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.ParticipantShuffleActivity" />
+        <activity
+            android:name=".Activities.ParticipantShuffleActivity"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

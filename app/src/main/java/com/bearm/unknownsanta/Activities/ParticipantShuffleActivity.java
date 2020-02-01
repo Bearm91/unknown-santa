@@ -1,10 +1,13 @@
 package com.bearm.unknownsanta.Activities;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bearm.unknownsanta.Model.Participant;
+import com.bearm.unknownsanta.ViewModels.ParticipantViewModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,10 +16,13 @@ import java.util.List;
 public class ParticipantShuffleActivity extends AppCompatActivity {
     List<Participant> participants;
     List<Participant> originalList;
+    ParticipantViewModel participantViewModel;
+    Context context;
 
 
-    public ParticipantShuffleActivity() {
-
+    public ParticipantShuffleActivity(ParticipantViewModel participantViewModel, Context context) {
+        this.participantViewModel = participantViewModel;
+        this.context = context;
     }
 
     public void shuffleList() {
@@ -42,6 +48,10 @@ public class ParticipantShuffleActivity extends AppCompatActivity {
             Log.e("Participant", String.valueOf(originalList.get(i).getId()));
             Log.e("gets this receiver", String.valueOf(participants.get(i).getId()));
         }
+        participantViewModel.update(originalList);
+
+        Toast.makeText(context, "Yay! The association was completed successfully!", Toast.LENGTH_LONG).show();
+
     }
 
 

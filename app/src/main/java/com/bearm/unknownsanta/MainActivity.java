@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         participantViewModel.setFilter(getCurrentEventId());
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
 
-        participantShuffleActivity = new ParticipantShuffleActivity();
+        participantShuffleActivity = new ParticipantShuffleActivity(participantViewModel, getApplicationContext());
 
         //Checks selected event info
         loadEventInfo();
