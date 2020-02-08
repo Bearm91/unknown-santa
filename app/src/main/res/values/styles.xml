@@ -1,7 +1,7 @@
 <resources xmlns:ns2="http://schemas.android.com/apk/res-auto">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="AppTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -14,8 +14,12 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="PopupOverlay" parent="Theme.MaterialComponents">
+        <item name="android:backgroundTint">@color/colorAccent</item>
+        <item name="tint">@color/white_color</item>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    </style>
 
     <style name="AppTheme.MaterialComponents" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:stateListAnimator" ns2:ignore="NewApi">
@@ -68,7 +72,7 @@
 
     </style>
 
-    <style name="myMainButton" parent="@style/Widget.MaterialComponents.Button.UnelevatedButton">
+    <style name="myMainButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textSize">20dp</item>
         <item name="android:textAllCaps">true</item>
 

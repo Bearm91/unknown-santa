@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:popupTheme="@style/PopupOverlay"
+
             app:title="@string/app_name">
 
         </androidx.appcompat.widget.Toolbar>
@@ -32,6 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:srcCompat="@android:drawable/ic_dialog_email"
+        style="@style/PopupOverlay"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
