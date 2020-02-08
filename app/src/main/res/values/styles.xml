@@ -17,8 +17,12 @@
     <style name="PopupOverlay" parent="Theme.MaterialComponents">
         <item name="android:backgroundTint">@color/colorAccent</item>
         <item name="tint">@color/white_color</item>
+    </style>
 
 
+    <style name="AppTheme.myMenu">
+        <item name="android:backgroundTint">@color/white_color</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
     </style>
 
     <style name="AppTheme.MaterialComponents" parent="Theme.MaterialComponents.Light.NoActionBar">

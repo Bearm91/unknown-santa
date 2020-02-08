@@ -23,4 +23,5 @@
     <dimen name="height_space">0dp</dimen>
     <dimen name="margin_top_recyclerview_participantlist">4dp</dimen>
     <dimen name="drawablePadding_form_icons">12dp</dimen>
+    <dimen name="margin_button_main">6dp</dimen>
 </resources>

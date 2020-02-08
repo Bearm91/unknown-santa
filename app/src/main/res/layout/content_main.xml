@@ -57,16 +57,18 @@
                         style="@style/myAcceptButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="@string/createEventButton" />
+                        android:layout_weight="1"
+                        android:text="@string/createEventButton"
+                        android:layout_marginRight="@dimen/margin_button_main"/>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_select_event"
                         style="@style/myAcceptButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="@string/SelectEventButton" />
+                        android:layout_weight="1"
+                        android:text="@string/SelectEventButton"
+                        android:layout_marginLeft="@dimen/margin_button_main"/>
 
                 </LinearLayout>
 

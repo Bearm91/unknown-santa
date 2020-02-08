@@ -36,14 +36,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            tool:text="Bea R" />
+            tool:text="Bea R"
+            android:paddingRight="12dp"/>
 
             <ImageView
                 android:id="@+id/ic_assigned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_check_green"
-                android:paddingLeft="12dp" />
+                android:src="@drawable/check_circle"
+                android:tint="@color/colorPrimary"
+                android:background="@drawable/circle_shape"/>
 
         </LinearLayout>
 
