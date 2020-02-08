@@ -27,6 +27,7 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
         TextView tvEmail;
         ImageView ivAvatar;
         ImageView btnDelete;
+        ImageView ivCheck;
 
 
         MyViewHolder(@NonNull View v) {
@@ -35,6 +36,7 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
             tvEmail = v.findViewById(R.id.tv_part_email);
 
             ivAvatar = v.findViewById(R.id.iv_rndm_avatar);
+            ivCheck = v.findViewById(R.id.ic_assigned);
             btnDelete = v.findViewById(R.id.btn_delete);
 
 
@@ -67,10 +69,17 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
 
         String avatarName = participantList.get(position).getAvatarName();
 
+        int idReceiver = participantList.get(position).getIdReceiver();
+
         if (avatarName != null) {
             holder.ivAvatar.setImageResource(Integer.parseInt(avatarName));
         }
 
+        if (idReceiver != 0){
+            holder.ivCheck.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivCheck.setVisibility(View.INVISIBLE);
+        }
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
