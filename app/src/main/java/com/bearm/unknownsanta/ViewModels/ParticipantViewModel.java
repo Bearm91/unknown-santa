@@ -43,11 +43,16 @@ public class ParticipantViewModel extends AndroidViewModel {
         participantRepository.delete(participant);
     }
 
+    public void update(List<Participant> participants) {
+        participantRepository.update(participants);
+    }
+
 
     public LiveData<List<Participant>> getParticipantList() {
         return searchByLiveData;
     }
 
     public void setFilter(String filter) { filterLiveData.setValue(filter); }
+
 
 }

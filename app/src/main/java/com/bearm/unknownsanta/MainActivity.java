@@ -123,9 +123,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                participantShuffleActivity.setParticipants(participantList);
-                participantShuffleActivity.shuffleList();
-                participantShuffleActivity.assignGivers();
+
             }
         });
 
@@ -163,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         participantViewModel.setFilter(getCurrentEventId());
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
 
-        participantShuffleActivity = new ParticipantShuffleActivity();
+        participantShuffleActivity = new ParticipantShuffleActivity(participantViewModel, getApplicationContext());
 
         //Checks selected event info
         loadEventInfo();
@@ -296,6 +294,14 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_close_event) {
             closeCurrentEvent();
             loadEventInfo();
+            return true;
+        }
+
+        //Assigns secret santas to the participants of the event
+        if (id == R.id.action_shuffle_participants) {
+            participantShuffleActivity.setParticipants(participantList);
+            participantShuffleActivity.shuffleList();
+            participantShuffleActivity.assignGivers();
             return true;
         }
 
