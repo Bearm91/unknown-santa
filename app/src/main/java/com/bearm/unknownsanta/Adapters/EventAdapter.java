@@ -88,11 +88,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
                 context.getSharedPreferences("my_us_event", Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = eventSelected.edit();
-        editor.putString("eventId", String.valueOf(eventList.get(position).getId()));
-        editor.putString("eventName", eventList.get(position).getName());
-        editor.putString("eventPlace", eventList.get(position).getPlace());
-        editor.putString("eventDate", eventList.get(position).getDate());
-        editor.putString("eventExpense", eventList.get(position).getExpense());
+        editor.putString("eventId2", String.valueOf(eventList.get(position).getId()));
+        editor.putString("eventName2", eventList.get(position).getName());
+        editor.putString("eventPlace2", eventList.get(position).getPlace());
+        editor.putString("eventDate2", eventList.get(position).getDate());
+        editor.putString("eventExpense2", eventList.get(position).getExpense());
 
         editor.apply();
     }

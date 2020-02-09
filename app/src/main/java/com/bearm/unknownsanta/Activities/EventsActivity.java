@@ -1,7 +1,9 @@
 package com.bearm.unknownsanta.Activities;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +32,7 @@ public class EventsActivity extends AppCompatActivity {
     List<Event> eventList;
 
     EventViewModel eventViewModel;
+    SharedPreferences eventData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,10 @@ public class EventsActivity extends AppCompatActivity {
         selectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String eventId2 = eventData.getString("eventId2", null);
+                if (eventId2 != null) {
+                    saveSelectedEvent();
+                }
                 Intent output = new Intent();
                 output.putExtra("load", "LOAD");
                 setResult(RESULT_OK, output);
@@ -58,6 +65,9 @@ public class EventsActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        eventData = this.getSharedPreferences("my_us_event", Context.MODE_PRIVATE);
+
 
         recyclerView = findViewById(R.id.rv_events_list);
         eventList = new ArrayList<>();
@@ -86,11 +96,24 @@ public class EventsActivity extends AppCompatActivity {
                     tvNoData.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.VISIBLE);
                     selectBtn.setVisibility(View.VISIBLE);
-                    cancelBtn.setVisibility(View.GONE);
+                    cancelBtn.setVisibility(View.VISIBLE);
 
                     mEventAdapter.setEvents(events);
                 }
             }
         });
+    }
+
+    //Saves selected event into in SharedPreferences
+    private void saveSelectedEvent() {
+
+        SharedPreferences.Editor editor = eventData.edit();
+        editor.putString("eventId", eventData.getString("eventId2", null));
+        editor.putString("eventName", eventData.getString("eventName2", null));
+        editor.putString("eventPlace", eventData.getString("eventPlace2", null));
+        editor.putString("eventDate", eventData.getString("eventDate2", null));
+        editor.putString("eventExpense", eventData.getString("eventExpense2", null));
+
+        editor.apply();
     }
 }
