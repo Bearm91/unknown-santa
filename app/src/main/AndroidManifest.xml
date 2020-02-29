@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.bearm.unknownsanta">
 
+    <uses-permission
+        android:name="android.permission.INTERNET" />
+
     <dist:module dist:instant="true" />
 
     <application

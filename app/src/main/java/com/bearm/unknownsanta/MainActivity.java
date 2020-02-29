@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.Activities.AddParticipantActivity;
 import com.bearm.unknownsanta.Activities.CreateEventActivity;
+import com.bearm.unknownsanta.Activities.EmailCreator;
 import com.bearm.unknownsanta.Activities.EventsActivity;
 import com.bearm.unknownsanta.Activities.ParticipantShuffleActivity;
 import com.bearm.unknownsanta.Adapters.ParticipantAdapter;
@@ -32,6 +33,7 @@ import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.ViewModels.EventViewModel;
 import com.bearm.unknownsanta.Model.Participant;
 import com.bearm.unknownsanta.ViewModels.ParticipantViewModel;
+import com.bearm.unknownsanta.eMailSender.GMailSender;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -123,7 +125,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //if(checkAssignments()){
+                sendEmails();
+                //}
             }
         });
 
@@ -165,6 +169,62 @@ public class MainActivity extends AppCompatActivity {
 
         //Checks selected event info
         loadEventInfo();
+    }
+
+    private void sendEmails() {
+        String emailMessage;
+        String receiver;
+        String recipient;
+        Participant currentParticipant;
+
+        EmailCreator emailCreator = new EmailCreator(getCurrentEvent(), participantList);
+
+        for (int i = 0; i < participantList.size(); i++) {
+            currentParticipant = participantList.get(i);
+            recipient = currentParticipant.getEmail();
+            emailMessage = "";
+            try {
+                receiver = participantList.get(currentParticipant.getIdReceiver() - 1).getName();
+
+                emailCreator.createEmailBody(receiver);
+                emailMessage = emailCreator.getEmailBody();
+                Log.e("MESSAGE", emailMessage);
+            } catch (NullPointerException npe) {
+                Toast.makeText(getApplicationContext(), "1Sorry, there are still participants with no assignation.", Toast.LENGTH_LONG).show();
+            } catch (ArrayIndexOutOfBoundsException aioob) {
+                //TODO change toast for alert dialog
+                Toast.makeText(getApplicationContext(), "2Sorry, there are still participants with no assignation. Check that all participants have the green mark next to their names, and press on 'Assign Santas' in the menu below if anyone doesn't.", Toast.LENGTH_LONG).show();
+            }
+
+            if (!emailMessage.isEmpty()) {
+                final String finalEmailMessage = emailMessage;
+                final String finalRecipient = recipient;
+                new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            GMailSender mailSender = new GMailSender("unknownsantaapp@gmail.com", "Android123.-");
+                            mailSender.sendMail("Secret Santa Subject", finalEmailMessage, "unknownsantaapp@gmail.com", finalRecipient);
+                            //Toast.makeText(getApplicationContext(), "An email has been sent to all participants.", Toast.LENGTH_LONG).show();
+
+                        } catch (Exception e) {
+                            Log.e("SendMail", e.getMessage(), e);
+                        }
+                    }
+
+                }).start();
+
+            }
+        }
+    }
+
+    private Event getCurrentEvent() {
+        String name = currentEventData.getString("eventName", null);
+        String place = currentEventData.getString("eventPlace", null);
+        String date = currentEventData.getString("eventDate", null);
+        String expense = currentEventData.getString("eventExpense", null);
+        return new Event(name, place, date, expense, );
     }
 
 
