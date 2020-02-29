@@ -13,13 +13,15 @@ public class Event {
     private String place;
     private String date;
     private String expense;
+    private boolean emailSent;
 
     @Ignore
-    public Event(String name, String place, String date, String expense) {
+    public Event(String name, String place, String date, String expense, boolean emailSent) {
         this.name = name;
         this.place = place;
         this.date = date;
         this.expense = expense;
+        this.emailSent = emailSent;
     }
 
     public Event() {
@@ -64,5 +66,14 @@ public class Event {
 
     public void setExpense(String expense) {
         this.expense = expense;
+    }
+
+
+    public boolean isEmailSent() {
+        return emailSent;
+    }
+
+    public void setEmailSent(boolean emailSent) {
+        this.emailSent = emailSent;
     }
 }

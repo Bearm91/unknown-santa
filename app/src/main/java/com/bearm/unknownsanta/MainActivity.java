@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvEventDate;
     TextView tvEventExpense;
     TextView tvEventTitle;
+    ImageView ivEmail;
 
     RecyclerView recyclerView;
     ParticipantAdapter mParticipantAdapter;
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         tvEventPlace = findViewById(R.id.tv_event_place);
         tvEventDate = findViewById(R.id.tv_event_date);
         tvEventExpense = findViewById(R.id.tv_event_money);
+        ivEmail = findViewById(R.id.iv_email);
 
         btnNewEvent = findViewById(R.id.btn_new_event);
         //Opens CreateEventActivity activity
@@ -251,12 +253,12 @@ public class MainActivity extends AppCompatActivity {
                 Event newEvent = new Event(data.getStringExtra("name"),
                         data.getStringExtra("place"),
                         data.getStringExtra("date"),
-                        data.getStringExtra("expense"));
+                        data.getStringExtra("expense"),
+                        false);
 
                 eventViewModel.insert(newEvent);
 
                 Toast.makeText(getApplicationContext(), data.getStringExtra("name") + " was created correctly.", Toast.LENGTH_LONG).show();
-
             }
         }
 
@@ -296,6 +298,13 @@ public class MainActivity extends AppCompatActivity {
             tvEventPlace.setText(currentEventData.getString("eventPlace", null));
             tvEventDate.setText(currentEventData.getString("eventDate", null));
             tvEventExpense.setText(currentEventData.getString("eventExpense", null));
+
+            if (currentEventData.getString("eventEmailSent", null).equals("false")) {
+                ivEmail.setVisibility(View.GONE);
+            } else {
+                ivEmail.setVisibility(View.VISIBLE);
+            }
+
 
             //Hide and display elements in the layout when an event is selected
             lyNoEvent.setVisibility(View.GONE);
