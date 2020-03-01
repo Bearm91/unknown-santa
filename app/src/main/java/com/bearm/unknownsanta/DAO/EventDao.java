@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.bearm.unknownsanta.Model.Event;
 
@@ -19,4 +20,7 @@ public interface EventDao {
 
     @Query("DELETE FROM event WHERE id = :id")
     void delete(int id);
+
+    @Update
+    void update(Event event);
 }
