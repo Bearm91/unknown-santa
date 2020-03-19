@@ -26,12 +26,12 @@ public class ParticipantShuffleActivity extends AppCompatActivity {
     }
 
     public void shuffleList() {
-        int loops = 0;
+        int loops = 1;
         Log.e("ORIGINAL_LIST", "List before shuffle: " + participants.toString());
         Collections.shuffle(participants);
 
-        for (int i = 0; i < participants.size(); i++) {
-            if (originalList.get(i).getId() == participants.get(i).getId()) {
+        for (int i = 1; i <= participants.size(); i++) {
+            if (originalList.get(i-1).getId() == participants.get(i-1).getId()) {
                 Collections.shuffle(participants);
                 i = 0;
                 loops++;
