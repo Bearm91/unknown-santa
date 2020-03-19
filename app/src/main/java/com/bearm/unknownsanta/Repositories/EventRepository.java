@@ -68,7 +68,7 @@ public class EventRepository {
     }
 
     public void update(Event event) {
-        new InsertEventAsyncTask(eventDao, event).execute();
+        new UpdateEventAsyncTask(eventDao, event).execute();
     }
 
     private class UpdateEventAsyncTask extends AsyncTask<EventDao, Event, String> {
