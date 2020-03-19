@@ -103,17 +103,10 @@
                         android:layout_height="40dp"
                         android:layout_marginLeft="12dp"
                         android:src="@drawable/ic_email_24dp"
-                        android:visibility="visible"/>
+                        android:visibility="invisible" />
 
                 </LinearLayout>
 
-
-                <TextView
-                    android:id="@+id/tv_event_date"
-                    style="@style/myMainSubTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="20 December 2019" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -130,6 +123,13 @@
                     <Space
                         android:layout_width="@dimen/width_space"
                         android:layout_height="@dimen/height_space" />
+
+                    <TextView
+                        android:id="@+id/tv_event_date"
+                        style="@style/myMainSubTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="20 December 2019" />
 
                 </LinearLayout>
 
@@ -195,7 +195,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="2dp">
 
                 <TextView
                     style="@style/myMainTitle"

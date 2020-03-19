@@ -181,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
         EmailCreator emailCreator = new EmailCreator(getCurrentEvent(), participantList);
 
+        //TODO fix
         for (int i = 0; i < participantList.size(); i++) {
             currentParticipant = participantList.get(i);
             recipient = currentParticipant.getEmail();
@@ -226,7 +227,8 @@ public class MainActivity extends AppCompatActivity {
         String place = currentEventData.getString("eventPlace", null);
         String date = currentEventData.getString("eventDate", null);
         String expense = currentEventData.getString("eventExpense", null);
-        return new Event(name, place, date, expense, );
+        boolean isSent = currentEventData.getBoolean("eventIsEmailSent", false);
+        return new Event(name, place, date, expense, isSent);
     }
 
 
@@ -299,13 +301,6 @@ public class MainActivity extends AppCompatActivity {
             tvEventDate.setText(currentEventData.getString("eventDate", null));
             tvEventExpense.setText(currentEventData.getString("eventExpense", null));
 
-            if (currentEventData.getString("eventEmailSent", null).equals("false")) {
-                ivEmail.setVisibility(View.GONE);
-            } else {
-                ivEmail.setVisibility(View.VISIBLE);
-            }
-
-
             //Hide and display elements in the layout when an event is selected
             lyNoEvent.setVisibility(View.GONE);
             lyEventInfo.setVisibility(View.VISIBLE);
@@ -368,9 +363,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Assigns secret santas to the participants of the event
         if (id == R.id.action_shuffle_participants) {
-            participantShuffleActivity.setParticipants(participantList);
-            participantShuffleActivity.shuffleList();
-            participantShuffleActivity.assignGivers();
+            if(participantList.size() > 1) { //TODO Change to 2
+                participantShuffleActivity.setParticipants(participantList);
+                participantShuffleActivity.shuffleList();
+                participantShuffleActivity.assignGivers();
+                checkSentEmailStatus();
+            }
             return true;
         }
 
@@ -380,5 +378,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void checkSentEmailStatus() {
+        Boolean isSent = currentEventData.getBoolean("eventIsEmailSent", false);
+        if (!isSent) {
+            ivEmail.setVisibility(View.GONE);
+            /*if(assignmentComplete()){
+                fabsendEmail.setVisibility(View.VISIBLE);
+            } else {
+                fabsendEmail.setVisibility(View.GONE);
+            }*/
+        } else {
+            ivEmail.setVisibility(View.VISIBLE);
+        }
     }
 }

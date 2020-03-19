@@ -104,7 +104,7 @@ public class EventsActivity extends AppCompatActivity {
         });
     }
 
-    //Saves selected event into in SharedPreferences
+    //Saves selected event into in SharedPreferences1
     private void saveSelectedEvent() {
 
         SharedPreferences.Editor editor = eventData.edit();
@@ -113,6 +113,7 @@ public class EventsActivity extends AppCompatActivity {
         editor.putString("eventPlace", eventData.getString("eventPlace2", null));
         editor.putString("eventDate", eventData.getString("eventDate2", null));
         editor.putString("eventExpense", eventData.getString("eventExpense2", null));
+        editor.putBoolean("eventIsEmailSent", eventData.getBoolean("eventIsEmailSent2", false));
 
         editor.apply();
     }

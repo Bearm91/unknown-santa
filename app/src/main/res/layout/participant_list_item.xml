@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="@dimen/padding_list_item">
+    android:paddingBottom="@dimen/padding_list_item"
+    android:padding="4dp">
 
     <ImageView
         android:id="@+id/iv_rndm_avatar"
@@ -15,27 +16,25 @@
         android:src="@drawable/ic_elf" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:orientation="vertical"
-        android:padding="@dimen/padding_list_item_data">
+        android:padding="4dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            android:padding="@dimen/padding_list_item_data">
+            android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_part_name"
-            style="@style/myMainSubTitle"
+            style="@style/myMainListTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             tool:text="Bea R"
             android:paddingRight="12dp"/>
 
@@ -51,10 +50,10 @@
 
         <TextView
             android:id="@+id/tv_part_email"
-            style="@style/myMainSubTitle"
-            android:layout_width="wrap_content"
+            style="@style/myMainListSubTitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tool:text="beabea@bea.com" />
+            tool:text="beabea@bea.com"/>
 
     </LinearLayout>
 
@@ -63,6 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_delete"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_weight="0.05"/>
 
 </LinearLayout>
