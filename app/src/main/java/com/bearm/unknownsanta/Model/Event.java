@@ -13,19 +13,28 @@ public class Event {
     private String place;
     private String date;
     private String expense;
-    private boolean emailSent;
+    private boolean isEmailSent;
 
     @Ignore
-    public Event(String name, String place, String date, String expense, boolean emailSent) {
+    public Event(int id, String name, String place, String date, String expense, boolean isEmailSent) {
+        this.id = id;
         this.name = name;
         this.place = place;
         this.date = date;
         this.expense = expense;
-        this.emailSent = emailSent;
+        this.isEmailSent = isEmailSent;
     }
 
     public Event() {
+    }
 
+    @Ignore
+    public Event(String name, String place, String date, String expense, boolean isEmailSent) {
+        this.name = name;
+        this.place = place;
+        this.date = date;
+        this.expense = expense;
+        this.isEmailSent = isEmailSent;
     }
 
     public int getId() {
@@ -70,10 +79,10 @@ public class Event {
 
 
     public boolean isEmailSent() {
-        return emailSent;
+        return isEmailSent;
     }
 
-    public void setEmailSent(boolean emailSent) {
-        this.emailSent = emailSent;
+    public void isEmailSent(boolean emailSent) {
+        this.isEmailSent = emailSent;
     }
 }

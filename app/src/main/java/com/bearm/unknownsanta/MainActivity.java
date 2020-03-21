@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvEventExpense;
     TextView tvEventTitle;
     ImageView ivEmail;
+    FloatingActionButton fabsendEmail;
 
     RecyclerView recyclerView;
     ParticipantAdapter mParticipantAdapter;
@@ -220,15 +221,30 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+    private void checkEmailStatus(boolean inform) {
+        boolean success = currentEventData.getBoolean("eventIsEmailSent", false);
+        if (success) {
+            ivEmail.setVisibility(View.VISIBLE);
+            if(inform){
+                Toast.makeText(getApplicationContext(), "An email has been sent to all participants.", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            ivEmail.setVisibility(View.INVISIBLE);
+            if(inform){
+                Toast.makeText(getApplicationContext(), "The email could not be sent. Please, try again", Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
 
     private Event getCurrentEvent() {
+        String id = currentEventData.getString("eventId", "0");
         String name = currentEventData.getString("eventName", null);
         String place = currentEventData.getString("eventPlace", null);
         String date = currentEventData.getString("eventDate", null);
         String expense = currentEventData.getString("eventExpense", null);
         boolean isSent = currentEventData.getBoolean("eventIsEmailSent", false);
-        return new Event(name, place, date, expense, isSent);
+        return new Event(Integer.parseInt(id), name, place, date, expense, isSent);
     }
 
 
@@ -306,6 +322,7 @@ public class MainActivity extends AppCompatActivity {
             lyEventInfo.setVisibility(View.VISIBLE);
             lyParticipantInfo.setVisibility(View.VISIBLE);
             tvEventTitle.setVisibility(View.GONE);
+            checkEmailStatus(false);
         } else {
             //Hide and display elements in the layout when no event is selected
             lyNoEvent.setVisibility(View.VISIBLE);
@@ -380,17 +397,16 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void checkSentEmailStatus() {
-        Boolean isSent = currentEventData.getBoolean("eventIsEmailSent", false);
-        if (!isSent) {
-            ivEmail.setVisibility(View.GONE);
-            /*if(assignmentComplete()){
-                fabsendEmail.setVisibility(View.VISIBLE);
-            } else {
-                fabsendEmail.setVisibility(View.GONE);
-            }*/
-        } else {
-            ivEmail.setVisibility(View.VISIBLE);
-        }
+    private void updateAssignationStatus(boolean assigned) {
+        currentEventData = this.getSharedPreferences("my_us_event", Context.MODE_PRIVATE);
+        currentEventData.edit().putBoolean("eventIsAssignationDone", assigned).apply();
+    }
+
+    private void updateEmailStatus(boolean isSent){
+        Event currentE = getCurrentEvent();
+        ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
+        eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
+        currentE.isEmailSent(isSent);
+        eventViewModel.update(currentE);
     }
 }
