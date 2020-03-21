@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.Activities.AddParticipantActivity;
 import com.bearm.unknownsanta.Activities.CreateEventActivity;
-import com.bearm.unknownsanta.Activities.EmailCreator;
+import com.bearm.unknownsanta.eMailSender.EmailCreator;
 import com.bearm.unknownsanta.Activities.EventsActivity;
 import com.bearm.unknownsanta.Activities.ParticipantShuffleActivity;
 import com.bearm.unknownsanta.Adapters.ParticipantAdapter;
@@ -37,7 +37,10 @@ import com.bearm.unknownsanta.eMailSender.GMailSender;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -124,13 +127,28 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fabsendEmail = findViewById(R.id.fab);
+        fabsendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //if(checkAssignments()){
-                sendEmails();
-                //}
+                if (Integer.parseInt(getCurrentEventId()) > 0) {
+                    if (!getCurrentEvent().isEmailSent()) {
+                        if (participantList.size() > 0) {
+                            //TODO add assignation confirmation in sharedpreferences
+                            if (participantList.get(0).getIdReceiver() > 0) {
+                                sendEmails();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "The assignation has not been made yet.", Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "There are no participants in this event.", Toast.LENGTH_LONG).show();
+                        }
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "The emails for this event have already been sent.", Toast.LENGTH_LONG).show();
+
+                    }
+                }
             }
         });
 
@@ -325,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
                         Integer.parseInt(getCurrentEventId()));
 
                 participantViewModel.insert(newParticipant);
-
+                updateAssignationStatus(false);
                 Toast.makeText(getApplicationContext(), "Yay! A new participant joined the event!", Toast.LENGTH_LONG).show();
             }
         }
@@ -355,6 +373,8 @@ public class MainActivity extends AppCompatActivity {
             lyEventInfo.setVisibility(View.VISIBLE);
             lyParticipantInfo.setVisibility(View.VISIBLE);
             tvEventTitle.setVisibility(View.GONE);
+            fabsendEmail.setVisibility(View.VISIBLE);
+
             checkEmailStatus(false);
         } else {
             //Hide and display elements in the layout when no event is selected
@@ -362,9 +382,24 @@ public class MainActivity extends AppCompatActivity {
             lyEventInfo.setVisibility(View.GONE);
             lyParticipantInfo.setVisibility(View.INVISIBLE);
             tvEventTitle.setVisibility(View.VISIBLE);
-
+            fabsendEmail.setVisibility(View.INVISIBLE);
         }
 
+
+    }
+
+    private boolean assignmentComplete() {
+        int count = 0;
+        if (participantList.size() > 0) {
+            for (int i = 0; i < participantList.size(); i++) {
+                if (participantList.get(i).getIdReceiver() > 0) {
+                    count++;
+                }
+            }
+            return participantList.size() == count;
+        } else {
+            return false;
+        }
     }
 
     //Reads eventId of selected event from SharedPreferences
@@ -413,11 +448,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Assigns secret santas to the participants of the event
         if (id == R.id.action_shuffle_participants) {
-            if(participantList.size() > 1) { //TODO Change to 2
+            if (participantList.size() > 1) { //TODO Change to 2
                 participantShuffleActivity.setParticipants(participantList);
                 participantShuffleActivity.shuffleList();
                 participantShuffleActivity.assignGivers();
-                checkSentEmailStatus();
+                updateAssignationStatus(true);
             }
             return true;
         }
