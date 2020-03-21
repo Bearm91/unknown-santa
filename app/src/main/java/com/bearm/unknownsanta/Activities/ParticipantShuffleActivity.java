@@ -37,7 +37,7 @@ public class ParticipantShuffleActivity extends AppCompatActivity {
                 loops++;
             }
         }
-        Log.e("FINAL_LIST", "List after shuffle: " + participants.toString());
+        //Log.e("FINAL_LIST", "List after shuffle: " + participants.toString());
         Log.e("LOOPS_NEEDED=", String.valueOf(loops));
 
     }

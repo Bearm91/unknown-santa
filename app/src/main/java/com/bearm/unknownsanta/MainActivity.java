@@ -174,53 +174,86 @@ public class MainActivity extends AppCompatActivity {
         loadEventInfo();
     }
 
-    private void sendEmails() {
-        String emailMessage;
-        String receiver;
-        String recipient;
+    public HashMap<String, String> getParticipantReceiverMap(){
         Participant currentParticipant;
+        int currentPReceiverId;
+        String currentPReceiverName;
+        String currentPEmail;
+        HashMap<String, String> participantMap = new HashMap<>();
 
-        EmailCreator emailCreator = new EmailCreator(getCurrentEvent(), participantList);
-
-        //TODO fix
         for (int i = 0; i < participantList.size(); i++) {
             currentParticipant = participantList.get(i);
-            recipient = currentParticipant.getEmail();
-            emailMessage = "";
+            currentPEmail = currentParticipant.getEmail();
+            currentPReceiverId = currentParticipant.getIdReceiver();
             try {
-                receiver = participantList.get(currentParticipant.getIdReceiver() - 1).getName();
+                currentPReceiverName = participantViewModel.getReceiverName(currentPReceiverId);
+                participantMap.put(currentPEmail, currentPReceiverName);
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return participantMap;
+    }
 
-                emailCreator.createEmailBody(receiver);
+    private HashMap<String, String> getParticipantEmailMessageMap(HashMap<String, String> participantMap){
+        final HashMap<String, String> emailData = new HashMap<>();
+        String emailMessage;
+
+        for (Map.Entry<String, String> entry : participantMap.entrySet()) {
+            String participantEmail = entry.getKey();
+            String presentReceiverName = entry.getValue();
+            Log.e("PARTICIPANT_MAP", "key= " + participantEmail + "; value= " + presentReceiverName);
+
+            try {
+                EmailCreator emailCreator = new EmailCreator(getCurrentEvent(), participantList);
+                emailCreator.createEmailBody(presentReceiverName);
                 emailMessage = emailCreator.getEmailBody();
                 Log.e("MESSAGE", emailMessage);
+
+                emailData.put(participantEmail, emailMessage);
             } catch (NullPointerException npe) {
                 Toast.makeText(getApplicationContext(), "1Sorry, there are still participants with no assignation.", Toast.LENGTH_LONG).show();
             } catch (ArrayIndexOutOfBoundsException aioob) {
                 //TODO change toast for alert dialog
                 Toast.makeText(getApplicationContext(), "2Sorry, there are still participants with no assignation. Check that all participants have the green mark next to their names, and press on 'Assign Santas' in the menu below if anyone doesn't.", Toast.LENGTH_LONG).show();
             }
-
-            if (!emailMessage.isEmpty()) {
-                final String finalEmailMessage = emailMessage;
-                final String finalRecipient = recipient;
-                new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        try {
-                            GMailSender mailSender = new GMailSender("unknownsantaapp@gmail.com", "Android123.-");
-                            mailSender.sendMail("Secret Santa Subject", finalEmailMessage, "unknownsantaapp@gmail.com", finalRecipient);
-                            //Toast.makeText(getApplicationContext(), "An email has been sent to all participants.", Toast.LENGTH_LONG).show();
-
-                        } catch (Exception e) {
-                            Log.e("SendMail", e.getMessage(), e);
-                        }
-                    }
-
-                }).start();
-
-            }
         }
+        return emailData;
+    }
+
+    private void sendEmails() {
+
+        HashMap<String, String> emailData = new HashMap<>();
+
+        //Match Participant email with Receiver Name
+        HashMap<String, String> participantMap = getParticipantReceiverMap();
+
+        //Match Participant email with email message
+        if (participantMap.size() > 0) {
+           emailData = getParticipantEmailMessageMap(participantMap);
+        }
+
+        if (!emailData.isEmpty()) {
+             new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    try {
+                        GMailSender mailSender = new GMailSender("unknownsantaapp@gmail.com", "Android123.-");
+                        //mailSender.sendMail(emailData);
+                        currentEventData.edit().putBoolean("eventIsEmailSent", true).apply();
+                    } catch (Exception e) {
+                        Log.e("SendMail", e.getMessage(), e);
+                    }
+                }
+
+            }).start();
+
+        }
+
+        checkEmailStatus(true);
+    }
+
     private void checkEmailStatus(boolean inform) {
         boolean success = currentEventData.getBoolean("eventIsEmailSent", false);
         if (success) {

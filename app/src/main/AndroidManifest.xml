@@ -42,6 +42,7 @@
         <activity
             android:name=".Activities.ParticipantShuffleActivity"
             android:parentActivityName=".MainActivity" />
+        <activity android:name=".eMailSender.EmailCreator" />
     </application>
 
 </manifest>

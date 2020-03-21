@@ -1,12 +1,16 @@
 package com.bearm.unknownsanta.eMailSender;
 
 import java.security.Security;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -42,19 +46,32 @@ public class GMailSender extends javax.mail.Authenticator {
         return new javax.mail.PasswordAuthentication(user, password);
     }
 
-    public synchronized void sendMail(String subject, String body,
-                                      String sender, String recipients) throws Exception {
-        MimeMessage message = new MimeMessage(session);
-        DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
-        message.setSender(new InternetAddress(sender));
-        message.setSubject(subject);
-        message.setDataHandler(handler);
+    public synchronized void sendMail(HashMap<String, String> emailData) {
+        //TODO extract strings
+        String subject = "Secret Santa Information";
+        String sender= "unknownsantaapp@gmail.com";
 
-        if (recipients.indexOf(',') > 0)
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
-        else
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
+        for (Map.Entry<String, String> entry : emailData.entrySet()) {
+            String body = entry.getValue();
+            String recipients = entry.getKey();
+            try {
+                MimeMessage message = new MimeMessage(session);
+                DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
+                message.setSender(new InternetAddress(sender));
+                message.setSubject(subject);
+                message.setDataHandler(handler);
 
-        Transport.send(message);
+                if (recipients.indexOf(',') > 0)
+                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
+                else
+                    message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
+
+                Transport.send(message);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
+
 }
