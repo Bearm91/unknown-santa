@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.Activities.AddParticipantActivity;
 import com.bearm.unknownsanta.Activities.CreateEventActivity;
+import com.bearm.unknownsanta.Activities.EmailCreator;
 import com.bearm.unknownsanta.Activities.EventsActivity;
 import com.bearm.unknownsanta.Activities.ParticipantShuffleActivity;
 import com.bearm.unknownsanta.Adapters.ParticipantAdapter;
@@ -32,6 +33,7 @@ import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.ViewModels.EventViewModel;
 import com.bearm.unknownsanta.Model.Participant;
 import com.bearm.unknownsanta.ViewModels.ParticipantViewModel;
+import com.bearm.unknownsanta.eMailSender.GMailSender;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -54,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     TextView tvEventDate;
     TextView tvEventExpense;
     TextView tvEventTitle;
+    ImageView ivEmail;
+    FloatingActionButton fabsendEmail;
 
     RecyclerView recyclerView;
     ParticipantAdapter mParticipantAdapter;
@@ -84,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         tvEventPlace = findViewById(R.id.tv_event_place);
         tvEventDate = findViewById(R.id.tv_event_date);
         tvEventExpense = findViewById(R.id.tv_event_money);
+        ivEmail = findViewById(R.id.iv_email);
 
         btnNewEvent = findViewById(R.id.btn_new_event);
         //Opens CreateEventActivity activity
@@ -123,7 +128,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //if(checkAssignments()){
+                sendEmails();
+                //}
             }
         });
 
@@ -167,6 +174,112 @@ public class MainActivity extends AppCompatActivity {
         loadEventInfo();
     }
 
+    public HashMap<String, String> getParticipantReceiverMap(){
+        Participant currentParticipant;
+        int currentPReceiverId;
+        String currentPReceiverName;
+        String currentPEmail;
+        HashMap<String, String> participantMap = new HashMap<>();
+
+        for (int i = 0; i < participantList.size(); i++) {
+            currentParticipant = participantList.get(i);
+            currentPEmail = currentParticipant.getEmail();
+            currentPReceiverId = currentParticipant.getIdReceiver();
+            try {
+                currentPReceiverName = participantViewModel.getReceiverName(currentPReceiverId);
+                participantMap.put(currentPEmail, currentPReceiverName);
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return participantMap;
+    }
+
+    private HashMap<String, String> getParticipantEmailMessageMap(HashMap<String, String> participantMap){
+        final HashMap<String, String> emailData = new HashMap<>();
+        String emailMessage;
+
+        for (Map.Entry<String, String> entry : participantMap.entrySet()) {
+            String participantEmail = entry.getKey();
+            String presentReceiverName = entry.getValue();
+            Log.e("PARTICIPANT_MAP", "key= " + participantEmail + "; value= " + presentReceiverName);
+
+            try {
+                EmailCreator emailCreator = new EmailCreator(getCurrentEvent(), participantList);
+                emailCreator.createEmailBody(presentReceiverName);
+                emailMessage = emailCreator.getEmailBody();
+                Log.e("MESSAGE", emailMessage);
+
+                emailData.put(participantEmail, emailMessage);
+            } catch (NullPointerException npe) {
+                Toast.makeText(getApplicationContext(), "1Sorry, there are still participants with no assignation.", Toast.LENGTH_LONG).show();
+            } catch (ArrayIndexOutOfBoundsException aioob) {
+                //TODO change toast for alert dialog
+                Toast.makeText(getApplicationContext(), "2Sorry, there are still participants with no assignation. Check that all participants have the green mark next to their names, and press on 'Assign Santas' in the menu below if anyone doesn't.", Toast.LENGTH_LONG).show();
+            }
+        }
+        return emailData;
+    }
+
+    private void sendEmails() {
+
+        HashMap<String, String> emailData = new HashMap<>();
+
+        //Match Participant email with Receiver Name
+        HashMap<String, String> participantMap = getParticipantReceiverMap();
+
+        //Match Participant email with email message
+        if (participantMap.size() > 0) {
+           emailData = getParticipantEmailMessageMap(participantMap);
+        }
+
+        if (!emailData.isEmpty()) {
+             new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    try {
+                        GMailSender mailSender = new GMailSender("unknownsantaapp@gmail.com", "Android123.-");
+                        //mailSender.sendMail(emailData);
+                        currentEventData.edit().putBoolean("eventIsEmailSent", true).apply();
+                    } catch (Exception e) {
+                        Log.e("SendMail", e.getMessage(), e);
+                    }
+                }
+
+            }).start();
+
+        }
+
+        checkEmailStatus(true);
+    }
+
+    private void checkEmailStatus(boolean inform) {
+        boolean success = currentEventData.getBoolean("eventIsEmailSent", false);
+        if (success) {
+            ivEmail.setVisibility(View.VISIBLE);
+            if(inform){
+                Toast.makeText(getApplicationContext(), "An email has been sent to all participants.", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            ivEmail.setVisibility(View.INVISIBLE);
+            if(inform){
+                Toast.makeText(getApplicationContext(), "The email could not be sent. Please, try again", Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
+
+    private Event getCurrentEvent() {
+        String id = currentEventData.getString("eventId", "0");
+        String name = currentEventData.getString("eventName", null);
+        String place = currentEventData.getString("eventPlace", null);
+        String date = currentEventData.getString("eventDate", null);
+        String expense = currentEventData.getString("eventExpense", null);
+        boolean isSent = currentEventData.getBoolean("eventIsEmailSent", false);
+        return new Event(Integer.parseInt(id), name, place, date, expense, isSent);
+    }
+
 
     private void openSelectEvent(View v) {
         Log.e("Select event", "SELECT");
@@ -191,12 +304,12 @@ public class MainActivity extends AppCompatActivity {
                 Event newEvent = new Event(data.getStringExtra("name"),
                         data.getStringExtra("place"),
                         data.getStringExtra("date"),
-                        data.getStringExtra("expense"));
+                        data.getStringExtra("expense"),
+                        false);
 
                 eventViewModel.insert(newEvent);
 
                 Toast.makeText(getApplicationContext(), data.getStringExtra("name") + " was created correctly.", Toast.LENGTH_LONG).show();
-
             }
         }
 
@@ -242,6 +355,7 @@ public class MainActivity extends AppCompatActivity {
             lyEventInfo.setVisibility(View.VISIBLE);
             lyParticipantInfo.setVisibility(View.VISIBLE);
             tvEventTitle.setVisibility(View.GONE);
+            checkEmailStatus(false);
         } else {
             //Hide and display elements in the layout when no event is selected
             lyNoEvent.setVisibility(View.VISIBLE);
@@ -299,9 +413,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Assigns secret santas to the participants of the event
         if (id == R.id.action_shuffle_participants) {
-            participantShuffleActivity.setParticipants(participantList);
-            participantShuffleActivity.shuffleList();
-            participantShuffleActivity.assignGivers();
+            if(participantList.size() > 1) { //TODO Change to 2
+                participantShuffleActivity.setParticipants(participantList);
+                participantShuffleActivity.shuffleList();
+                participantShuffleActivity.assignGivers();
+                checkSentEmailStatus();
+            }
             return true;
         }
 
@@ -311,5 +428,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateAssignationStatus(boolean assigned) {
+        currentEventData = this.getSharedPreferences("my_us_event", Context.MODE_PRIVATE);
+        currentEventData.edit().putBoolean("eventIsAssignationDone", assigned).apply();
+    }
+
+    private void updateEmailStatus(boolean isSent){
+        Event currentE = getCurrentEvent();
+        ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
+        eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
+        currentE.isEmailSent(isSent);
+        eventViewModel.update(currentE);
     }
 }

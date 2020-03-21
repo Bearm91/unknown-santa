@@ -1,7 +1,6 @@
 package com.bearm.unknownsanta.DAO;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -15,7 +14,7 @@ import java.util.List;
 @Dao
 public interface ParticipantDao {
 
-    @Query("SELECT * FROM participant where eventId = :eventId")
+    @Query("SELECT * FROM participant WHERE eventId = :eventId")
     LiveData<List<Participant>> findByEventId(int eventId);
 
     @Insert
@@ -26,4 +25,7 @@ public interface ParticipantDao {
 
     @Update
     void update(List<Participant> participantList);
+
+    @Query("SELECT name FROM participant WHERE id = :currentPReceiverId")
+    String findNameById(int currentPReceiverId);
 }

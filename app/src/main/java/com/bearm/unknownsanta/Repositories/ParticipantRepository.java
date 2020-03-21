@@ -11,13 +11,16 @@ import com.bearm.unknownsanta.Model.Participant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ParticipantRepository {
 
     private ParticipantDao participantDao;
     private Participant participant;
     private List<Participant> participantList;
-    private Integer id;
+    private String participantName;
+    private String name;
+    private int id;
 
     public ParticipantRepository(Application application) {
 
@@ -26,12 +29,42 @@ public class ParticipantRepository {
         participant = new Participant();
         participantList = new ArrayList<>();
         participantDao = db.participantDao();
+
+
     }
 
     public LiveData<List<Participant>> getParticipantList(int eventId) {
         return participantDao.findByEventId(eventId);
     }
 
+    /**
+     * Gets the name of the participant with its id
+     * @param participantId Id of the participant whose name will be queried.
+     */
+    public String getReceiverName(Integer participantId) throws ExecutionException, InterruptedException {
+        return new getNameAsyncTask(participantDao, participantId) {
+            @Override
+            protected String doInBackground(ParticipantDao... participantDaos) {
+                String nameById = participantDao.findNameById(id);
+                return nameById;
+            }
+        }.execute().get();
+    }
+
+    private abstract class getNameAsyncTask extends AsyncTask<ParticipantDao, Integer, String> {
+        getNameAsyncTask(ParticipantDao partDao, Integer partId) {
+            participantDao = partDao;
+            id = partId;
+        }
+    }
+
+
+    /**********************************************************************************/
+
+    /**
+     * Insert method for participant table in database
+     * @param participant Participant Object that will be inserted in db
+     */
     public void insert(Participant participant) {
         new InsertParticipantAsyncTask(participantDao, participant).execute();
     }
@@ -50,7 +83,10 @@ public class ParticipantRepository {
         }
     }
 
-
+    /**
+     * Delete method for participant table in database
+     * @param participant Participant Object that will be deleted from db
+     */
     public void delete(Participant participant) {
         new DeleteParticipantAsyncTask(participantDao, participant).execute();
     }
@@ -69,8 +105,12 @@ public class ParticipantRepository {
         }
     }
 
-    public void update(List<Participant> participant) {
-        new UpdateParticipantAsyncTask(participantDao, participant).execute();
+    /**
+     * Update method for participant table in database
+     * @param participants Participant Objects that will be updated in db
+     */
+    public void update(List<Participant> participants) {
+        new UpdateParticipantAsyncTask(participantDao, participants).execute();
     }
 
     private class UpdateParticipantAsyncTask extends AsyncTask<ParticipantDao, List<Participant>, String> {

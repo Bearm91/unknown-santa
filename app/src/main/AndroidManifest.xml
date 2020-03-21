@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.bearm.unknownsanta">
 
+    <uses-permission
+        android:name="android.permission.INTERNET" />
+
     <dist:module dist:instant="true" />
 
     <application
@@ -39,6 +42,7 @@
         <activity
             android:name=".Activities.ParticipantShuffleActivity"
             android:parentActivityName=".MainActivity" />
+        <activity android:name=".eMailSender.EmailCreator" />
     </application>
 
 </manifest>

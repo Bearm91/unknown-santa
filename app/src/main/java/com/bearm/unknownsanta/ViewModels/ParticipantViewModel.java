@@ -13,13 +13,14 @@ import com.bearm.unknownsanta.Model.Participant;
 import com.bearm.unknownsanta.Repositories.ParticipantRepository;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ParticipantViewModel extends AndroidViewModel {
-
 
     private ParticipantRepository participantRepository;
     private LiveData<List<Participant>> searchByLiveData;
     private MutableLiveData<String> filterLiveData = new MutableLiveData<String>();
+    private String receiverName;
 
 
     public ParticipantViewModel(@NonNull Application application) {
@@ -43,16 +44,17 @@ public class ParticipantViewModel extends AndroidViewModel {
         participantRepository.delete(participant);
     }
 
-    public void update(List<Participant> participants) {
-        participantRepository.update(participants);
-    }
-
+    public void update(List<Participant> participants) { participantRepository.update(participants); }
 
     public LiveData<List<Participant>> getParticipantList() {
         return searchByLiveData;
     }
 
-    public void setFilter(String filter) { filterLiveData.setValue(filter); }
+    public void setFilter(String filter) {
+        filterLiveData.setValue(filter);
+    }
 
-
+    public String getReceiverName(int currentPReceiverId) throws ExecutionException, InterruptedException {
+        return participantRepository.getReceiverName(currentPReceiverId);
+    }
 }

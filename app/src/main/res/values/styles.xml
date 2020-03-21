@@ -14,6 +14,7 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="PopupOverlay" parent="Theme.MaterialComponents">
         <item name="android:backgroundTint">@color/colorAccent</item>
         <item name="tint">@color/white_color</item>
@@ -50,46 +51,22 @@
         <item name="android:textColor">@color/white_color</item>
     </style>
 
-    <style name="myMainTitle" parent="myMainText">
-        <item name="android:textSize">30sp</item>
-        <item name="android:textStyle">bold</item>
-
-    </style>
-
-    <style name="myMainDarkTitle" parent="myMainText">
-        <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textSize">25sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="myMainSubTitle" parent="myMainText">
-        <item name="android:textSize">22sp</item>
-    </style>
-
-    <style name="myMainSubTitleTitle" parent="myMainSubTitle">
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="myMainDarkSubtitle" parent="myMainSubTitle">
-        <item name="android:textColor">@color/colorSecondaryText</item>
+    <style name="myMessageText" parent="">
+        <item name="backgroundTint">@color/colorPrimaryText</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">italic</item>
 
     </style>
 
-    <style name="myMainButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="android:textSize">20dp</item>
-        <item name="android:textAllCaps">true</item>
+    <!--Form items-->
 
-    </style>
-
+    <!--Titles-->
     <style name="myFormTitle" parent="">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
-
-
     </style>
 
     <style name="myEventTitle" parent="">
@@ -106,10 +83,48 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="myMainTitle" parent="myMainText">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="myMainDarkTitle" parent="myMainText">
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <!--Subtitles-->
+
+    <style name="myMainSubTitle" parent="myMainText">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="myMainSubTitleTitle" parent="myMainSubTitle">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="myMainDarkSubtitle" parent="myMainSubTitle">
+        <item name="android:textColor">@color/colorSecondaryText</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!--EditTexts-->
+
     <style name="myFormEditText" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="hintTextColor">@color/colorSecondaryText</item>
-        <item name="boxStrokeColor">@color/colorSecondaryText</item></style>
+        <item name="boxStrokeColor">@color/colorSecondaryText</item>
+    </style>
 
+
+    <!--Buttons-->
+
+    <style name="myMainButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
 
     <style name="myAcceptButton" parent="@style/myMainButton">
         <item name="backgroundTint">@color/colorPrimary</item>
@@ -121,12 +136,7 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
-    <style name="myMessageText" parent="">
-        <item name="backgroundTint">@color/colorPrimaryText</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">italic</item>
-
-    </style>
+    <!--DatePicker-->
 
     <style name="datepicker" parent="Theme.AppCompat.DayNight.Dialog">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -134,5 +144,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--Lists-->
+
+    <style name="myMainListTitle" parent="myMainText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="myMainListSubTitle" parent="myMainText">
+        <item name="android:textSize">18sp</item>
+    </style>
 
 </resources>

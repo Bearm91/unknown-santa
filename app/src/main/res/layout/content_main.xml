@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/MainEventInfoTitle"
-                android:visibility="visible"/>
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:id="@+id/layout_no_event"
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="12dp"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <TextView
                     style="@style/myMainSubTitle"
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="@dimen/padding_eventinfo_layout"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -92,9 +92,18 @@
                     <TextView
                         android:id="@+id/tv_event_name"
                         style="@style/myEventTitle"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Christmas 2019" />
+                        android:text="Christmas 2019"
+                        />
+
+                    <ImageView
+                        android:id="@+id/iv_email"
+                        android:layout_width="30dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="12dp"
+                        android:src="@drawable/ic_email_24dp"
+                        android:visibility="invisible" />
 
                 </LinearLayout>
 
@@ -186,7 +195,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="2dp">
 
                 <TextView
                     style="@style/myMainTitle"
