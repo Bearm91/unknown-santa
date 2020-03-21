@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bearm.unknownsanta.Adapters.EventAdapter;
 import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.R;
+import com.bearm.unknownsanta.SharedPreferencesHelper;
 import com.bearm.unknownsanta.ViewModels.EventViewModel;
 
 import java.util.ArrayList;
@@ -104,17 +104,9 @@ public class EventsActivity extends AppCompatActivity {
         });
     }
 
-    //Saves selected event into in SharedPreferences1
+    //Saves selected event into SharedPreferences1
     private void saveSelectedEvent() {
-
-        SharedPreferences.Editor editor = eventData.edit();
-        editor.putString("eventId", eventData.getString("eventId2", null));
-        editor.putString("eventName", eventData.getString("eventName2", null));
-        editor.putString("eventPlace", eventData.getString("eventPlace2", null));
-        editor.putString("eventDate", eventData.getString("eventDate2", null));
-        editor.putString("eventExpense", eventData.getString("eventExpense2", null));
-        editor.putBoolean("eventIsEmailSent", eventData.getBoolean("eventIsEmailSent2", false));
-
-        editor.apply();
+        SharedPreferencesHelper sharedPreferencesHelper = new SharedPreferencesHelper(this);
+        sharedPreferencesHelper.setSelectedEventAsCurrent();
     }
 }

@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.bearm.unknownsanta.DAO.EventDao;
@@ -13,7 +14,7 @@ import com.bearm.unknownsanta.DAO.ParticipantDao;
 import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.Model.Participant;
 
-@Database(entities = {Event.class, Participant.class}, version = 6, exportSchema = false)
+@Database(entities = {Event.class, Participant.class}, version = 7, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract EventDao eventDao();
@@ -35,6 +36,7 @@ public abstract class AppDatabase extends RoomDatabase {
                                 super.onCreate(db);
                             }
                         })
+                        .addMigrations(MIGRATION_6_7)
                         .build();
             }
 
@@ -42,5 +44,15 @@ public abstract class AppDatabase extends RoomDatabase {
 
         return instance;
     }
+
+    static final Migration MIGRATION_6_7 = new Migration(6, 7) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE event "
+                    + " ADD COLUMN isAssignationDone INTEGER DEFAULT 0 NOT NULL");
+        }
+    };
+
+
 
 }

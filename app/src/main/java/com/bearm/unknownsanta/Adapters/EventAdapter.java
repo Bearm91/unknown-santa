@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.R;
+import com.bearm.unknownsanta.SharedPreferencesHelper;
 
 import java.util.List;
 
@@ -92,20 +93,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         }
     }
 
-    //Saves selected event into in SharedPreferences2
+    //Saves selected event into SharedPreferences2
     private void saveSelectedEvent(int position) {
-        SharedPreferences eventSelected =
-                context.getSharedPreferences("my_us_event", Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = eventSelected.edit();
-        editor.putString("eventId2", String.valueOf(eventList.get(position).getId()));
-        editor.putString("eventName2", eventList.get(position).getName());
-        editor.putString("eventPlace2", eventList.get(position).getPlace());
-        editor.putString("eventDate2", eventList.get(position).getDate());
-        editor.putString("eventExpense2", eventList.get(position).getExpense());
-        editor.putBoolean("eventIsEmailSent2", eventList.get(position).isEmailSent());
-
-        editor.apply();
+        SharedPreferencesHelper sharedPreferencesHelper = new SharedPreferencesHelper(context);
+        sharedPreferencesHelper.saveSelectedEvent(String.valueOf(eventList.get(position).getId()),eventList.get(position).getName(),
+                eventList.get(position).getPlace(), eventList.get(position).getDate(), eventList.get(position).getExpense(),
+                eventList.get(position).isAssignationDone(), eventList.get(position).isEmailSent());
     }
 
     @Override

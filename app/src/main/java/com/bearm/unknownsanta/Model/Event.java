@@ -14,14 +14,16 @@ public class Event {
     private String date;
     private String expense;
     private boolean isEmailSent;
+    private boolean isAssignationDone;
 
     @Ignore
-    public Event(int id, String name, String place, String date, String expense, boolean isEmailSent) {
+    public Event(int id, String name, String place, String date, String expense, boolean isAssignationDone, boolean isEmailSent) {
         this.id = id;
         this.name = name;
         this.place = place;
         this.date = date;
         this.expense = expense;
+        this.isAssignationDone = isAssignationDone;
         this.isEmailSent = isEmailSent;
     }
 
@@ -29,11 +31,12 @@ public class Event {
     }
 
     @Ignore
-    public Event(String name, String place, String date, String expense, boolean isEmailSent) {
+    public Event(String name, String place, String date, String expense, boolean isAssignationDone, boolean isEmailSent) {
         this.name = name;
         this.place = place;
         this.date = date;
         this.expense = expense;
+        this.isAssignationDone = isAssignationDone();
         this.isEmailSent = isEmailSent;
     }
 
@@ -77,6 +80,13 @@ public class Event {
         this.expense = expense;
     }
 
+    public boolean isAssignationDone() {
+        return isAssignationDone;
+    }
+
+    public void setAssignationDone(boolean assignationDone) {
+        isAssignationDone = assignationDone;
+    }
 
     public boolean isEmailSent() {
         return isEmailSent;

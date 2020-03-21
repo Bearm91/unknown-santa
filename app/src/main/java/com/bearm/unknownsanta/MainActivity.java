@@ -70,9 +70,7 @@ public class MainActivity extends AppCompatActivity {
     ParticipantViewModel participantViewModel;
     EventViewModel eventViewModel;
     Observer<List<Participant>> participantObserver;
-
-    SharedPreferences currentEventData;
-
+    SharedPreferencesHelper sharedPreferencesHelper;
     ParticipantShuffleActivity participantShuffleActivity;
 
     @Override
@@ -114,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         btnAddParticipant = findViewById(R.id.btn_add);
         //Opens AddParticipantActivity activity
         btnAddParticipant.setOnClickListener(new View.OnClickListener() {
@@ -126,17 +123,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        sharedPreferencesHelper = new SharedPreferencesHelper(this);
 
         fabsendEmail = findViewById(R.id.fab);
         fabsendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Integer.parseInt(getCurrentEventId()) > 0) {
-                    if (!getCurrentEvent().isEmailSent()) {
+                if (Integer.parseInt(sharedPreferencesHelper.getCurrentEventId()) > 0) {
+                    if (!sharedPreferencesHelper.getCurrentEvent().isEmailSent()) {
                         if (participantList.size() > 0) {
-                            //TODO add assignation confirmation in sharedpreferences
-                            if (participantList.get(0).getIdReceiver() > 0) {
+                         
+                            //TODO Test
+                            if (sharedPreferencesHelper.getCurrentEventAssignationStatus()) {
                                 sendEmails();
+                                checkEmailStatus(true);
                             } else {
                                 Toast.makeText(getApplicationContext(), "The assignation has not been made yet.", Toast.LENGTH_LONG).show();
                             }
@@ -151,9 +151,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        //SharedPreferences init
-        currentEventData = this.getSharedPreferences("my_us_event", Context.MODE_PRIVATE);
 
         //ParticipantAdapter init
         participantList = new ArrayList<>();
@@ -183,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         participantViewModel.getParticipantList().observe(this, participantObserver);
-        participantViewModel.setFilter(getCurrentEventId());
+        participantViewModel.setFilter(sharedPreferencesHelper.getCurrentEventId());
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
 
         participantShuffleActivity = new ParticipantShuffleActivity(participantViewModel, getApplicationContext());
@@ -223,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e("PARTICIPANT_MAP", "key= " + participantEmail + "; value= " + presentReceiverName);
 
             try {
-                EmailCreator emailCreator = new EmailCreator(getCurrentEvent(), participantList);
+                EmailCreator emailCreator = new EmailCreator(sharedPreferencesHelper.getCurrentEvent(), participantList);
                 emailCreator.createEmailBody(presentReceiverName);
                 emailMessage = emailCreator.getEmailBody();
                 Log.e("MESSAGE", emailMessage);
@@ -252,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (!emailData.isEmpty()) {
+            //TODO change for AsyncTask so the notification can be displayed
              new Thread(new Runnable() {
 
                 @Override
@@ -259,21 +257,20 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         GMailSender mailSender = new GMailSender("unknownsantaapp@gmail.com", "Android123.-");
                         //mailSender.sendMail(emailData);
-                        currentEventData.edit().putBoolean("eventIsEmailSent", true).apply();
+                        sharedPreferencesHelper.updateCurrentEventEmailStatus(true);
                     } catch (Exception e) {
                         Log.e("SendMail", e.getMessage(), e);
+                        sharedPreferencesHelper.updateCurrentEventEmailStatus(false);
                     }
                 }
 
             }).start();
 
         }
-
-        checkEmailStatus(true);
     }
 
     private void checkEmailStatus(boolean inform) {
-        boolean success = currentEventData.getBoolean("eventIsEmailSent", false);
+        boolean success = sharedPreferencesHelper.currentEventData.getBoolean("eventIsEmailSent", false);
         if (success) {
             ivEmail.setVisibility(View.VISIBLE);
             if(inform){
@@ -287,17 +284,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-    private Event getCurrentEvent() {
-        String id = currentEventData.getString("eventId", "0");
-        String name = currentEventData.getString("eventName", null);
-        String place = currentEventData.getString("eventPlace", null);
-        String date = currentEventData.getString("eventDate", null);
-        String expense = currentEventData.getString("eventExpense", null);
-        boolean isSent = currentEventData.getBoolean("eventIsEmailSent", false);
-        return new Event(Integer.parseInt(id), name, place, date, expense, isSent);
-    }
-
 
     private void openSelectEvent(View v) {
         Log.e("Select event", "SELECT");
@@ -323,6 +309,7 @@ public class MainActivity extends AppCompatActivity {
                         data.getStringExtra("place"),
                         data.getStringExtra("date"),
                         data.getStringExtra("expense"),
+                        false,
                         false);
 
                 eventViewModel.insert(newEvent);
@@ -340,10 +327,10 @@ public class MainActivity extends AppCompatActivity {
                         data.getStringExtra("name"),
                         data.getStringExtra("email"),
                         data.getStringExtra("avatar"),
-                        Integer.parseInt(getCurrentEventId()));
+                        Integer.parseInt(sharedPreferencesHelper.getCurrentEventId()));
 
                 participantViewModel.insert(newParticipant);
-                updateAssignationStatus(false);
+                sharedPreferencesHelper.updateCurrentEventAssignationStatus(false);
                 Toast.makeText(getApplicationContext(), "Yay! A new participant joined the event!", Toast.LENGTH_LONG).show();
             }
         }
@@ -353,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 loadEventInfo();
-                participantViewModel.setFilter(getCurrentEventId());
+                participantViewModel.setFilter(sharedPreferencesHelper.getCurrentEventId());
 
             }
         }
@@ -362,11 +349,11 @@ public class MainActivity extends AppCompatActivity {
     //Adds info about the selected event to Home screen
     public void loadEventInfo() {
         //Checks if there is an event selected (0 = no event)
-        if (Integer.parseInt(getCurrentEventId()) > 0) {
-            tvEventName.setText(currentEventData.getString("eventName", null));
-            tvEventPlace.setText(currentEventData.getString("eventPlace", null));
-            tvEventDate.setText(currentEventData.getString("eventDate", null));
-            tvEventExpense.setText(currentEventData.getString("eventExpense", null));
+        if (Integer.parseInt(sharedPreferencesHelper.getCurrentEventId()) > 0) {
+            tvEventName.setText(sharedPreferencesHelper.getCurrentEventName());
+            tvEventPlace.setText(sharedPreferencesHelper.getCurrentEventPlace());
+            tvEventDate.setText(sharedPreferencesHelper.getCurrentEventDate());
+            tvEventExpense.setText(sharedPreferencesHelper.getCurrentEventExpense());
 
             //Hide and display elements in the layout when an event is selected
             lyNoEvent.setVisibility(View.GONE);
@@ -385,35 +372,14 @@ public class MainActivity extends AppCompatActivity {
             fabsendEmail.setVisibility(View.INVISIBLE);
         }
 
-
-    }
-
-    private boolean assignmentComplete() {
-        int count = 0;
-        if (participantList.size() > 0) {
-            for (int i = 0; i < participantList.size(); i++) {
-                if (participantList.get(i).getIdReceiver() > 0) {
-                    count++;
-                }
-            }
-            return participantList.size() == count;
-        } else {
-            return false;
-        }
-    }
-
-    //Reads eventId of selected event from SharedPreferences
-    public String getCurrentEventId() {
-        return currentEventData.getString("eventId", "0");
     }
 
     //Deletes info about selected event from SharedPreferences so there is no event marked as selected
     public void closeCurrentEvent() {
-        currentEventData.edit().clear().apply();
+        sharedPreferencesHelper.clearCurrentEvent();
         participantList.clear();
         mParticipantAdapter.setParticipants(participantList);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -431,8 +397,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Deletes selected event from database
         if (id == R.id.action_delete_event) {
-            if (getCurrentEventId() != null) {
-                eventViewModel.deleteEvent(Integer.parseInt(getCurrentEventId()));
+            if (sharedPreferencesHelper.getCurrentEventId() != null) {
+                eventViewModel.deleteEvent(Integer.parseInt(sharedPreferencesHelper.getCurrentEventId()));
                 closeCurrentEvent();
                 loadEventInfo();
             }
@@ -448,11 +414,14 @@ public class MainActivity extends AppCompatActivity {
 
         //Assigns secret santas to the participants of the event
         if (id == R.id.action_shuffle_participants) {
-            if (participantList.size() > 1) { //TODO Change to 2
+            if (participantList.size() > 2) { //TODO Change to 2
                 participantShuffleActivity.setParticipants(participantList);
                 participantShuffleActivity.shuffleList();
                 participantShuffleActivity.assignGivers();
-                updateAssignationStatus(true);
+                sharedPreferencesHelper.updateCurrentEventAssignationStatus(true);
+            } else {
+                Toast.makeText(getApplicationContext(), "You need more than 2 participants.", Toast.LENGTH_LONG).show();
+
             }
             return true;
         }
@@ -465,13 +434,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateAssignationStatus(boolean assigned) {
-        currentEventData = this.getSharedPreferences("my_us_event", Context.MODE_PRIVATE);
-        currentEventData.edit().putBoolean("eventIsAssignationDone", assigned).apply();
-    }
-
-    private void updateEmailStatus(boolean isSent){
-        Event currentE = getCurrentEvent();
+    //Updates Event object in database with Email status (sent or not sent)
+    public void updateEmailStatus(boolean isSent){
+        Event currentE = sharedPreferencesHelper.getCurrentEvent();
         ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
         currentE.isEmailSent(isSent);
