@@ -2,6 +2,7 @@ package com.bearm.unknownsanta.Repositories;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -63,6 +64,25 @@ public class EventRepository {
         @Override
         protected String doInBackground(EventDao... eventDaos) {
             eventDao.delete(eventId);
+            return null;
+        }
+    }
+
+    public void update(Event event) {
+        new UpdateEventAsyncTask(eventDao, event).execute();
+    }
+
+    private class UpdateEventAsyncTask extends AsyncTask<EventDao, Event, String> {
+
+        UpdateEventAsyncTask(EventDao eDao, Event e) {
+            eventDao = eDao;
+            event = e;
+        }
+
+        @Override
+        protected String doInBackground(EventDao... eventDaos) {
+            eventDao.update(event);
+            //Log.e("UPDATE RESULT", String.valueOf(result));
             return null;
         }
     }

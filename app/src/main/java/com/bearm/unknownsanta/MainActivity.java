@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvEventExpense;
     TextView tvEventTitle;
     ImageView ivEmail;
+    FloatingActionButton fabsendEmail;
 
     RecyclerView recyclerView;
     ParticipantAdapter mParticipantAdapter;
@@ -181,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
         EmailCreator emailCreator = new EmailCreator(getCurrentEvent(), participantList);
 
+        //TODO fix
         for (int i = 0; i < participantList.size(); i++) {
             currentParticipant = participantList.get(i);
             recipient = currentParticipant.getEmail();
@@ -219,14 +221,30 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+    private void checkEmailStatus(boolean inform) {
+        boolean success = currentEventData.getBoolean("eventIsEmailSent", false);
+        if (success) {
+            ivEmail.setVisibility(View.VISIBLE);
+            if(inform){
+                Toast.makeText(getApplicationContext(), "An email has been sent to all participants.", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            ivEmail.setVisibility(View.INVISIBLE);
+            if(inform){
+                Toast.makeText(getApplicationContext(), "The email could not be sent. Please, try again", Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
 
     private Event getCurrentEvent() {
+        String id = currentEventData.getString("eventId", "0");
         String name = currentEventData.getString("eventName", null);
         String place = currentEventData.getString("eventPlace", null);
         String date = currentEventData.getString("eventDate", null);
         String expense = currentEventData.getString("eventExpense", null);
-        return new Event(name, place, date, expense, );
+        boolean isSent = currentEventData.getBoolean("eventIsEmailSent", false);
+        return new Event(Integer.parseInt(id), name, place, date, expense, isSent);
     }
 
 
@@ -299,18 +317,12 @@ public class MainActivity extends AppCompatActivity {
             tvEventDate.setText(currentEventData.getString("eventDate", null));
             tvEventExpense.setText(currentEventData.getString("eventExpense", null));
 
-            if (currentEventData.getString("eventEmailSent", null).equals("false")) {
-                ivEmail.setVisibility(View.GONE);
-            } else {
-                ivEmail.setVisibility(View.VISIBLE);
-            }
-
-
             //Hide and display elements in the layout when an event is selected
             lyNoEvent.setVisibility(View.GONE);
             lyEventInfo.setVisibility(View.VISIBLE);
             lyParticipantInfo.setVisibility(View.VISIBLE);
             tvEventTitle.setVisibility(View.GONE);
+            checkEmailStatus(false);
         } else {
             //Hide and display elements in the layout when no event is selected
             lyNoEvent.setVisibility(View.VISIBLE);
@@ -368,9 +380,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Assigns secret santas to the participants of the event
         if (id == R.id.action_shuffle_participants) {
-            participantShuffleActivity.setParticipants(participantList);
-            participantShuffleActivity.shuffleList();
-            participantShuffleActivity.assignGivers();
+            if(participantList.size() > 1) { //TODO Change to 2
+                participantShuffleActivity.setParticipants(participantList);
+                participantShuffleActivity.shuffleList();
+                participantShuffleActivity.assignGivers();
+                checkSentEmailStatus();
+            }
             return true;
         }
 
@@ -380,5 +395,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateAssignationStatus(boolean assigned) {
+        currentEventData = this.getSharedPreferences("my_us_event", Context.MODE_PRIVATE);
+        currentEventData.edit().putBoolean("eventIsAssignationDone", assigned).apply();
+    }
+
+    private void updateEmailStatus(boolean isSent){
+        Event currentE = getCurrentEvent();
+        ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
+        eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
+        currentE.isEmailSent(isSent);
+        eventViewModel.update(currentE);
     }
 }

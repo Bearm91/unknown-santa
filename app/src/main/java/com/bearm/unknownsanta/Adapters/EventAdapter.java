@@ -3,10 +3,12 @@ package com.bearm.unknownsanta.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,6 +32,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         TextView tvName;
         TextView tvDate;
         Button btnSelect;
+        ImageView ivEmail;
         LinearLayout layoutEventItem;
 
 
@@ -38,6 +41,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             tvName = v.findViewById(R.id.tv_ev_name);
             tvDate = v.findViewById(R.id.tv_ev_date);
             btnSelect = v.findViewById(R.id.btn_select);
+            ivEmail = v.findViewById(R.id.iv_email_sent);
             layoutEventItem = v.findViewById(R.id.cv_event);
         }
     }
@@ -65,6 +69,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         holder.tvName.setText(eventList.get(position).getName());
         holder.tvDate.setText(eventList.get(position).getDate());
 
+        if(eventList.get(position).isEmailSent()){
+            holder.ivEmail.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivEmail.setVisibility(View.GONE);
+        }
+
         holder.layoutEventItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +92,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         }
     }
 
-    //Saves selected event into in SharedPreferences
+    //Saves selected event into in SharedPreferences2
     private void saveSelectedEvent(int position) {
         SharedPreferences eventSelected =
                 context.getSharedPreferences("my_us_event", Context.MODE_PRIVATE);
@@ -93,6 +103,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         editor.putString("eventPlace2", eventList.get(position).getPlace());
         editor.putString("eventDate2", eventList.get(position).getDate());
         editor.putString("eventExpense2", eventList.get(position).getExpense());
+        editor.putBoolean("eventIsEmailSent2", eventList.get(position).isEmailSent());
 
         editor.apply();
     }

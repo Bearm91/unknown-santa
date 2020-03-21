@@ -3,7 +3,9 @@ package com.bearm.unknownsanta.DAO;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.bearm.unknownsanta.Model.Event;
 
@@ -19,4 +21,7 @@ public interface EventDao {
 
     @Query("DELETE FROM event WHERE id = :id")
     void delete(int id);
+
+    @Update (onConflict = OnConflictStrategy.REPLACE)
+    void update (Event event);
 }
