@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
         protected Boolean doInBackground(HashMap<String, String>... hashMaps) {
             boolean isSent;
             try {
-                GMailSender mailSender = new GMailSender("unknownsantaapp@gmail.com", "Android123.-");
+                GMailSender mailSender = new GMailSender(getString(R.string.account_email), getString(R.string.account_password));
                 //mailSender.sendMail(emailData);
                 isSent = true;
             } catch (Exception e) {
