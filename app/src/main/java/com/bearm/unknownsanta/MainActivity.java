@@ -1,6 +1,7 @@
 package com.bearm.unknownsanta;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.MutableLiveData;
@@ -71,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
     Observer<List<Participant>> participantObserver;
     SharedPreferencesHelper sharedPreferencesHelper;
     ParticipantShuffleActivity participantShuffleActivity;
+
+    AlertDialog.Builder  builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,15 +136,15 @@ public class MainActivity extends AppCompatActivity {
                             if (sharedPreferencesHelper.getCurrentEventAssignationStatus()) {
                                 sendEmails();
                             } else {
-                                Toast.makeText(getApplicationContext(), "The assignation has not been made yet.", Toast.LENGTH_LONG).show();
+                                showInformativeAlertDialog( "Sorry","The assignation has not been made yet");
                             }
                         } else {
-                            Toast.makeText(getApplicationContext(), "There are not enough participants in this event.", Toast.LENGTH_LONG).show();
+                            showInformativeAlertDialog("Event information", "There are not enough participants in this event.");
+                           // Toast.makeText(getApplicationContext(), "There are not enough participants in this event.", Toast.LENGTH_LONG).show();
                         }
 
                     } else {
-                        Toast.makeText(getApplicationContext(), "The emails for this event have already been sent.", Toast.LENGTH_LONG).show();
-
+                        showInformativeAlertDialog("Event information", "The emails for this event have already been sent.");
                     }
                 }
             }
@@ -148,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
 
         //SharedPreferences Helper init
         sharedPreferencesHelper = new SharedPreferencesHelper(this);
+
+        //Dialog builder init
+        builder = new AlertDialog.Builder(this);//new ContextThemeWrapper(this, R.style.MyAlertDialog));
 
         //ParticipantAdapter init
         participantList = new ArrayList<>();
@@ -214,20 +221,19 @@ public class MainActivity extends AppCompatActivity {
         for (Map.Entry<String, String> entry : participantMap.entrySet()) {
             String participantEmail = entry.getKey();
             String presentReceiverName = entry.getValue();
-            Log.e("PARTICIPANT_MAP", "key= " + participantEmail + "; value= " + presentReceiverName);
+            //Log.e("PARTICIPANT_MAP", "key= " + participantEmail + "; value= " + presentReceiverName);
 
             try {
                 EmailCreator emailCreator = new EmailCreator(sharedPreferencesHelper.getCurrentEvent(), participantList);
                 emailCreator.createEmailBody(presentReceiverName);
                 emailMessage = emailCreator.getEmailBody();
-                Log.e("MESSAGE", emailMessage);
+                //Log.e("MESSAGE", emailMessage);
 
                 emailData.put(participantEmail, emailMessage);
-            } catch (NullPointerException npe) {
-                Toast.makeText(getApplicationContext(), "1Sorry, there are still participants with no assignation.", Toast.LENGTH_LONG).show();
-            } catch (ArrayIndexOutOfBoundsException aioob) {
-                //TODO change toast for alert dialog
-                Toast.makeText(getApplicationContext(), "2Sorry, there are still participants with no assignation. Check that all participants have the green mark next to their names, and press on 'Assign Santas' in the menu below if anyone doesn't.", Toast.LENGTH_LONG).show();
+           } catch (NullPointerException | ArrayIndexOutOfBoundsException exeption) {
+                showInformativeAlertDialog("Participants information", "Sorry, there are still participants with no assignation. Check that all participants have the green mark next to their names, and press on 'Assign Santas' in the menu below if anyone doesn't.");
+                Log.e("getParticipantEmailMessageMap", exeption.getMessage(), exeption);
+                 //Toast.makeText(getApplicationContext(), "Sorry, there are still participants with no assignation. Check that all participants have the green mark next to their names, and press on 'Assign Santas' in the menu below if anyone doesn't.", Toast.LENGTH_LONG).show();
             }
         }
         return emailData;
@@ -472,4 +478,22 @@ public class MainActivity extends AppCompatActivity {
         currentE.setAssignationDone(isDone);
         eventViewModel.update(currentE);
     }
+
+    public void showInformativeAlertDialog(String title, String message){
+
+        builder.setMessage(message)
+                .setTitle(title)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+
+
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 }
+
