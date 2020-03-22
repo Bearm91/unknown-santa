@@ -2,8 +2,6 @@ package com.bearm.unknownsanta.Adapters;
 
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.R;
-import com.bearm.unknownsanta.SharedPreferencesHelper;
+import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
 
 import java.util.List;
 

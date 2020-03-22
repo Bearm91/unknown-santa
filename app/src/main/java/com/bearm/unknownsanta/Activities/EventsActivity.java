@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bearm.unknownsanta.Adapters.EventAdapter;
 import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.R;
-import com.bearm.unknownsanta.SharedPreferencesHelper;
+import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
 import com.bearm.unknownsanta.ViewModels.EventViewModel;
 
 import java.util.ArrayList;

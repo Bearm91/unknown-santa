@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.Activities.AddParticipantActivity;
 import com.bearm.unknownsanta.Activities.CreateEventActivity;
+import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
 import com.bearm.unknownsanta.eMailSender.EmailCreator;
 import com.bearm.unknownsanta.Activities.EventsActivity;
 import com.bearm.unknownsanta.Activities.ParticipantShuffleActivity;
