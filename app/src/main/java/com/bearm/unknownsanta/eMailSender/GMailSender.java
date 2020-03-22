@@ -1,5 +1,9 @@
 package com.bearm.unknownsanta.eMailSender;
 
+import android.content.Context;
+
+import com.bearm.unknownsanta.R;
+
 import java.security.Security;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +23,7 @@ public class GMailSender extends javax.mail.Authenticator {
     private String user;
     private String password;
     private Session session;
+    private Context context;
 
     static {
         Security.addProvider(new JSSEProvider());
@@ -27,6 +32,7 @@ public class GMailSender extends javax.mail.Authenticator {
     public GMailSender(String user, String password) {
         this.user = user;
         this.password = password;
+        this.context = context;
 
         Properties props = new Properties();
         props.setProperty("mail.transport.protocol", "smtp");
@@ -49,7 +55,7 @@ public class GMailSender extends javax.mail.Authenticator {
     public synchronized void sendMail(HashMap<String, String> emailData) {
         //TODO extract strings
         String subject = "Secret Santa Information";
-        String sender= "unknownsantaapp@gmail.com";
+        String sender= context.getString(R.string.account_email);
 
         for (Map.Entry<String, String> entry : emailData.entrySet()) {
             String body = entry.getValue();

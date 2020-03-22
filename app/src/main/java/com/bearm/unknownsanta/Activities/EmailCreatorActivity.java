@@ -12,7 +12,7 @@ import com.bearm.unknownsanta.Model.Participant;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmailCreator extends AppCompatActivity {
+public class EmailCreatorActivity extends AppCompatActivity {
 
     String emailBody;
     String eventInfo;
@@ -21,7 +21,7 @@ public class EmailCreator extends AppCompatActivity {
     List<Participant> myParticipants;
     Event myEvent;
 
-    public EmailCreator(Event event, List<Participant> participants) {
+    public EmailCreatorActivity(Event event, List<Participant> participants) {
         this.myParticipants = participants;
         this.myEvent = event;
     }
