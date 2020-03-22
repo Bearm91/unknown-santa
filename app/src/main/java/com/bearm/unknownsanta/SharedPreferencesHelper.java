@@ -79,6 +79,10 @@ public class SharedPreferencesHelper {
         return currentEventData.getBoolean("eventIsAssignationDone", false);
     }
 
+    public static boolean getCurrentEventEmailStatus(){
+        return currentEventData.getBoolean("eventIsEmailSent", false);
+    }
+
     public static void updateCurrentEventAssignationStatus(boolean isAssigned){
         currentEventData.edit().putBoolean("eventIsAssignationDone", isAssigned).apply();
     }

@@ -1,9 +1,8 @@
 package com.bearm.unknownsanta;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -123,25 +122,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        sharedPreferencesHelper = new SharedPreferencesHelper(this);
-
         fabsendEmail = findViewById(R.id.fab);
         fabsendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (Integer.parseInt(sharedPreferencesHelper.getCurrentEventId()) > 0) {
                     if (!sharedPreferencesHelper.getCurrentEvent().isEmailSent()) {
-                        if (participantList.size() > 0) {
-                         
-                            //TODO Test
+                        if (participantList.size() > 2) {
                             if (sharedPreferencesHelper.getCurrentEventAssignationStatus()) {
                                 sendEmails();
-                                checkEmailStatus(true);
                             } else {
                                 Toast.makeText(getApplicationContext(), "The assignation has not been made yet.", Toast.LENGTH_LONG).show();
                             }
                         } else {
-                            Toast.makeText(getApplicationContext(), "There are no participants in this event.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "There are not enough participants in this event.", Toast.LENGTH_LONG).show();
                         }
 
                     } else {
@@ -151,6 +145,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //SharedPreferences Helper init
+        sharedPreferencesHelper = new SharedPreferencesHelper(this);
 
         //ParticipantAdapter init
         participantList = new ArrayList<>();
@@ -249,28 +246,51 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (!emailData.isEmpty()) {
-            //TODO change for AsyncTask so the notification can be displayed
-             new Thread(new Runnable() {
+            new sendEmailsAsyncTask(emailData).execute();
+         }
+    }
 
-                @Override
-                public void run() {
-                    try {
-                        GMailSender mailSender = new GMailSender("unknownsantaapp@gmail.com", "Android123.-");
-                        //mailSender.sendMail(emailData);
-                        sharedPreferencesHelper.updateCurrentEventEmailStatus(true);
-                    } catch (Exception e) {
-                        Log.e("SendMail", e.getMessage(), e);
-                        sharedPreferencesHelper.updateCurrentEventEmailStatus(false);
-                    }
-                }
+    public class sendEmailsAsyncTask extends AsyncTask<HashMap<String, String>, String, Boolean>{
 
-            }).start();
+        HashMap<String, String> information;
+
+        public sendEmailsAsyncTask(HashMap<String, String> emailData) {
+            this.information = emailData;
+        }
+
+        // Before the tasks execution
+        protected void onPreExecute(){
+            //mTextView.setText(mTextView.getText() + "\nStarting task....");
+        }
+
+        @Override
+        protected Boolean doInBackground(HashMap<String, String>... hashMaps) {
+            boolean isSent;
+            try {
+                GMailSender mailSender = new GMailSender("unknownsantaapp@gmail.com", "Android123.-");
+                //mailSender.sendMail(emailData);
+                isSent = true;
+            } catch (Exception e) {
+                isSent = false;
+                Log.e("SendMail", e.getMessage(), e);
+
+
+            }
+            return isSent;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+            sharedPreferencesHelper.updateCurrentEventEmailStatus(result);
+            updateEmailStatus(result, true);
+            updateDBEmailStatus(result);
+            Log.e("SendMail", String.valueOf(result));
 
         }
     }
 
-    private void checkEmailStatus(boolean inform) {
-        boolean success = sharedPreferencesHelper.currentEventData.getBoolean("eventIsEmailSent", false);
+    private void updateEmailStatus(boolean success, boolean inform) {
         if (success) {
             ivEmail.setVisibility(View.VISIBLE);
             if(inform){
@@ -362,7 +382,7 @@ public class MainActivity extends AppCompatActivity {
             tvEventTitle.setVisibility(View.GONE);
             fabsendEmail.setVisibility(View.VISIBLE);
 
-            checkEmailStatus(false);
+            updateEmailStatus(sharedPreferencesHelper.getCurrentEventEmailStatus(), false);
         } else {
             //Hide and display elements in the layout when no event is selected
             lyNoEvent.setVisibility(View.VISIBLE);
@@ -414,11 +434,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Assigns secret santas to the participants of the event
         if (id == R.id.action_shuffle_participants) {
-            if (participantList.size() > 2) { //TODO Change to 2
+            if (participantList.size() > 2) {
                 participantShuffleActivity.setParticipants(participantList);
                 participantShuffleActivity.shuffleList();
                 participantShuffleActivity.assignGivers();
                 sharedPreferencesHelper.updateCurrentEventAssignationStatus(true);
+                updateDBAssignationStatus(true);
             } else {
                 Toast.makeText(getApplicationContext(), "You need more than 2 participants.", Toast.LENGTH_LONG).show();
 
@@ -435,11 +456,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Updates Event object in database with Email status (sent or not sent)
-    public void updateEmailStatus(boolean isSent){
+    public void updateDBEmailStatus(boolean isSent){
         Event currentE = sharedPreferencesHelper.getCurrentEvent();
         ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
         currentE.isEmailSent(isSent);
+        eventViewModel.update(currentE);
+    }
+
+    //Updates Event object in database with Assignation status (done or not)
+    public void updateDBAssignationStatus(boolean isDone){
+        Event currentE = sharedPreferencesHelper.getCurrentEvent();
+        ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
+        eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
+        currentE.setAssignationDone(isDone);
         eventViewModel.update(currentE);
     }
 }
