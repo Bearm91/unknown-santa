@@ -29,7 +29,6 @@
                 style="@style/myEventTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/MainEventInfoTitle"
                 android:visibility="gone"/>
 
             <LinearLayout
@@ -43,19 +42,18 @@
                 <TextView
                     style="@style/myMainSubTitle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/MainEventInfoSubtitle" />
+                    android:layout_height="wrap_content"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:padding="16dp">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_new_event"
                         style="@style/myAcceptButton"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/createEventButton"
@@ -64,7 +62,7 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_select_event"
                         style="@style/myAcceptButton"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/SelectEventButton"

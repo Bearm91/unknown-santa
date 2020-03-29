@@ -62,7 +62,7 @@
 
     <!--Titles-->
     <style name="myFormTitle" parent="">
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textAllCaps">true</item>

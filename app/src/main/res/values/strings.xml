@@ -9,12 +9,12 @@
     <!--Main screen-->
     <string name="MainEventInfoTitle">Event info</string>
     <string name="MainEventInfoSubtitle">There are no events yet.</string>
-    <string name="createEventButton">Create</string>
+    <string name="createEventButton">Create new event</string>
     <string name="MainParticipantTitle">Participants</string>
     <string name="dateFieldColon">Date:</string>
     <string name="placeFieldColon">Place:</string>
     <string name="expenseFieldColon">Expense limit:</string>
-    <string name="SelectEventButton">Open</string>
+    <string name="SelectEventButton">Open event</string>
 
     <!--Event form screen-->
     <string name="createEventFormTitle">Create new event</string>
