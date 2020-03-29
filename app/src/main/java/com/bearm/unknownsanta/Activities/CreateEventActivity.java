@@ -88,7 +88,8 @@ public class CreateEventActivity extends AppCompatActivity{
                 } else {
                     day = String.valueOf(dayOfMonth);
                 }
-                eventDate.setText(day +"/"+ month+1 +"/"+ year);
+                month = month + 1;
+                eventDate.setText(day +"/"+ month +"/"+ year);
             }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 
