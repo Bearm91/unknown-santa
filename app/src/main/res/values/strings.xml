@@ -30,8 +30,7 @@
     <string name="error_empty_expense">Expense cannot be empty</string>
 
     <!--Event list screen-->
-    <string name="event_list">Event list</string>
-    <string name="selectButton">Select</string>
+    <string name="event_list">My events</string>
     <string name="no_data_available">There is no data available.</string>
 
     <!--Participant form screen-->

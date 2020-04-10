@@ -1,54 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:backgroundTint="@color/cardview_dark_background">
+    android:orientation="vertical">
 
     <TextView
+        android:id="@+id/textView"
         style="@style/myListTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:paddingTop="12dp"
         android:text="@string/event_list"
-        android:textStyle="bold" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_events_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:visibility="visible"/>
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/no_data_message"
         style="@style/myMessageText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/no_data_available"
         android:paddingStart="12dp"
-        android:visibility="gone"/>
+        android:text="@string/no_data_available"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_editor_absoluteX="0dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_weight="0.1"
         android:orientation="horizontal"
-        android:padding="@dimen/padding_form_buttons">
+        android:padding="@dimen/padding_form_buttons"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-         <com.google.android.material.button.MaterialButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cancel_event"
             style="@style/myCancelButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_weight="1"
-            android:text="@string/cancelButton"
-            android:layout_marginRight="2dp"/>
+            android:text="@string/cancelButton" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_select_event"
@@ -56,9 +59,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="@string/SelectEventButton"
             android:layout_weight="1"
-            android:layout_marginLeft="2dp"/>
-
+            android:text="@string/SelectEventButton" />
     </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
