@@ -6,8 +6,9 @@
     <item
         android:id="@+id/action_close_event"
         android:orderInCategory="100"
-        android:title="@string/menu_close_event"
-        app:showAsAction="never" />
+        android:title="@string/Home"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_home"/>
 
     <item
         android:id="@+id/action_delete_event"
