@@ -28,6 +28,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     private Context context;
     private int index;
     private EventViewModel eventViewModel;
+    SharedPreferencesHelper sharedPreferencesHelper;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -36,6 +37,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         Button btnSelect;
         ImageView ivEmail;
         ImageView ivDelete;
+        ImageView ivIcon;
         LinearLayout layoutEventItem;
 
 
@@ -46,7 +48,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             btnSelect = v.findViewById(R.id.btn_select);
             ivEmail = v.findViewById(R.id.iv_email_sent);
             ivDelete = v.findViewById(R.id.btn_event_delete);
+            ivIcon = v.findViewById(R.id.iv_event_icon);
             layoutEventItem = v.findViewById(R.id.cv_event);
+
+            sharedPreferencesHelper =  new SharedPreferencesHelper(context);
         }
     }
 
@@ -73,6 +78,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         holder.tvName.setText(eventList.get(position).getName());
         holder.tvDate.setText(eventList.get(position).getDate());
+
+        String iconName = eventList.get(position).getIconName();
+        if (iconName != null) {
+            holder.ivIcon.setImageResource(Integer.parseInt(iconName));
+        } else {
+            holder.ivIcon.setImageResource(R.drawable.ic_gift);
+        }
 
         if (eventList.get(position).isEmailSent()) {
             holder.ivEmail.setVisibility(View.VISIBLE);
@@ -113,7 +125,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     //Saves selected event into SharedPreferences2
     private void saveSelectedEvent(int position) {
-        SharedPreferencesHelper sharedPreferencesHelper = new SharedPreferencesHelper(context);
+
         sharedPreferencesHelper.saveSelectedEvent(String.valueOf(eventList.get(position).getId()),eventList.get(position).getName(),
                 eventList.get(position).getPlace(), eventList.get(position).getDate(), eventList.get(position).getExpense(),
                 eventList.get(position).isAssignationDone(), eventList.get(position).isEmailSent());

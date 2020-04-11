@@ -15,6 +15,7 @@ public class Event {
     private String expense;
     private boolean isEmailSent;
     private boolean isAssignationDone;
+    private String iconName;
 
     @Ignore
     public Event(int id, String name, String place, String date, String expense, boolean isAssignationDone, boolean isEmailSent) {
@@ -25,19 +26,21 @@ public class Event {
         this.expense = expense;
         this.isAssignationDone = isAssignationDone;
         this.isEmailSent = isEmailSent;
+
     }
 
     public Event() {
     }
 
     @Ignore
-    public Event(String name, String place, String date, String expense, boolean isAssignationDone, boolean isEmailSent) {
+    public Event(String name, String place, String date, String expense, boolean isAssignationDone, boolean isEmailSent, String iconName) {
         this.name = name;
         this.place = place;
         this.date = date;
         this.expense = expense;
         this.isAssignationDone = isAssignationDone();
         this.isEmailSent = isEmailSent;
+        this.iconName = iconName;
     }
 
     public int getId() {
@@ -94,5 +97,13 @@ public class Event {
 
     public void isEmailSent(boolean emailSent) {
         this.isEmailSent = emailSent;
+    }
+
+    public String getIconName() {
+        return iconName;
+    }
+
+    public void setIconName(String iconName) {
+        this.iconName = iconName;
     }
 }

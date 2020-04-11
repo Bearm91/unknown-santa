@@ -30,7 +30,7 @@ public class CreateEventActivity extends AppCompatActivity{
     TextInputLayout tiDate;
     TextInputLayout tiExpense;
 
-    int avatarId;
+    int eventIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +47,8 @@ public class CreateEventActivity extends AppCompatActivity{
         tiDate = findViewById(R.id.ti_event_date);
         tiExpense = findViewById(R.id.ti_event_expense);
 
-        avatarId = getRandomAvatar();
-        ivIcon.setImageResource(avatarId);
+        eventIcon = getRandomAvatar();
+        ivIcon.setImageResource(eventIcon);
 
         Button saveBtn = findViewById(R.id.btn_save);
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +140,7 @@ public class CreateEventActivity extends AppCompatActivity{
             output.putExtra("place", place);
             output.putExtra("date", date);
             output.putExtra("expense", expense);
+            output.putExtra("icon", String.valueOf(eventIcon));
             setResult(RESULT_OK, output);
             finish();
         }
@@ -150,22 +151,27 @@ public class CreateEventActivity extends AppCompatActivity{
     private int getRandomAvatar() {
 
         Random random = new Random();
-        avatarId = random.nextInt(4);
+        eventIcon = random.nextInt(6);
 
-        switch (avatarId) {
+        switch (eventIcon) {
             case 1:
-                avatarId = R.drawable.ic_snow;
+                eventIcon = R.drawable.ic_snow;
                 break;
             case 2:
-                avatarId = R.drawable.ic_star;
+                eventIcon = R.drawable.ic_star;
                 break;
             case 3:
-                avatarId = R.drawable.ic_wreath;
+                eventIcon = R.drawable.ic_wreath;
                 break;
+            case 4:
+                eventIcon = R.drawable.ic_candy;
+                break;
+            case 5:
+                eventIcon = R.drawable.ic_cabin;
             default:
-                avatarId = R.drawable.ic_muffin;
+                eventIcon = R.drawable.ic_muffin;
         }
 
-        return avatarId;
+        return eventIcon;
     }
 }

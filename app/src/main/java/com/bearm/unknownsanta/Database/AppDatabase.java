@@ -14,7 +14,7 @@ import com.bearm.unknownsanta.DAO.ParticipantDao;
 import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.Model.Participant;
 
-@Database(entities = {Event.class, Participant.class}, version = 7, exportSchema = false)
+@Database(entities = {Event.class, Participant.class}, version = 8, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract EventDao eventDao();
@@ -37,6 +37,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             }
                         })
                         .addMigrations(MIGRATION_6_7)
+                        .addMigrations(MIGRATION_7_8)
                         .build();
             }
 
@@ -45,11 +46,19 @@ public abstract class AppDatabase extends RoomDatabase {
         return instance;
     }
 
-    static final Migration MIGRATION_6_7 = new Migration(6, 7) {
+    private static final Migration MIGRATION_6_7 = new Migration(6, 7) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE event "
                     + " ADD COLUMN isAssignationDone INTEGER DEFAULT 0 NOT NULL");
+        }
+    };
+
+    private static final Migration MIGRATION_7_8 = new Migration(7, 8) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE event "
+                    + " ADD COLUMN iconName TEXT");
         }
     };
 
