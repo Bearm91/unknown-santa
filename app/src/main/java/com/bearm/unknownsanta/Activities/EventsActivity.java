@@ -68,16 +68,6 @@ public class EventsActivity extends AppCompatActivity {
 
         eventData = this.getSharedPreferences("my_us_event", Context.MODE_PRIVATE);
 
-
-        recyclerView = findViewById(R.id.rv_events_list);
-        eventList = new ArrayList<>();
-        mEventAdapter = new EventAdapter(eventList, getApplicationContext());
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-
-        recyclerView.setAdapter(mEventAdapter);
-
         //ViewModel
         ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
@@ -102,6 +92,16 @@ public class EventsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        recyclerView = findViewById(R.id.rv_events_list);
+        eventList = new ArrayList<>();
+        mEventAdapter = new EventAdapter(eventList, eventViewModel, getApplicationContext());
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setAdapter(mEventAdapter);
+
     }
 
     //Saves selected event into SharedPreferences1

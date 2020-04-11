@@ -12,11 +12,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.R;
 import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
+import com.bearm.unknownsanta.ViewModels.EventViewModel;
 
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     private List<Event> eventList;
     private Context context;
     private int index;
+    private EventViewModel eventViewModel;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -32,6 +35,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         TextView tvDate;
         Button btnSelect;
         ImageView ivEmail;
+        ImageView ivDelete;
         LinearLayout layoutEventItem;
 
 
@@ -41,15 +45,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             tvDate = v.findViewById(R.id.tv_ev_date);
             btnSelect = v.findViewById(R.id.btn_select);
             ivEmail = v.findViewById(R.id.iv_email_sent);
+            ivDelete = v.findViewById(R.id.btn_event_delete);
             layoutEventItem = v.findViewById(R.id.cv_event);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public EventAdapter(List<Event> myDataset, Context myContext) {
-        eventList = myDataset;
-        context = myContext;
-        index = -1;
+    public EventAdapter(List<Event> myDataset, EventViewModel eViewModel, Context myContext) {
+        this.eventList = myDataset;
+        this.context = myContext;
+        this.index = -1;
+        this.eventViewModel = eViewModel;
 
     }
 
@@ -68,7 +74,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         holder.tvName.setText(eventList.get(position).getName());
         holder.tvDate.setText(eventList.get(position).getDate());
 
-        if(eventList.get(position).isEmailSent()){
+        if (eventList.get(position).isEmailSent()) {
             holder.ivEmail.setVisibility(View.VISIBLE);
         } else {
             holder.ivEmail.setVisibility(View.GONE);
@@ -83,12 +89,26 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             }
         });
 
+        holder.ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteEvent(eventList.get(position));
+                eventList.remove(eventList.get(position));
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, getItemCount());
+            }
+        });
+
         //Checks selected element to change its background color
         if (index == position) {
             holder.layoutEventItem.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
         } else {
             holder.layoutEventItem.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
         }
+    }
+
+    private void deleteEvent(Event event) {
+        eventViewModel.deleteEvent(event.getId());
     }
 
     //Saves selected event into SharedPreferences2
