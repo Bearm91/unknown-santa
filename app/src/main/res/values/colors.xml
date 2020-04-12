@@ -8,5 +8,7 @@
     <color name="colorSecondaryText">#757575</color>
     <color name="white_color">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
-    <color name="main_background">#000000</color>
+    <color name="main_background">#3a3b3a</color>
+    <color name="colorPrimaryOpacity">#E64CAF50</color>
+    <color name="item_background">#66212121</color>
 </resources>

@@ -1,8 +1,7 @@
 <resources xmlns:ns2="http://schemas.android.com/apk/res-auto">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -13,7 +12,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
 
     <style name="PopupOverlay" parent="Theme.MaterialComponents">
         <item name="android:backgroundTint">@color/colorAccent</item>
@@ -136,6 +135,17 @@
         <item name="backgroundTint">@color/white_color</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
+
+    <style name="myMainScreenButton" parent="@style/myMainButton">
+        <item name="android:textSize">22sp</item>
+        <item name="backgroundTint">@color/colorPrimaryOpacity</item>
+        <item name="android:textColor">@color/white_color</item>
+        <item name="android:outlineSpotShadowColor">@color/colorPrimaryText</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">@color/white_color</item>
+        <item name ="iconSize">28sp</item>
+        <item name="elevation">10dp</item>
+</style>
 
     <!--DatePicker-->
 
