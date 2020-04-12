@@ -331,7 +331,7 @@ public class MainActivity extends AppCompatActivity {
                         data.getStringExtra("date"),
                         data.getStringExtra("expense"),
                         false,
-                        false);
+                        false, data.getStringExtra("icon"));
 
                 eventViewModel.insert(newEvent);
 
