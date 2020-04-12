@@ -2,6 +2,8 @@ package com.bearm.unknownsanta.Adapters;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,8 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bearm.unknownsanta.Activities.CreateEventActivity;
+import com.bearm.unknownsanta.MainActivity;
 import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.R;
 import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
@@ -96,8 +100,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 saveSelectedEvent(position);
-                index = position;
-                notifyDataSetChanged();
+                goToSelectedEvent(position);
+
             }
         });
 
@@ -106,17 +110,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             public void onClick(View v) {
                 deleteEvent(eventList.get(position));
                 eventList.remove(eventList.get(position));
-                notifyItemRemoved(position);
                 notifyItemRangeChanged(position, getItemCount());
             }
         });
 
-        //Checks selected element to change its background color
-        if (index == position) {
-            holder.layoutEventItem.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
-        } else {
-            holder.layoutEventItem.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
-        }
     }
 
     private void deleteEvent(Event event) {
@@ -124,11 +121,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     }
 
     //Saves selected event into SharedPreferences2
+    //TODO fix this
     private void saveSelectedEvent(int position) {
-
-        sharedPreferencesHelper.saveSelectedEvent(String.valueOf(eventList.get(position).getId()),eventList.get(position).getName(),
+        SharedPreferencesHelper.saveSelectedEvent(String.valueOf(eventList.get(position).getId()),eventList.get(position).getName(),
                 eventList.get(position).getPlace(), eventList.get(position).getDate(), eventList.get(position).getExpense(),
                 eventList.get(position).isAssignationDone(), eventList.get(position).isEmailSent());
+        SharedPreferencesHelper.setSelectedEventAsCurrent();
+    }
+
+    private void goToSelectedEvent(int position) {
+        Intent eventInfo = new Intent(context, MainActivity.class);
+        eventInfo.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(eventInfo);
     }
 
     @Override

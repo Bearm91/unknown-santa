@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,7 +22,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.Activities.AddParticipantActivity;
-import com.bearm.unknownsanta.Activities.CreateEventActivity;
 import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
 import com.bearm.unknownsanta.eMailSender.EmailCreator;
 import com.bearm.unknownsanta.Activities.EventsActivity;
@@ -34,7 +32,6 @@ import com.bearm.unknownsanta.ViewModels.EventViewModel;
 import com.bearm.unknownsanta.Model.Participant;
 import com.bearm.unknownsanta.ViewModels.ParticipantViewModel;
 import com.bearm.unknownsanta.eMailSender.GMailSender;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,14 +41,11 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int REQUEST_CODE_CREATEVENT = 1;
+
     private static final int REQUEST_CODE_ADDPARTICIPANT = 2;
     private static final int REQUEST_CODE_SELECTEVENT = 3;
 
-    Button btnNewEvent;
-    Button btnSelectEvent;
     ImageView btnAddParticipant;
-    LinearLayout lyNoEvent;
     LinearLayout lyEventInfo;
     LinearLayout lyParticipantInfo;
     TextView tvEventName;
@@ -60,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvEventExpense;
     TextView tvEventTitle;
     ImageView ivEmail;
-    FloatingActionButton fabsendEmail;
+
 
     RecyclerView recyclerView;
     ParticipantAdapter mParticipantAdapter;
@@ -79,38 +73,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         lyParticipantInfo = findViewById(R.id.layout_participant_data);
         lyEventInfo = findViewById(R.id.layout_event_data);
-        lyNoEvent = findViewById(R.id.layout_no_event);
 
-        tvEventTitle = findViewById(R.id.tv_event_title);
         tvEventName = findViewById(R.id.tv_event_name);
         tvEventPlace = findViewById(R.id.tv_event_place);
         tvEventDate = findViewById(R.id.tv_event_date);
         tvEventExpense = findViewById(R.id.tv_event_money);
         ivEmail = findViewById(R.id.iv_email);
-
-        btnNewEvent = findViewById(R.id.btn_new_event);
-        //Opens CreateEventActivity activity
-        btnNewEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("New event", "CREATE");
-                Intent eventForm;
-                eventForm = new Intent(v.getContext(), CreateEventActivity.class);
-                startActivityForResult(eventForm, REQUEST_CODE_CREATEVENT);
-            }
-        });
-
-        btnSelectEvent = findViewById(R.id.btn_select_event);
-        //Opens EventsActivity activity
-        btnSelectEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSelectEvent(v);
-            }
-        });
 
         btnAddParticipant = findViewById(R.id.btn_add);
         //Opens AddParticipantActivity activity
@@ -123,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        fabsendEmail = findViewById(R.id.fab);
+        /*fabsendEmail = findViewById(R.id.fab);
         fabsendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-        });
+        });*/
 
         //SharedPreferences Helper init
         sharedPreferencesHelper = new SharedPreferencesHelper(this);
@@ -322,22 +295,7 @@ public class MainActivity extends AppCompatActivity {
         // Check which request it is that we're responding to
         super.onActivityResult(requestCode, resultCode, data);
 
-        //CREATE EVENT IN DATABASE
-        if (requestCode == REQUEST_CODE_CREATEVENT) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                Event newEvent = new Event(data.getStringExtra("name"),
-                        data.getStringExtra("place"),
-                        data.getStringExtra("date"),
-                        data.getStringExtra("expense"),
-                        false,
-                        false, data.getStringExtra("icon"));
 
-                eventViewModel.insert(newEvent);
-
-                Toast.makeText(getApplicationContext(), data.getStringExtra("name") + " was created correctly.", Toast.LENGTH_LONG).show();
-            }
-        }
 
         //ADD PARTICIPANT TO DATABASE
         if (requestCode == REQUEST_CODE_ADDPARTICIPANT) {
@@ -375,22 +333,7 @@ public class MainActivity extends AppCompatActivity {
             tvEventPlace.setText(SharedPreferencesHelper.getCurrentEventPlace());
             tvEventDate.setText(SharedPreferencesHelper.getCurrentEventDate());
             tvEventExpense.setText(SharedPreferencesHelper.getCurrentEventExpense());
-
-            //Hide and display elements in the layout when an event is selected
-            lyNoEvent.setVisibility(View.GONE);
-            lyEventInfo.setVisibility(View.VISIBLE);
-            lyParticipantInfo.setVisibility(View.VISIBLE);
-            tvEventTitle.setVisibility(View.GONE);
-            fabsendEmail.setVisibility(View.VISIBLE);
-
             updateEmailStatus(SharedPreferencesHelper.getCurrentEventEmailStatus(), false);
-        } else {
-            //Hide and display elements in the layout when no event is selected
-            lyNoEvent.setVisibility(View.VISIBLE);
-            lyEventInfo.setVisibility(View.GONE);
-            lyParticipantInfo.setVisibility(View.INVISIBLE);
-            tvEventTitle.setVisibility(View.VISIBLE);
-            fabsendEmail.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -405,7 +348,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_info, menu);
         return true;
     }
 
@@ -416,13 +359,13 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-         //Closes selected event
+       /*  //Closes selected event
         if (id == R.id.action_home) {
             closeCurrentEvent();
             loadEventInfo();
             return true;
         }
-
+*/
         //Assigns secret santas to the participants of the event
         if (id == R.id.action_shuffle_participants) {
             if (participantList.size() > 2) {

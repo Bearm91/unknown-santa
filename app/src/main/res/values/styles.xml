@@ -47,7 +47,7 @@
     </style>
 
     <style name="myMainText" parent="">
-        <item name="android:textColor">@color/white_color</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
     <style name="myMessageText" parent="">
