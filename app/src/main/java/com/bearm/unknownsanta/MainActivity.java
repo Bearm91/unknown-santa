@@ -416,18 +416,8 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //Deletes selected event from database
-        if (id == R.id.action_delete_event) {
-            if (sharedPreferencesHelper.getCurrentEventId() != null) {
-                eventViewModel.deleteEvent(Integer.parseInt(sharedPreferencesHelper.getCurrentEventId()));
-                closeCurrentEvent();
-                loadEventInfo();
-            }
-            return true;
-        }
-
-        //Closes selected event
-        if (id == R.id.action_close_event) {
+         //Closes selected event
+        if (id == R.id.action_home) {
             closeCurrentEvent();
             loadEventInfo();
             return true;
