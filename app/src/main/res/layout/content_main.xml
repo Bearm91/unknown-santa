@@ -17,12 +17,20 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp">
 
-        <LinearLayout
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_main_item">
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/colorPrimaryLight">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_christmas_tree"
+                android:layout_gravity="end"
+                android:layout_marginEnd="2dp"
+                />
 
             <LinearLayout
                 android:id="@+id/layout_event_data"
@@ -43,8 +51,7 @@
                         style="@style/myEventTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Christmas 2019"
-                        />
+                        android:text="Christmas 2019" />
 
                     <ImageView
                         android:id="@+id/iv_email"
@@ -52,7 +59,7 @@
                         android:layout_height="40dp"
                         android:layout_marginLeft="12dp"
                         android:src="@drawable/ic_email_24dp"
-                        android:visibility="invisible" />
+                        android:visibility="visible" />
 
                 </LinearLayout>
 
@@ -103,7 +110,7 @@
                         style="@style/myMainSubTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="My house" />
+                        android:text="My house near the beach in Malaga" />
 
                 </LinearLayout>
 
@@ -132,47 +139,49 @@
 
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-        <LinearLayout
-            android:id="@+id/layout_participant_data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_main_item">
 
             <LinearLayout
+                android:id="@+id/layout_participant_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="2dp">
+                android:orientation="vertical"
+                android:layout_margin="@dimen/padding_main_item">
 
-                <TextView
-                    style="@style/myMainTitle"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/MainParticipantTitle" />
+                    android:orientation="horizontal"
+                    android:paddingLeft="6dp"
+                    android:paddingBottom="4dp"
+                  >
 
-                <ImageView
-                    android:id="@+id/btn_add"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:src="@drawable/ic_greenplus" />
+                    <TextView
+                        style="@style/myMainTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/MainParticipantTitle" />
+
+                    <ImageView
+                        android:id="@+id/btn_add"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:src="@drawable/ic_greenplus" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_participants_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_recyclerview_participantlist">
+
+
+                </androidx.recyclerview.widget.RecyclerView>
 
             </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_participants_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top_recyclerview_participantlist">
-
-
-            </androidx.recyclerview.widget.RecyclerView>
-
-        </LinearLayout>
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
