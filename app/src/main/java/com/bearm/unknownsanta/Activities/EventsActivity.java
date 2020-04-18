@@ -115,12 +115,14 @@ public class EventsActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.rv_events_list);
         eventList = new ArrayList<>();
-        mEventAdapter = new EventAdapter(eventList, eventViewModel, getApplicationContext());
+        mEventAdapter = new EventAdapter(eventList, eventViewModel, this);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setAdapter(mEventAdapter);
+
+
 
     }
 

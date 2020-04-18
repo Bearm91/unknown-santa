@@ -2,6 +2,7 @@ package com.bearm.unknownsanta.Adapters;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -13,11 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.Activities.CreateEventActivity;
+import com.bearm.unknownsanta.Activities.EventsActivity;
 import com.bearm.unknownsanta.MainActivity;
 import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.R;
@@ -108,9 +112,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         holder.ivDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteEvent(eventList.get(position));
-                eventList.remove(eventList.get(position));
-                notifyItemRangeChanged(position, getItemCount());
+                showAlertDialogConfirmation(position);
             }
         });
 
@@ -143,6 +145,29 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     public void setEvents(List<Event> events) {
         this.eventList = events;
         notifyDataSetChanged();
+    }
+
+    //Asks for confirmation before deleting the event
+    private void showAlertDialogConfirmation(final int pos){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirmation")
+                .setMessage("Are you sure you want to delete this event?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteEvent(eventList.get(pos));
+                        eventList.remove(eventList.get(pos));
+                        notifyItemRangeChanged(pos, getItemCount());
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.show();
     }
 
 }
