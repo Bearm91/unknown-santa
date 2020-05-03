@@ -43,7 +43,6 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_ADDPARTICIPANT = 2;
-    private static final int REQUEST_CODE_SELECTEVENT = 3;
 
     ImageView btnAddParticipant;
     LinearLayout lyEventInfo;
@@ -251,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateEmailStatus(boolean success, boolean inform) {
         if (success) {
             ivEmail.setVisibility(View.VISIBLE);
+            SharedPreferencesHelper.updateCurrentEventEmailStatus(true);
             if(inform){
                 Toast.makeText(getApplicationContext(), "An email has been sent to all participants.", Toast.LENGTH_LONG).show();
             }
@@ -263,23 +263,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void openSelectEvent(View v) {
-        Log.e("Select event", "SELECT");
-        Intent eventSelection;
-        if (v != null) {
-            eventSelection = new Intent(v.getContext(), EventsActivity.class);
-        } else {
-            eventSelection = new Intent(getApplicationContext(), EventsActivity.class);
-        }
-        startActivityForResult(eventSelection, REQUEST_CODE_SELECTEVENT);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request it is that we're responding to
         super.onActivityResult(requestCode, resultCode, data);
-
-
 
         //ADD PARTICIPANT TO DATABASE
         if (requestCode == REQUEST_CODE_ADDPARTICIPANT) {
@@ -298,14 +286,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //SELECT EVENT AND SHOW ITS INFO IN HOME SCREEN
-        if (requestCode == REQUEST_CODE_SELECTEVENT) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                loadEventInfo();
-                participantViewModel.setFilter(SharedPreferencesHelper.getCurrentEventId());
-            }
-        }
     }
 
     //Adds info about the selected event to Home screen
@@ -319,13 +299,7 @@ public class MainActivity extends AppCompatActivity {
             updateEmailStatus(SharedPreferencesHelper.getCurrentEventEmailStatus(), false);
         }
 
-    }
 
-    //Deletes info about selected event from SharedPreferences so there is no event marked as selected
-    public void closeCurrentEvent() {
-        SharedPreferencesHelper.clearCurrentEvent();
-        participantList.clear();
-        mParticipantAdapter.setParticipants(participantList);
     }
 
     @Override

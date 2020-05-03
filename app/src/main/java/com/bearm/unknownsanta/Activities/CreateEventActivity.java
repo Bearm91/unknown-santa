@@ -79,7 +79,7 @@ public class CreateEventActivity extends AppCompatActivity{
     private void showDatePickerDialog() {
         final Calendar c = Calendar.getInstance();
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.datepicker, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.myAlertDialogs, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String day;
