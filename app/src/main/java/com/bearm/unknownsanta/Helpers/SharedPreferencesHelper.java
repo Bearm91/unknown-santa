@@ -26,28 +26,15 @@ public class SharedPreferencesHelper {
         return new Event(Integer.parseInt(id), name, place, date, expense, isDone, isSent);
     }
 
-    public static void setSelectedEventAsCurrent(){
+    public static void setSelectedEventAsCurrent(String id, String name, String place, String date, String expense, boolean assigned, boolean sent){
         SharedPreferences.Editor editor = selectedEventData.edit();
-        editor.putString("eventId", selectedEventData.getString("eventId2", null));
-        editor.putString("eventName", selectedEventData.getString("eventName2", null));
-        editor.putString("eventPlace", selectedEventData.getString("eventPlace2", null));
-        editor.putString("eventDate", selectedEventData.getString("eventDate2", null));
-        editor.putString("eventExpense", selectedEventData.getString("eventExpense2", null));
-        editor.putBoolean("eventIsAssignationDone", selectedEventData.getBoolean("eventIsAssignationDone2", false));
-        editor.putBoolean("eventIsEmailSent", selectedEventData.getBoolean("eventIsEmailSent2", false));
-
-        editor.apply();
-    }
-
-    public static void saveSelectedEvent(String id, String name, String place, String date, String expense, boolean assigned, boolean sent){
-        SharedPreferences.Editor editor = selectedEventData.edit();
-        editor.putString("eventId2", id);
-        editor.putString("eventName2", name);
-        editor.putString("eventPlace2", place);
-        editor.putString("eventDate2", date);
-        editor.putString("eventExpense2",expense);
-        editor.putBoolean("eventIsAssignationDone2", assigned);
-        editor.putBoolean("eventIsEmailSent2", sent);
+        editor.putString("eventId", id);
+        editor.putString("eventName", name);
+        editor.putString("eventPlace", place);
+        editor.putString("eventDate", date);
+        editor.putString("eventExpense",expense);
+        editor.putBoolean("eventIsAssignationDone", assigned);
+        editor.putBoolean("eventIsEmailSent", sent);
 
         editor.apply();
     }
@@ -57,6 +44,7 @@ public class SharedPreferencesHelper {
         return currentEventData.getString("eventId", "0");
     }
 
+    //Reads eventName of selected event from SharedPreferences
     public static String getCurrentEventName(){
         return currentEventData.getString("eventName", null);
     }

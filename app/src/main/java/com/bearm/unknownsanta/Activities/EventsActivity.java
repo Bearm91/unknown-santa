@@ -1,15 +1,12 @@
 package com.bearm.unknownsanta.Activities;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bearm.unknownsanta.Adapters.EventAdapter;
 import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.R;
-import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
 import com.bearm.unknownsanta.ViewModels.EventViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -36,11 +32,10 @@ public class EventsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     EventAdapter mEventAdapter;
     List<Event> eventList;
-    FloatingActionButton fabsendEmail;
+    FloatingActionButton fabCreateEvent;
     private static final int REQUEST_CODE_CREATEVENT = 1;
 
     EventViewModel eventViewModel;
-    SharedPreferences eventData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +45,8 @@ public class EventsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         final TextView tvNoData = findViewById(R.id.no_data_message);
-        fabsendEmail = findViewById(R.id.fab);
-        fabsendEmail.setOnClickListener(new View.OnClickListener() {
+        fabCreateEvent = findViewById(R.id.fab);
+        fabCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("New event", "CREATE");
@@ -60,33 +55,6 @@ public class EventsActivity extends AppCompatActivity {
                 startActivityForResult(eventForm, REQUEST_CODE_CREATEVENT);
             }
         });
-
-        //Sends a signal to MainActivity to change displayed info about selected event
-        /*final Button selectBtn = findViewById(R.id.btn_select_event);
-        selectBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String eventId2 = eventData.getString("eventId2", null);
-                if (eventId2 != null) {
-                    saveSelectedEvent();
-                }
-                Intent output = new Intent();
-                output.putExtra("load", "LOAD");
-                setResult(RESULT_OK, output);
-                finish();
-            }
-        });
-
-        //Closes activity
-        final Button cancelBtn = findViewById(R.id.btn_cancel_event);
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });*/
-
-        eventData = this.getSharedPreferences("my_us_event", Context.MODE_PRIVATE);
 
         //ViewModel
         ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
@@ -99,14 +67,9 @@ public class EventsActivity extends AppCompatActivity {
                 if (events.isEmpty()) {
                     tvNoData.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
-                    //selectBtn.setVisibility(View.GONE);
-                    //cancelBtn.setVisibility(View.VISIBLE);
-
                 } else {
                     tvNoData.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.VISIBLE);
-                    //selectBtn.setVisibility(View.VISIBLE);
-                    //cancelBtn.setVisibility(View.VISIBLE);
 
                     mEventAdapter.setEvents(events);
                 }
@@ -124,12 +87,6 @@ public class EventsActivity extends AppCompatActivity {
 
 
 
-    }
-
-    //Saves selected event into SharedPreferences1
-    private void saveSelectedEvent() {
-        SharedPreferencesHelper sharedPreferencesHelper = new SharedPreferencesHelper(this);
-        sharedPreferencesHelper.setSelectedEventAsCurrent();
     }
 
     @Override

@@ -33,7 +33,6 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
         ImageView btnDelete;
         ImageView ivCheck;
 
-
         MyViewHolder(@NonNull View v) {
             super(v);
             tvName = v.findViewById(R.id.tv_part_name);
@@ -42,24 +41,19 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
             ivAvatar = v.findViewById(R.id.iv_rndm_avatar);
             ivCheck = v.findViewById(R.id.ic_assigned);
             btnDelete = v.findViewById(R.id.btn_delete);
-
-
         }
-
     }
 
     public ParticipantAdapter(List<Participant> myDataset, ParticipantViewModel participantViewModel, Context context) {
         this.participantList = myDataset;
         this.context = context;
         this.participantViewModel = participantViewModel;
-
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        // create a new view
+        //Creating a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.participant_list_item, parent, false);
 

@@ -15,13 +15,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.view.ContextThemeWrapper;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bearm.unknownsanta.Activities.CreateEventActivity;
-import com.bearm.unknownsanta.Activities.EventsActivity;
+import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
 import com.bearm.unknownsanta.MainActivity;
 import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.R;
@@ -34,7 +30,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     private List<Event> eventList;
     private Context context;
-    private int index;
     private EventViewModel eventViewModel;
     SharedPreferencesHelper sharedPreferencesHelper;
 
@@ -67,7 +62,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     public EventAdapter(List<Event> myDataset, EventViewModel eViewModel, Context myContext) {
         this.eventList = myDataset;
         this.context = myContext;
-        this.index = -1;
         this.eventViewModel = eViewModel;
 
     }
@@ -104,7 +98,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 saveSelectedEvent(position);
-                goToSelectedEvent(position);
+                goToSelectedEvent();
 
             }
         });
@@ -125,13 +119,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     //Saves selected event into SharedPreferences2
     //TODO fix this
     private void saveSelectedEvent(int position) {
-        SharedPreferencesHelper.saveSelectedEvent(String.valueOf(eventList.get(position).getId()),eventList.get(position).getName(),
+        SharedPreferencesHelper.setSelectedEventAsCurrent(String.valueOf(eventList.get(position).getId()),eventList.get(position).getName(),
                 eventList.get(position).getPlace(), eventList.get(position).getDate(), eventList.get(position).getExpense(),
                 eventList.get(position).isAssignationDone(), eventList.get(position).isEmailSent());
-        SharedPreferencesHelper.setSelectedEventAsCurrent();
     }
 
-    private void goToSelectedEvent(int position) {
+    private void goToSelectedEvent() {
         Intent eventInfo = new Intent(context, MainActivity.class);
         eventInfo.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(eventInfo);
