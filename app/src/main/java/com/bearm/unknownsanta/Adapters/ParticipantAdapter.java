@@ -1,5 +1,7 @@
 package com.bearm.unknownsanta.Adapters;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.Model.Participant;
@@ -18,7 +22,7 @@ import java.util.List;
 public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.MyViewHolder> {
 
     private List<Participant> participantList;
-
+    private Context context;
     private ParticipantViewModel participantViewModel;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -44,9 +48,9 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
 
     }
 
-    public ParticipantAdapter(List<Participant> myDataset, ParticipantViewModel participantViewModel) {
+    public ParticipantAdapter(List<Participant> myDataset, ParticipantViewModel participantViewModel, Context context) {
         this.participantList = myDataset;
-
+        this.context = context;
         this.participantViewModel = participantViewModel;
 
     }
@@ -84,8 +88,7 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteParticipant(participantList.get(position));
-                participantList.remove(participantList.get(position));
+                showAlertDialogConfirmation(position);
             }
         });
     }
@@ -106,4 +109,25 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
         participantViewModel.delete(participant);
     }
 
+    //Asks for confirmation before deleting the participant
+    private void showAlertDialogConfirmation(final int pos){
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.myAlertDialogs));
+        builder.setTitle("Confirmation")
+                .setMessage("Are you sure you want to delete this participant?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteParticipant(participantList.get(pos));
+                        participantList.remove(participantList.get(pos));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.show();
+    }
 }

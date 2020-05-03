@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
         participantViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(ParticipantViewModel.class);
 
-        mParticipantAdapter = new ParticipantAdapter(participantList, participantViewModel);
+        mParticipantAdapter = new ParticipantAdapter(participantList, participantViewModel,this);
         recyclerView.setAdapter(mParticipantAdapter);
 
         participantObserver = new Observer<List<Participant>>() {
