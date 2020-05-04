@@ -15,7 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bearm.unknownsanta.R;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 
@@ -97,7 +101,14 @@ public class CreateEventActivity extends AppCompatActivity{
                     day = String.valueOf(dayOfMonth);
                 }
                 month = month + 1;
-                eventDate.setText(day +"/"+ month +"/"+ year);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = null;
+                try {
+                    date = sdf.parse(day + "/" + month + "/" + year);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                eventDate.setText(DateFormat.getDateInstance(DateFormat.MEDIUM).format(date));
             }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 
