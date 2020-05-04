@@ -1,8 +1,8 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="margin_top_main">30dp</dimen>
-    <dimen name="margin_bottom_main">50dp</dimen>
-    <dimen name="padding_main_item">18dp</dimen>
+    <dimen name="margin_top_main">20dp</dimen>
+    <dimen name="margin_bottom_main">60dp</dimen>
+    <dimen name="padding_main_item">10dp</dimen>
     <dimen name="padding_form">30dp</dimen>
     <dimen name="padding_bottom_form_title">12dp</dimen>
     <dimen name="padding_participant_avatar">20dp</dimen>
@@ -18,7 +18,7 @@
     <dimen name="padding_list_item_data">8dp</dimen>
     <dimen name="padding_main_buttons">8dp</dimen>
     <dimen name="width_space">8dp</dimen>
-    <dimen name="padding_eventinfo_layout">6dp</dimen>
+    <dimen name="padding_eventinfo_layout">16dp</dimen>
     <dimen name="padding_bottom_event_title">4dp</dimen>
     <dimen name="height_space">0dp</dimen>
     <dimen name="margin_top_recyclerview_participantlist">4dp</dimen>

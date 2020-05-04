@@ -3,22 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.bearm.unknownsanta.MainActivity">
 
-    <item
-        android:id="@+id/action_home"
-        android:orderInCategory="100"
-        android:title="@string/Home"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_home"/>
-
-       <item
+     <item
         android:id="@+id/action_shuffle_participants"
         android:orderInCategory="100"
         android:title="@string/menu_shuffle_participants"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom"
+           android:icon="@drawable/ic_shuffle_black"/>
 
     <item
-        android:id="@+id/action_about"
+        android:id="@+id/action_sendEmail"
         android:orderInCategory="100"
         android:title="@string/menu_about_unknownsanta"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/email_send_outline"/>
 </menu>

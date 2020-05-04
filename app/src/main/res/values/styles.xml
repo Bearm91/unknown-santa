@@ -47,7 +47,7 @@
     </style>
 
     <style name="myMainText" parent="">
-        <item name="android:textColor">@color/white_color</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
     <style name="myMessageText" parent="">
@@ -70,7 +70,7 @@
 
     <style name="myEventTitle" parent="">
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">28sp</item>
         <item name="android:textAlignment">textStart</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -149,7 +149,7 @@
 
     <!--DatePicker-->
 
-    <style name="datepicker" parent="Theme.AppCompat.DayNight.Dialog">
+    <style name="myAlertDialogs" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>

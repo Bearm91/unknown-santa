@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,7 +22,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.Activities.AddParticipantActivity;
-import com.bearm.unknownsanta.Activities.CreateEventActivity;
 import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
 import com.bearm.unknownsanta.eMailSender.EmailCreator;
 import com.bearm.unknownsanta.Activities.EventsActivity;
@@ -44,24 +42,19 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int REQUEST_CODE_CREATEVENT = 1;
     private static final int REQUEST_CODE_ADDPARTICIPANT = 2;
-    private static final int REQUEST_CODE_SELECTEVENT = 3;
 
-    Button btnNewEvent;
-    Button btnSelectEvent;
     ImageView btnAddParticipant;
-    LinearLayout lyNoEvent;
     LinearLayout lyEventInfo;
     LinearLayout lyParticipantInfo;
     TextView tvEventName;
     TextView tvEventPlace;
     TextView tvEventDate;
     TextView tvEventExpense;
-    TextView tvEventTitle;
     ImageView ivEmail;
-    FloatingActionButton fabsendEmail;
+    ImageView ivEventIcon;
 
+    FloatingActionButton fabEditEvent;
     RecyclerView recyclerView;
     ParticipantAdapter mParticipantAdapter;
     List<Participant> participantList;
@@ -79,38 +72,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         lyParticipantInfo = findViewById(R.id.layout_participant_data);
         lyEventInfo = findViewById(R.id.layout_event_data);
-        lyNoEvent = findViewById(R.id.layout_no_event);
 
-        tvEventTitle = findViewById(R.id.tv_event_title);
         tvEventName = findViewById(R.id.tv_event_name);
         tvEventPlace = findViewById(R.id.tv_event_place);
         tvEventDate = findViewById(R.id.tv_event_date);
         tvEventExpense = findViewById(R.id.tv_event_money);
         ivEmail = findViewById(R.id.iv_email);
-
-        btnNewEvent = findViewById(R.id.btn_new_event);
-        //Opens CreateEventActivity activity
-        btnNewEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("New event", "CREATE");
-                Intent eventForm;
-                eventForm = new Intent(v.getContext(), CreateEventActivity.class);
-                startActivityForResult(eventForm, REQUEST_CODE_CREATEVENT);
-            }
-        });
-
-        btnSelectEvent = findViewById(R.id.btn_select_event);
-        //Opens EventsActivity activity
-        btnSelectEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSelectEvent(v);
-            }
-        });
+        ivEventIcon = findViewById(R.id.iv_event_icon);
 
         btnAddParticipant = findViewById(R.id.btn_add);
         //Opens AddParticipantActivity activity
@@ -123,29 +96,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        fabsendEmail = findViewById(R.id.fab);
-        fabsendEmail.setOnClickListener(new View.OnClickListener() {
+        /*fabEditEvent = findViewById(R.id.fab);
+        fabEditEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Integer.parseInt(SharedPreferencesHelper.getCurrentEventId()) > 0) {
-                    if (!SharedPreferencesHelper.getCurrentEvent().isEmailSent()) {
-                        if (participantList.size() > 2) {
-                            if (SharedPreferencesHelper.getCurrentEventAssignationStatus()) {
-                                sendEmails();
-                            } else {
-                                Toast.makeText(getApplicationContext(), "The assignation has not been made yet.", Toast.LENGTH_LONG).show();
-                            }
-                        } else {
-                            Toast.makeText(getApplicationContext(), "There are not enough participants in this event.", Toast.LENGTH_LONG).show();
-                        }
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "The emails for this event have already been sent.", Toast.LENGTH_LONG).show();
-
-                    }
-                }
+                //TODO
             }
-        });
+
+        });*/
 
         //SharedPreferences Helper init
         sharedPreferencesHelper = new SharedPreferencesHelper(this);
@@ -163,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
         participantViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(ParticipantViewModel.class);
 
-        mParticipantAdapter = new ParticipantAdapter(participantList, participantViewModel);
+        mParticipantAdapter = new ParticipantAdapter(participantList, participantViewModel,this);
         recyclerView.setAdapter(mParticipantAdapter);
 
         participantObserver = new Observer<List<Participant>>() {
@@ -294,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateEmailStatus(boolean success, boolean inform) {
         if (success) {
             ivEmail.setVisibility(View.VISIBLE);
+            SharedPreferencesHelper.updateCurrentEventEmailStatus(true);
             if(inform){
                 Toast.makeText(getApplicationContext(), "An email has been sent to all participants.", Toast.LENGTH_LONG).show();
             }
@@ -306,38 +265,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void openSelectEvent(View v) {
-        Log.e("Select event", "SELECT");
-        Intent eventSelection;
-        if (v != null) {
-            eventSelection = new Intent(v.getContext(), EventsActivity.class);
-        } else {
-            eventSelection = new Intent(getApplicationContext(), EventsActivity.class);
-        }
-        startActivityForResult(eventSelection, REQUEST_CODE_SELECTEVENT);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request it is that we're responding to
         super.onActivityResult(requestCode, resultCode, data);
-
-        //CREATE EVENT IN DATABASE
-        if (requestCode == REQUEST_CODE_CREATEVENT) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                Event newEvent = new Event(data.getStringExtra("name"),
-                        data.getStringExtra("place"),
-                        data.getStringExtra("date"),
-                        data.getStringExtra("expense"),
-                        false,
-                        false, data.getStringExtra("icon"));
-
-                eventViewModel.insert(newEvent);
-
-                Toast.makeText(getApplicationContext(), data.getStringExtra("name") + " was created correctly.", Toast.LENGTH_LONG).show();
-            }
-        }
 
         //ADD PARTICIPANT TO DATABASE
         if (requestCode == REQUEST_CODE_ADDPARTICIPANT) {
@@ -356,15 +288,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //SELECT EVENT AND SHOW ITS INFO IN HOME SCREEN
-        if (requestCode == REQUEST_CODE_SELECTEVENT) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                loadEventInfo();
-                participantViewModel.setFilter(SharedPreferencesHelper.getCurrentEventId());
-
-            }
-        }
     }
 
     //Adds info about the selected event to Home screen
@@ -375,37 +298,26 @@ public class MainActivity extends AppCompatActivity {
             tvEventPlace.setText(SharedPreferencesHelper.getCurrentEventPlace());
             tvEventDate.setText(SharedPreferencesHelper.getCurrentEventDate());
             tvEventExpense.setText(SharedPreferencesHelper.getCurrentEventExpense());
-
-            //Hide and display elements in the layout when an event is selected
-            lyNoEvent.setVisibility(View.GONE);
-            lyEventInfo.setVisibility(View.VISIBLE);
-            lyParticipantInfo.setVisibility(View.VISIBLE);
-            tvEventTitle.setVisibility(View.GONE);
-            fabsendEmail.setVisibility(View.VISIBLE);
-
             updateEmailStatus(SharedPreferencesHelper.getCurrentEventEmailStatus(), false);
-        } else {
-            //Hide and display elements in the layout when no event is selected
-            lyNoEvent.setVisibility(View.VISIBLE);
-            lyEventInfo.setVisibility(View.GONE);
-            lyParticipantInfo.setVisibility(View.INVISIBLE);
-            tvEventTitle.setVisibility(View.VISIBLE);
-            fabsendEmail.setVisibility(View.INVISIBLE);
+
+            String iconName = SharedPreferencesHelper.getCurrentEventIconName();
+            Log.e("ICON_NAME", iconName);
+            if (!iconName.equals("")) {
+                int resourceIdImage = this.getResources().getIdentifier(iconName, "drawable",
+                        this.getPackageName());
+                ivEventIcon.setImageResource(resourceIdImage);
+            } else {
+                ivEventIcon.setImageResource(R.drawable.ic_christmas_tree);
+            }
         }
 
-    }
 
-    //Deletes info about selected event from SharedPreferences so there is no event marked as selected
-    public void closeCurrentEvent() {
-        SharedPreferencesHelper.clearCurrentEvent();
-        participantList.clear();
-        mParticipantAdapter.setParticipants(participantList);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_info, menu);
         return true;
     }
 
@@ -415,13 +327,6 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-         //Closes selected event
-        if (id == R.id.action_home) {
-            closeCurrentEvent();
-            loadEventInfo();
-            return true;
-        }
 
         //Assigns secret santas to the participants of the event
         if (id == R.id.action_shuffle_participants) {

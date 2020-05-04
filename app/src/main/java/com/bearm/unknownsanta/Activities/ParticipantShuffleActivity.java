@@ -27,7 +27,7 @@ public class ParticipantShuffleActivity extends AppCompatActivity {
 
     public void shuffleList() {
         int loops = 1;
-        Log.e("ORIGINAL_LIST", "List before shuffle: " + participants.toString());
+        //Log.e("ORIGINAL_LIST", "List before shuffle: " + participants.toString());
         Collections.shuffle(participants);
 
         for (int i = 1; i <= participants.size(); i++) {
@@ -45,12 +45,12 @@ public class ParticipantShuffleActivity extends AppCompatActivity {
     public void assignGivers() {
         for (int i = 0; i < participants.size(); i++) {
             originalList.get(i).setIdReceiver(participants.get(i).getId());
-            Log.e("Participant", String.valueOf(originalList.get(i).getId()));
-            Log.e("gets this receiver", String.valueOf(participants.get(i).getId()));
+            //Log.e("Participant", String.valueOf(originalList.get(i).getId()));
+            //Log.e("gets this receiver", String.valueOf(participants.get(i).getId()));
         }
         participantViewModel.update(originalList);
 
-        Toast.makeText(context, "Yay! The association was completed successfully!", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Yay! The association is made!", Toast.LENGTH_LONG).show();
 
     }
 

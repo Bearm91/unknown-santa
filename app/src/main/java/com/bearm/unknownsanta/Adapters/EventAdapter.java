@@ -2,6 +2,9 @@ package com.bearm.unknownsanta.Adapters;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
+import com.bearm.unknownsanta.MainActivity;
 import com.bearm.unknownsanta.Model.Event;
 import com.bearm.unknownsanta.R;
 import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
@@ -26,7 +30,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     private List<Event> eventList;
     private Context context;
-    private int index;
     private EventViewModel eventViewModel;
     SharedPreferencesHelper sharedPreferencesHelper;
 
@@ -59,7 +62,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     public EventAdapter(List<Event> myDataset, EventViewModel eViewModel, Context myContext) {
         this.eventList = myDataset;
         this.context = myContext;
-        this.index = -1;
         this.eventViewModel = eViewModel;
 
     }
@@ -81,9 +83,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
         String iconName = eventList.get(position).getIconName();
         if (iconName != null) {
-            holder.ivIcon.setImageResource(Integer.parseInt(iconName));
+            int resourceIdImage = context.getResources().getIdentifier(iconName, "drawable",
+                    context.getPackageName());
+            //use this id to set the image anywhere
+            holder.ivIcon.setImageResource(resourceIdImage);
         } else {
-            holder.ivIcon.setImageResource(R.drawable.ic_gift);
+            holder.ivIcon.setImageResource(R.drawable.ic_christmas_tree);
         }
 
         if (eventList.get(position).isEmailSent()) {
@@ -96,27 +101,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 saveSelectedEvent(position);
-                index = position;
-                notifyDataSetChanged();
+                goToSelectedEvent();
+
             }
         });
 
         holder.ivDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteEvent(eventList.get(position));
-                eventList.remove(eventList.get(position));
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, getItemCount());
+                showAlertDialogConfirmation(position);
             }
         });
 
-        //Checks selected element to change its background color
-        if (index == position) {
-            holder.layoutEventItem.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
-        } else {
-            holder.layoutEventItem.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
-        }
     }
 
     private void deleteEvent(Event event) {
@@ -124,11 +120,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     }
 
     //Saves selected event into SharedPreferences2
+    //TODO fix this
     private void saveSelectedEvent(int position) {
-
-        sharedPreferencesHelper.saveSelectedEvent(String.valueOf(eventList.get(position).getId()),eventList.get(position).getName(),
+        SharedPreferencesHelper.setSelectedEventAsCurrent(String.valueOf(eventList.get(position).getId()),eventList.get(position).getName(),
                 eventList.get(position).getPlace(), eventList.get(position).getDate(), eventList.get(position).getExpense(),
-                eventList.get(position).isAssignationDone(), eventList.get(position).isEmailSent());
+                eventList.get(position).isAssignationDone(), eventList.get(position).isEmailSent(), eventList.get(position).getIconName());
+    }
+
+    private void goToSelectedEvent() {
+        Intent eventInfo = new Intent(context, MainActivity.class);
+        eventInfo.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(eventInfo);
     }
 
     @Override
@@ -139,6 +141,29 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     public void setEvents(List<Event> events) {
         this.eventList = events;
         notifyDataSetChanged();
+    }
+
+    //Asks for confirmation before deleting the event
+    private void showAlertDialogConfirmation(final int pos){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirmation")
+                .setMessage("Are you sure you want to delete this event?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteEvent(eventList.get(pos));
+                        eventList.remove(eventList.get(pos));
+                        notifyDataSetChanged();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.show();
     }
 
 }

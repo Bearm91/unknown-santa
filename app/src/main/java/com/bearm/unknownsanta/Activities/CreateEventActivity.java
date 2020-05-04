@@ -3,6 +3,7 @@ package com.bearm.unknownsanta.Activities;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -14,7 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bearm.unknownsanta.R;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 
@@ -30,7 +35,7 @@ public class CreateEventActivity extends AppCompatActivity{
     TextInputLayout tiDate;
     TextInputLayout tiExpense;
 
-    int eventIcon;
+    String eventIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +52,7 @@ public class CreateEventActivity extends AppCompatActivity{
         tiDate = findViewById(R.id.ti_event_date);
         tiExpense = findViewById(R.id.ti_event_expense);
 
-        eventIcon = getRandomAvatar();
-        ivIcon.setImageResource(eventIcon);
+        setRandomEventIcon();
 
         Button saveBtn = findViewById(R.id.btn_save);
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -76,10 +80,18 @@ public class CreateEventActivity extends AppCompatActivity{
 
     }
 
+    private void setRandomEventIcon() {
+        eventIcon = getRandomIcon();
+        Log.e("EVENT_ICON", eventIcon);
+        int resourceIdImage = this.getResources().getIdentifier(eventIcon, "drawable",
+                this.getPackageName());
+        ivIcon.setImageResource(resourceIdImage);
+    }
+
     private void showDatePickerDialog() {
         final Calendar c = Calendar.getInstance();
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.datepicker, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.myAlertDialogs, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String day;
@@ -89,17 +101,20 @@ public class CreateEventActivity extends AppCompatActivity{
                     day = String.valueOf(dayOfMonth);
                 }
                 month = month + 1;
-                eventDate.setText(day +"/"+ month +"/"+ year);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = null;
+                try {
+                    date = sdf.parse(day + "/" + month + "/" + year);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                eventDate.setText(DateFormat.getDateInstance(DateFormat.MEDIUM).format(date));
             }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 
         datePickerDialog.show();
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(getColor(R.color.white_color));
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(getColor(R.color.white_color));
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getColor(R.color.colorPrimary));
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.colorPrimary));
-
-
     }
 
     private void createEvent() {
@@ -140,7 +155,7 @@ public class CreateEventActivity extends AppCompatActivity{
             output.putExtra("place", place);
             output.putExtra("date", date);
             output.putExtra("expense", expense);
-            output.putExtra("icon", String.valueOf(eventIcon));
+            output.putExtra("icon", eventIcon);
             setResult(RESULT_OK, output);
             finish();
         }
@@ -148,28 +163,29 @@ public class CreateEventActivity extends AppCompatActivity{
     }
 
     //Sets a random avatar every time the activity is opened
-    private int getRandomAvatar() {
+    private String getRandomIcon() {
 
         Random random = new Random();
-        eventIcon = random.nextInt(6);
-
-        switch (eventIcon) {
+        int rndm = random.nextInt(6);
+        //Log.e("RANDOM_NUMBER", String.valueOf(rndm));
+        switch (rndm) {
             case 1:
-                eventIcon = R.drawable.ic_snow;
+                eventIcon = "ic_snow";
                 break;
             case 2:
-                eventIcon = R.drawable.ic_star;
+                eventIcon = "ic_star";
                 break;
             case 3:
-                eventIcon = R.drawable.ic_wreath;
+                eventIcon = "ic_wreath";
                 break;
             case 4:
-                eventIcon = R.drawable.ic_candy;
+                eventIcon = "ic_candy";
                 break;
             case 5:
-                eventIcon = R.drawable.ic_cabin;
+                eventIcon = "ic_cabin";
+                break;
             default:
-                eventIcon = R.drawable.ic_muffin;
+                eventIcon = "ic_christmas_tree";
         }
 
         return eventIcon;
