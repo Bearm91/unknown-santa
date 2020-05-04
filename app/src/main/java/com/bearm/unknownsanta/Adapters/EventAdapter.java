@@ -83,9 +83,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
         String iconName = eventList.get(position).getIconName();
         if (iconName != null) {
-            holder.ivIcon.setImageResource(Integer.parseInt(iconName));
+            int resourceIdImage = context.getResources().getIdentifier(iconName, "drawable",
+                    context.getPackageName());
+            //use this id to set the image anywhere
+            holder.ivIcon.setImageResource(resourceIdImage);
         } else {
-            holder.ivIcon.setImageResource(R.drawable.ic_gift);
+            holder.ivIcon.setImageResource(R.drawable.ic_christmas_tree);
         }
 
         if (eventList.get(position).isEmailSent()) {
