@@ -149,7 +149,7 @@
 
     <!--DatePicker-->
 
-    <style name="datepicker" parent="Theme.AppCompat.DayNight.Dialog">
+    <style name="myAlertDialogs" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
