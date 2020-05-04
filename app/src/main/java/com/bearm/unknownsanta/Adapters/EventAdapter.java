@@ -154,7 +154,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
                     public void onClick(DialogInterface dialog, int which) {
                         deleteEvent(eventList.get(pos));
                         eventList.remove(eventList.get(pos));
-                        notifyItemRangeChanged(pos, getItemCount());
+                        notifyDataSetChanged();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
