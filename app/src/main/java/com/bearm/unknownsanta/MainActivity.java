@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvEventDate;
     TextView tvEventExpense;
     ImageView ivEmail;
+    ImageView ivEventIcon;
 
     FloatingActionButton fabEditEvent;
     RecyclerView recyclerView;
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         tvEventDate = findViewById(R.id.tv_event_date);
         tvEventExpense = findViewById(R.id.tv_event_money);
         ivEmail = findViewById(R.id.iv_email);
+        ivEventIcon = findViewById(R.id.iv_event_icon);
 
         btnAddParticipant = findViewById(R.id.btn_add);
         //Opens AddParticipantActivity activity
@@ -94,14 +96,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        fabEditEvent = findViewById(R.id.fab);
+        /*fabEditEvent = findViewById(R.id.fab);
         fabEditEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO
             }
 
-        });
+        });*/
 
         //SharedPreferences Helper init
         sharedPreferencesHelper = new SharedPreferencesHelper(this);
@@ -297,6 +299,16 @@ public class MainActivity extends AppCompatActivity {
             tvEventDate.setText(SharedPreferencesHelper.getCurrentEventDate());
             tvEventExpense.setText(SharedPreferencesHelper.getCurrentEventExpense());
             updateEmailStatus(SharedPreferencesHelper.getCurrentEventEmailStatus(), false);
+
+            String iconName = SharedPreferencesHelper.getCurrentEventIconName();
+            Log.e("ICON_NAME", iconName);
+            if (!iconName.equals("")) {
+                int resourceIdImage = this.getResources().getIdentifier(iconName, "drawable",
+                        this.getPackageName());
+                ivEventIcon.setImageResource(resourceIdImage);
+            } else {
+                ivEventIcon.setImageResource(R.drawable.ic_christmas_tree);
+            }
         }
 
 

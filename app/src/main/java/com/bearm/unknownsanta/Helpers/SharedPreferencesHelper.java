@@ -23,19 +23,20 @@ public class SharedPreferencesHelper {
         String expense = currentEventData.getString("eventExpense", null);
         boolean isDone = currentEventData.getBoolean("eventIsAssignationDone", false);
         boolean isSent = currentEventData.getBoolean("eventIsEmailSent", false);
+        String icon = currentEventData.getString("eventIconName", "");
         return new Event(Integer.parseInt(id), name, place, date, expense, isDone, isSent);
     }
 
-    public static void setSelectedEventAsCurrent(String id, String name, String place, String date, String expense, boolean assigned, boolean sent){
+    public static void setSelectedEventAsCurrent(String id, String name, String place, String date, String expense, boolean assigned, boolean sent, String iconName) {
         SharedPreferences.Editor editor = selectedEventData.edit();
         editor.putString("eventId", id);
         editor.putString("eventName", name);
         editor.putString("eventPlace", place);
         editor.putString("eventDate", date);
-        editor.putString("eventExpense",expense);
+        editor.putString("eventExpense", expense);
         editor.putBoolean("eventIsAssignationDone", assigned);
         editor.putBoolean("eventIsEmailSent", sent);
-
+        editor.putString("eventIconName", iconName);
         editor.apply();
     }
 
@@ -45,39 +46,45 @@ public class SharedPreferencesHelper {
     }
 
     //Reads eventName of selected event from SharedPreferences
-    public static String getCurrentEventName(){
+    public static String getCurrentEventName() {
         return currentEventData.getString("eventName", null);
     }
 
-    public static String getCurrentEventPlace(){
+    public static String getCurrentEventPlace() {
         return currentEventData.getString("eventPlace", null);
     }
 
-    public static String getCurrentEventDate(){
+    public static String getCurrentEventDate() {
         return currentEventData.getString("eventDate", null);
     }
 
-    public static String getCurrentEventExpense(){
+    public static String getCurrentEventExpense() {
         return currentEventData.getString("eventExpense", null);
     }
 
-    public static boolean getCurrentEventAssignationStatus(){
+    public static boolean getCurrentEventAssignationStatus() {
         return currentEventData.getBoolean("eventIsAssignationDone", false);
     }
 
-    public static boolean getCurrentEventEmailStatus(){
+    public static boolean getCurrentEventEmailStatus() {
         return currentEventData.getBoolean("eventIsEmailSent", false);
     }
 
-    public static void updateCurrentEventAssignationStatus(boolean isAssigned){
+    public static String getCurrentEventIconName() {
+        return currentEventData.getString("eventIconName", "");
+    }
+
+    public static void updateCurrentEventAssignationStatus(boolean isAssigned) {
         currentEventData.edit().putBoolean("eventIsAssignationDone", isAssigned).apply();
     }
 
-    public static void updateCurrentEventEmailStatus (boolean isSent){
+    public static void updateCurrentEventEmailStatus(boolean isSent) {
 
     }
 
     public static void clearCurrentEvent() {
         currentEventData.edit().clear().apply();
     }
+
+
 }

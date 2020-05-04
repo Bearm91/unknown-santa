@@ -124,7 +124,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     private void saveSelectedEvent(int position) {
         SharedPreferencesHelper.setSelectedEventAsCurrent(String.valueOf(eventList.get(position).getId()),eventList.get(position).getName(),
                 eventList.get(position).getPlace(), eventList.get(position).getDate(), eventList.get(position).getExpense(),
-                eventList.get(position).isAssignationDone(), eventList.get(position).isEmailSent());
+                eventList.get(position).isAssignationDone(), eventList.get(position).isEmailSent(), eventList.get(position).getIconName());
     }
 
     private void goToSelectedEvent() {

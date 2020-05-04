@@ -25,11 +25,12 @@
             android:backgroundTint="@color/colorPrimaryLight">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:id="@+id/iv_event_icon"
+                android:layout_width="110dp"
+                android:layout_height="180dp"
                 android:src="@drawable/ic_christmas_tree"
                 android:layout_gravity="end"
-                android:layout_marginEnd="2dp"
+                android:layout_marginEnd="4dp"
                 />
 
             <LinearLayout
