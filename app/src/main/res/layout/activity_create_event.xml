@@ -111,7 +111,7 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_event_money"
+                    android:id="@+id/edit_event_expense"
                     android:drawableStart="@drawable/ic_event_expense"
                     android:drawablePadding="@dimen/drawablePadding_form_icons"
                     android:layout_width="match_parent"

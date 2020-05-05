@@ -25,6 +25,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include
+        android:id="@+id/layout_select_event_activity"
         layout="@layout/activity_select_event" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

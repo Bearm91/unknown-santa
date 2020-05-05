@@ -2,6 +2,7 @@ package com.bearm.unknownsanta.Adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.provider.Telephony;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bearm.unknownsanta.Model.Participant;
+import com.bearm.unknownsanta.databinding.ParticipantListItemBinding;
+import com.bearm.unknownsanta.model.Participant;
 import com.bearm.unknownsanta.ViewModels.ParticipantViewModel;
 import com.bearm.unknownsanta.R;
 
@@ -26,21 +28,16 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
     private ParticipantViewModel participantViewModel;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
+        private ParticipantListItemBinding itemBinding;
 
-        TextView tvName;
-        TextView tvEmail;
-        ImageView ivAvatar;
-        ImageView btnDelete;
-        ImageView ivCheck;
+        MyViewHolder(ParticipantListItemBinding itemBinding) {
+            super(itemBinding.getRoot());
+            this.itemBinding = itemBinding;
+        }
 
-        MyViewHolder(@NonNull View v) {
-            super(v);
-            tvName = v.findViewById(R.id.tv_part_name);
-            tvEmail = v.findViewById(R.id.tv_part_email);
-
-            ivAvatar = v.findViewById(R.id.iv_rndm_avatar);
-            ivCheck = v.findViewById(R.id.ic_assigned);
-            btnDelete = v.findViewById(R.id.btn_delete);
+        public void bind(Participant participant) {
+            itemBinding.setParticipant(participant);
+            itemBinding.executePendingBindings();
         }
     }
 
@@ -53,33 +50,32 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //Creating a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.participant_list_item, parent, false);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        ParticipantListItemBinding itemBinding = ParticipantListItemBinding.inflate(layoutInflater, parent, false);
 
-        return new MyViewHolder(v);
+        return new MyViewHolder(itemBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        holder.tvName.setText(participantList.get(position).getName());
-        holder.tvEmail.setText(participantList.get(position).getEmail());
+        Participant myParticipant = participantList.get(position);
+        holder.bind(myParticipant);
 
         String avatarName = participantList.get(position).getAvatarName();
 
         int idReceiver = participantList.get(position).getIdReceiver();
 
         if (avatarName != null) {
-            holder.ivAvatar.setImageResource(Integer.parseInt(avatarName));
+            holder.itemBinding.ivRndmAvatar.setImageResource(Integer.parseInt(avatarName));
         }
 
-        if (idReceiver != 0){
-            holder.ivCheck.setVisibility(View.VISIBLE);
+        if (idReceiver != 0) {
+            holder.itemBinding.ivAssigned.setVisibility(View.VISIBLE);
         } else {
-            holder.ivCheck.setVisibility(View.INVISIBLE);
+            holder.itemBinding.ivAssigned.setVisibility(View.INVISIBLE);
         }
 
-        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+        holder.itemBinding.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showAlertDialogConfirmation(position);
@@ -104,7 +100,7 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
     }
 
     //Asks for confirmation before deleting the participant
-    private void showAlertDialogConfirmation(final int pos){
+    private void showAlertDialogConfirmation(final int pos) {
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.myAlertDialogs));
         builder.setTitle("Confirmation")
                 .setMessage("Are you sure you want to delete this participant?")

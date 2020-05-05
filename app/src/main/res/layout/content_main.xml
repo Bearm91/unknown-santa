@@ -28,10 +28,10 @@
                 android:id="@+id/iv_event_icon"
                 android:layout_width="110dp"
                 android:layout_height="180dp"
-                android:src="@drawable/ic_christmas_tree"
                 android:layout_gravity="end"
                 android:layout_marginEnd="4dp"
-                />
+                android:contentDescription="Event icon"
+                android:src="@drawable/ic_christmas_tree" />
 
             <LinearLayout
                 android:id="@+id/layout_event_data"
@@ -132,7 +132,7 @@
                         android:layout_height="@dimen/height_space" />
 
                     <TextView
-                        android:id="@+id/tv_event_money"
+                        android:id="@+id/tv_event_expense"
                         style="@style/myMainSubTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -143,46 +143,45 @@
         </androidx.cardview.widget.CardView>
 
 
+        <LinearLayout
+            android:id="@+id/layout_participant_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_main_item"
+            android:orientation="vertical">
+
             <LinearLayout
-                android:id="@+id/layout_participant_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="@dimen/padding_main_item">
+                android:orientation="horizontal"
+                android:paddingLeft="6dp"
+                android:paddingBottom="4dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    style="@style/myMainTitle"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="6dp"
-                    android:paddingBottom="4dp"
-                  >
+                    android:layout_weight="2"
+                    android:text="@string/MainParticipantTitle" />
 
-                    <TextView
-                        style="@style/myMainTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="@string/MainParticipantTitle" />
-
-                    <ImageView
-                        android:id="@+id/btn_add"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.4"
-                        android:src="@drawable/ic_greenplus" />
-
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_participants_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_top_recyclerview_participantlist">
-
-
-                </androidx.recyclerview.widget.RecyclerView>
+                <ImageView
+                    android:id="@+id/btn_add"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.4"
+                    android:src="@drawable/ic_greenplus" />
 
             </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_participants_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_recyclerview_participantlist">
+
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

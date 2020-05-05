@@ -1,80 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tool="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_margin="2dp"
-    android:backgroundTint="@color/colorPrimaryOpacity2"
-    android:outlineSpotShadowColor="@color/white_color">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:id="@+id/cv_event"
+    <data>
+
+        <variable
+            name="participant"
+            type="com.bearm.unknownsanta.model.Participant" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        xmlns:tool="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_list_item"
-        android:background="@color/white_color"
         android:layout_margin="2dp"
-        >
-    <ImageView
-        android:id="@+id/iv_rndm_avatar"
-        android:layout_width="@dimen/width_list_item_avatar"
-        android:layout_height="@dimen/height_list_item_avatar"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/ic_elf"
-        android:contentDescription="participant avatar" />
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="0.5"
-        android:orientation="vertical"
-        android:padding="4dp">
+        android:backgroundTint="@color/colorPrimaryOpacity2"
+        android:orientation="horizontal"
+        android:outlineSpotShadowColor="@color/white_color">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/layout_event"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_part_name"
-            style="@style/myMainListTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tool:text="Bea R"
-            android:paddingRight="12dp"/>
+            android:layout_margin="2dp"
+            android:background="@color/white_color"
+            android:padding="@dimen/padding_list_item">
 
             <ImageView
-                android:id="@+id/ic_assigned"
-                android:layout_width="wrap_content"
+                android:id="@+id/iv_rndm_avatar"
+                android:layout_width="@dimen/width_list_item_avatar"
+                android:layout_height="@dimen/height_list_item_avatar"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="participant avatar"
+                android:src="@drawable/ic_elf" />
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/check_circle"
-                android:tint="@color/colorPrimary"
-                android:background="@drawable/circle_shape"/>
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.5"
+                android:orientation="vertical"
+                android:padding="4dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_part_name"
+                        style="@style/myMainListTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="12dp"
+                        android:text="@{participant.name}"
+                        tool:text="Bea R" />
+
+                    <ImageView
+                        android:id="@+id/iv_assigned"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/circle_shape"
+                        android:src="@drawable/check_circle"
+                        android:tint="@color/colorPrimary" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_part_email"
+                    style="@style/myMainListSubTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{participant.email}"
+                    tool:text="beabea@bea.com" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/btn_delete"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.05"
+                android:src="@drawable/ic_delete" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_part_email"
-            style="@style/myMainListSubTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tool:text="beabea@bea.com"/>
-
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/btn_delete"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/ic_delete"
-        android:layout_gravity="center"
-        android:layout_weight="0.05"/>
-
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</layout>

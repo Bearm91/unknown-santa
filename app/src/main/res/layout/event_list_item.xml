@@ -1,87 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tool="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/mtrl_card_spacing"
-    android:layout_marginTop="@dimen/mtrl_card_spacing"
-    android:layout_marginRight="@dimen/mtrl_card_spacing"
-    android:orientation="horizontal"
-    android:backgroundTint="@color/colorPrimaryLight">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:id="@+id/cv_event"
+    <data>
+        <variable
+            name="Event"
+            type="com.bearm.unknownsanta.model.Event" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        xmlns:tool="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_list_item"
-        >
+        android:layout_marginLeft="@dimen/mtrl_card_spacing"
+        android:layout_marginTop="@dimen/mtrl_card_spacing"
+        android:layout_marginRight="@dimen/mtrl_card_spacing"
+        android:backgroundTint="@color/colorPrimaryLight"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/iv_event_icon"
-            android:layout_width="60dp"
-            android:layout_height="70dp"
-            android:src="@drawable/ic_christmas_tree"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="Event icon" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/layout_event"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_list_item_data">
+            android:padding="@dimen/padding_list_item">
+
+            <ImageView
+                android:id="@+id/iv_event_icon"
+                android:layout_width="60dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="Event icon"
+                android:src="@drawable/ic_christmas_tree" />
 
             <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_list_item_data">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_ev_name"
+                        style="@style/myMainDarkTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@{Event.name}"
+                        android:textStyle="bold"
+                        tool:text="Christmas 2020" />
+
+                    <ImageView
+                        android:id="@+id/iv_email_sent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingStart="8dp"
+                        android:src="@drawable/ic_email_24dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_ev_date"
+                    style="@style/myMainDarkSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{Event.date}"
+                    tool:text="25 January 2020" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/btn_event_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:orientation="horizontal">
+                android:padding="6dp"
+                android:src="@drawable/ic_delete"
+                android:visibility="visible" />
 
-                <TextView
-                    android:id="@+id/tv_ev_name"
-                    style="@style/myMainDarkTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textStyle="bold"
-                    tool:text="Christmas 2020" />
-
-                <ImageView
-                    android:id="@+id/iv_email_sent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:paddingStart="8dp"
-                    android:src="@drawable/ic_email_24dp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_ev_date"
-                style="@style/myMainDarkSubtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tool:text="25 January 2020" />
         </LinearLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_select"
-            style="@style/myAcceptButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="@dimen/padding_form_buttons"
-            android:text="Select"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/btn_event_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_delete"
-            android:layout_gravity="center_vertical"
-            android:visibility="visible"
-            android:padding = "6dp"
-            />
-
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</layout>

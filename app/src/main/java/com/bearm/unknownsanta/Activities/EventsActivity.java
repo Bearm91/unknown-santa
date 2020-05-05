@@ -7,46 +7,44 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.Adapters.EventAdapter;
-import com.bearm.unknownsanta.Model.Event;
+import com.bearm.unknownsanta.model.Event;
 import com.bearm.unknownsanta.R;
 import com.bearm.unknownsanta.ViewModels.EventViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.bearm.unknownsanta.databinding.ActivityEventsBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EventsActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
     EventAdapter mEventAdapter;
     List<Event> eventList;
-    FloatingActionButton fabCreateEvent;
     private static final int REQUEST_CODE_CREATEVENT = 1;
 
+    //ViewModel
     EventViewModel eventViewModel;
+
+    //ViewBinding
+    ActivityEventsBinding eventsBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_events);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        eventsBinding = ActivityEventsBinding.inflate(getLayoutInflater());
+        setContentView(eventsBinding.getRoot());
+        setSupportActionBar(eventsBinding.toolbar);
 
-        final TextView tvNoData = findViewById(R.id.no_data_message);
-        fabCreateEvent = findViewById(R.id.fab);
-        fabCreateEvent.setOnClickListener(new View.OnClickListener() {
+        eventsBinding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("New event", "CREATE");
@@ -65,27 +63,24 @@ public class EventsActivity extends AppCompatActivity {
             public void onChanged(List<Event> events) {
                 //Changes layout to show a message when there are no events to list
                 if (events.isEmpty()) {
-                    tvNoData.setVisibility(View.VISIBLE);
-                    recyclerView.setVisibility(View.GONE);
+                    eventsBinding.layoutSelectEventActivity.noDataMessage.setVisibility(View.VISIBLE);
+                    eventsBinding.layoutSelectEventActivity.rvEventsList.setVisibility(View.GONE);
                 } else {
-                    tvNoData.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
+                    eventsBinding.layoutSelectEventActivity.noDataMessage.setVisibility(View.GONE);
+                    eventsBinding.layoutSelectEventActivity.rvEventsList.setVisibility(View.VISIBLE);
 
                     mEventAdapter.setEvents(events);
                 }
             }
         });
 
-        recyclerView = findViewById(R.id.rv_events_list);
         eventList = new ArrayList<>();
         mEventAdapter = new EventAdapter(eventList, eventViewModel, this);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
+        eventsBinding.layoutSelectEventActivity.rvEventsList.setLayoutManager(layoutManager);
 
-        recyclerView.setAdapter(mEventAdapter);
-
-
+        eventsBinding.layoutSelectEventActivity.rvEventsList.setAdapter(mEventAdapter);
 
     }
 
