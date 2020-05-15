@@ -79,6 +79,7 @@ public class SharedPreferencesHelper {
     }
 
     public static void updateCurrentEventEmailStatus(boolean isSent) {
+        currentEventData.edit().putBoolean("eventIsEmailSent", isSent).apply();
 
     }
 

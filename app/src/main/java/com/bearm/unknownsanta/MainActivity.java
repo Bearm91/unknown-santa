@@ -300,25 +300,38 @@ public class MainActivity extends AppCompatActivity {
 
         //Assigns secret santas to the participants of the event
         if (id == R.id.action_shuffle_participants) {
-            if (participantList.size() > 2) {
-                participantShuffleActivity.setParticipants(participantList);
-                participantShuffleActivity.shuffleList();
-                participantShuffleActivity.assignGivers();
-                SharedPreferencesHelper.updateCurrentEventAssignationStatus(true);
-                updateDBAssignationStatus(true);
-            } else {
-                Toast.makeText(getApplicationContext(), "You need more than 2 participants.", Toast.LENGTH_LONG).show();
-
-            }
+            shuffleParticipants();
             return true;
         }
 
-        //TODO Displays info about the app
-        if (id == R.id.action_about) {
+        if (id == R.id.action_sendEmail) {
+            if (!SharedPreferencesHelper.getCurrentEventEmailStatus()) {
+                //sendEmails();
+            } else {
+                Toast.makeText(getApplicationContext(), "Email already sent.", Toast.LENGTH_LONG).show();
+            }
+
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void shuffleParticipants() {
+        if (participantList.size() > 2) {
+            participantShuffleActivity.setParticipants(participantList);
+            participantShuffleActivity.shuffleList();
+            participantShuffleActivity.assignGivers();
+            SharedPreferencesHelper.updateCurrentEventAssignationStatus(true);
+            updateDBAssignationStatus(true);
+            if (SharedPreferencesHelper.getCurrentEventEmailStatus()) {
+                SharedPreferencesHelper.updateCurrentEventEmailStatus(false);
+                updateDBEmailStatus(false);
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "You need more than 2 participants.", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     //Updates Event object in database with Email status (sent or not sent)
