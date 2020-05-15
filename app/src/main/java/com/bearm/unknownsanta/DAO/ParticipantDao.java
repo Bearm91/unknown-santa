@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.bearm.unknownsanta.Model.Participant;
+import com.bearm.unknownsanta.model.Participant;
 
 import java.util.List;
 

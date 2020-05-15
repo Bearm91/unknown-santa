@@ -1,15 +1,12 @@
-package com.bearm.unknownsanta.Activities;
+package com.bearm.unknownsanta.activities;
 
-import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bearm.unknownsanta.Model.Event;
-import com.bearm.unknownsanta.Model.Participant;
+import com.bearm.unknownsanta.model.Event;
+import com.bearm.unknownsanta.model.Participant;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EmailCreatorActivity extends AppCompatActivity {

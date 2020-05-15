@@ -19,16 +19,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bearm.unknownsanta.Activities.AddParticipantActivity;
-import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
+import com.bearm.unknownsanta.activities.AddParticipantActivity;
+import com.bearm.unknownsanta.helpers.SharedPreferencesHelper;
 import com.bearm.unknownsanta.databinding.ActivityMainBinding;
 import com.bearm.unknownsanta.eMailSender.EmailCreator;
-import com.bearm.unknownsanta.Activities.ParticipantShuffleActivity;
-import com.bearm.unknownsanta.Adapters.ParticipantAdapter;
+import com.bearm.unknownsanta.activities.ParticipantShuffleActivity;
+import com.bearm.unknownsanta.adapters.ParticipantAdapter;
 import com.bearm.unknownsanta.model.Event;
-import com.bearm.unknownsanta.ViewModels.EventViewModel;
+import com.bearm.unknownsanta.viewModels.EventViewModel;
 import com.bearm.unknownsanta.model.Participant;
-import com.bearm.unknownsanta.ViewModels.ParticipantViewModel;
+import com.bearm.unknownsanta.viewModels.ParticipantViewModel;
 import com.bearm.unknownsanta.eMailSender.GMailSender;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

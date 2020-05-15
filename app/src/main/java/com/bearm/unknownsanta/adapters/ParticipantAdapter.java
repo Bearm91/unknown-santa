@@ -1,13 +1,10 @@
-package com.bearm.unknownsanta.Adapters;
+package com.bearm.unknownsanta.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.provider.Telephony;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -16,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.databinding.ParticipantListItemBinding;
 import com.bearm.unknownsanta.model.Participant;
-import com.bearm.unknownsanta.ViewModels.ParticipantViewModel;
+import com.bearm.unknownsanta.viewModels.ParticipantViewModel;
 import com.bearm.unknownsanta.R;
 
 import java.util.List;

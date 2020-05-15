@@ -1,4 +1,4 @@
-package com.bearm.unknownsanta.Adapters;
+package com.bearm.unknownsanta.adapters;
 
 
 import android.content.Context;
@@ -13,11 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
+import com.bearm.unknownsanta.helpers.SharedPreferencesHelper;
 import com.bearm.unknownsanta.MainActivity;
 import com.bearm.unknownsanta.model.Event;
 import com.bearm.unknownsanta.R;
-import com.bearm.unknownsanta.ViewModels.EventViewModel;
+import com.bearm.unknownsanta.viewModels.EventViewModel;
 import com.bearm.unknownsanta.databinding.EventListItemBinding;
 
 import java.util.List;

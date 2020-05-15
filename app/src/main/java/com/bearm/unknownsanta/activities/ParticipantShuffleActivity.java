@@ -1,4 +1,4 @@
-package com.bearm.unknownsanta.Activities;
+package com.bearm.unknownsanta.activities;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,8 +6,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bearm.unknownsanta.Model.Participant;
-import com.bearm.unknownsanta.ViewModels.ParticipantViewModel;
+import com.bearm.unknownsanta.model.Participant;
+import com.bearm.unknownsanta.viewModels.ParticipantViewModel;
 
 import java.util.ArrayList;
 import java.util.Collections;

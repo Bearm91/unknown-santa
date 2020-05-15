@@ -1,18 +1,13 @@
-package com.bearm.unknownsanta.Activities;
+package com.bearm.unknownsanta.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bearm.unknownsanta.R;
 import com.bearm.unknownsanta.databinding.ActivityAddParticipantsBinding;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Random;
 

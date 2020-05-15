@@ -1,4 +1,4 @@
-package com.bearm.unknownsanta.Database;
+package com.bearm.unknownsanta.database;
 
 import android.content.Context;
 
@@ -11,8 +11,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.bearm.unknownsanta.DAO.EventDao;
 import com.bearm.unknownsanta.DAO.ParticipantDao;
-import com.bearm.unknownsanta.Model.Event;
-import com.bearm.unknownsanta.Model.Participant;
+import com.bearm.unknownsanta.model.Event;
+import com.bearm.unknownsanta.model.Participant;
 
 @Database(entities = {Event.class, Participant.class}, version = 8, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {

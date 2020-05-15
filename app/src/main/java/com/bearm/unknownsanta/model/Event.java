@@ -1,4 +1,4 @@
-package com.bearm.unknownsanta.Model;
+package com.bearm.unknownsanta.model;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;

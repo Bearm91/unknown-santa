@@ -1,4 +1,4 @@
-package com.bearm.unknownsanta.ViewModels;
+package com.bearm.unknownsanta.viewModels;
 
 import android.app.Application;
 
@@ -9,8 +9,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
-import com.bearm.unknownsanta.Model.Participant;
-import com.bearm.unknownsanta.Repositories.ParticipantRepository;
+import com.bearm.unknownsanta.model.Participant;
+import com.bearm.unknownsanta.repositories.ParticipantRepository;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;

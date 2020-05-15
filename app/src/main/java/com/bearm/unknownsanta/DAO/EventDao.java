@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.bearm.unknownsanta.Model.Event;
+import com.bearm.unknownsanta.model.Event;
 
 import java.util.List;
 

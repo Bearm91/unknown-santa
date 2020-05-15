@@ -1,4 +1,4 @@
-package com.bearm.unknownsanta.ViewModels;
+package com.bearm.unknownsanta.viewModels;
 
 import android.app.Application;
 
@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.bearm.unknownsanta.Model.Event;
-import com.bearm.unknownsanta.Repositories.EventRepository;
+import com.bearm.unknownsanta.model.Event;
+import com.bearm.unknownsanta.repositories.EventRepository;
 
 import java.util.List;
 
