@@ -8,8 +8,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +28,6 @@ import com.bearm.unknownsanta.viewModels.EventViewModel;
 import com.bearm.unknownsanta.model.Participant;
 import com.bearm.unknownsanta.viewModels.ParticipantViewModel;
 import com.bearm.unknownsanta.eMailSender.GMailSender;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
