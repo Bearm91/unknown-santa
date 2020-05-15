@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.Activities.AddParticipantActivity;
+import com.bearm.unknownsanta.Activities.EmailCreatorActivity;
 import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
 import com.bearm.unknownsanta.eMailSender.EmailCreator;
 import com.bearm.unknownsanta.Activities.EventsActivity;
@@ -141,75 +142,26 @@ public class MainActivity extends AppCompatActivity {
 
         participantShuffleActivity = new ParticipantShuffleActivity(participantViewModel, getApplicationContext());
 
+
         //Checks selected event info
         loadEventInfo();
     }
 
-    public HashMap<String, String> getParticipantReceiverMap(){
-        Participant currentParticipant;
-        int currentPReceiverId;
-        String currentPReceiverName;
-        String currentPEmail;
-        HashMap<String, String> participantMap = new HashMap<>();
-
-        for (int i = 0; i < participantList.size(); i++) {
-            currentParticipant = participantList.get(i);
-            currentPEmail = currentParticipant.getEmail();
-            currentPReceiverId = currentParticipant.getIdReceiver();
-            try {
-                currentPReceiverName = participantViewModel.getReceiverName(currentPReceiverId);
-                participantMap.put(currentPEmail, currentPReceiverName);
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        return participantMap;
-    }
-
-    private HashMap<String, String> getParticipantEmailMessageMap(HashMap<String, String> participantMap){
-        final HashMap<String, String> emailData = new HashMap<>();
-        String emailMessage;
-
-        for (Map.Entry<String, String> entry : participantMap.entrySet()) {
-            String participantEmail = entry.getKey();
-            String presentReceiverName = entry.getValue();
-            Log.e("PARTICIPANT_MAP", "key= " + participantEmail + "; value= " + presentReceiverName);
-
-            try {
-                EmailCreator emailCreator = new EmailCreator( SharedPreferencesHelper.getCurrentEvent(), participantList);
-                emailCreator.createEmailBody(presentReceiverName);
-                emailMessage = emailCreator.getEmailBody();
-                Log.e("MESSAGE", emailMessage);
-
-                emailData.put(participantEmail, emailMessage);
-            } catch (NullPointerException npe) {
-                Toast.makeText(getApplicationContext(), "1Sorry, there are still participants with no assignation.", Toast.LENGTH_LONG).show();
-            } catch (ArrayIndexOutOfBoundsException aioob) {
-                //TODO change toast for alert dialog
-                Toast.makeText(getApplicationContext(), "2Sorry, there are still participants with no assignation. Check that all participants have the green mark next to their names, and press on 'Assign Santas' in the menu below if anyone doesn't.", Toast.LENGTH_LONG).show();
-            }
-        }
-        return emailData;
-    }
 
     private void sendEmails() {
+        EmailCreatorActivity ecreator = new EmailCreatorActivity(SharedPreferencesHelper.getCurrentEvent(), participantList);
+        ecreator.setParticipantViewModel(participantViewModel);
 
         HashMap<String, String> emailData = new HashMap<>();
+        emailData = ecreator.createEmailContent();
 
-        //Match Participant email with Receiver Name
-        HashMap<String, String> participantMap = getParticipantReceiverMap();
-
-        //Match Participant email with email message
-        if (participantMap.size() > 0) {
-           emailData = getParticipantEmailMessageMap(participantMap);
-        }
 
         if (!emailData.isEmpty()) {
             new sendEmailsAsyncTask(emailData).execute();
-         }
+        }
     }
 
-    public class sendEmailsAsyncTask extends AsyncTask<HashMap<String, String>, String, Boolean>{
+    public class sendEmailsAsyncTask extends AsyncTask<HashMap<String, String>, String, Boolean> {
 
         HashMap<String, String> information;
 
@@ -330,25 +282,23 @@ public class MainActivity extends AppCompatActivity {
 
         //Assigns secret santas to the participants of the event
         if (id == R.id.action_shuffle_participants) {
-            if (participantList.size() > 2) {
-                participantShuffleActivity.setParticipants(participantList);
-                participantShuffleActivity.shuffleList();
-                participantShuffleActivity.assignGivers();
-                SharedPreferencesHelper.updateCurrentEventAssignationStatus(true);
-                updateDBAssignationStatus(true);
-            } else {
-                Toast.makeText(getApplicationContext(), "You need more than 2 participants.", Toast.LENGTH_LONG).show();
-
+            shuffleParticipants();
+            return true;
+        }
+    private void shuffleParticipants() {
+        if (participantList.size() > 2) {
+            participantShuffleActivity.setParticipants(participantList);
+            participantShuffleActivity.shuffleList();
+            participantShuffleActivity.assignGivers();
+            SharedPreferencesHelper.updateCurrentEventAssignationStatus(true);
+            updateDBAssignationStatus(true);
+            if (SharedPreferencesHelper.getCurrentEventEmailStatus()) {
+                SharedPreferencesHelper.updateCurrentEventEmailStatus(false);
+                updateDBEmailStatus(false);
             }
-            return true;
+        } else {
+            Toast.makeText(getApplicationContext(), "You need more than 2 participants.", Toast.LENGTH_LONG).show();
         }
-
-        //TODO Displays info about the app
-        if (id == R.id.action_about) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     //Updates Event object in database with Email status (sent or not sent)
