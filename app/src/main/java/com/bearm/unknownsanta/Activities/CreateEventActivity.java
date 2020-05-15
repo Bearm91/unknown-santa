@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bearm.unknownsanta.R;
+import com.bearm.unknownsanta.databinding.ActivityCreateEventBinding;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.DateFormat;
@@ -23,55 +24,36 @@ import java.util.Date;
 import java.util.Random;
 
 
-public class CreateEventActivity extends AppCompatActivity{
-
-    EditText eventName;
-    EditText eventPlace;
-    EditText eventDate;
-    EditText eventExpense;
-    ImageView ivIcon;
-
-    TextInputLayout tiName;
-    TextInputLayout tiDate;
-    TextInputLayout tiExpense;
+public class CreateEventActivity extends AppCompatActivity {
 
     String eventIcon;
+
+    ActivityCreateEventBinding createEventBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_event);
-
-        eventName = findViewById(R.id.edit_event_name);
-        eventPlace = findViewById(R.id.edit_event_place);
-        eventDate = findViewById(R.id.edit_event_date);
-        eventExpense = findViewById(R.id.edit_event_money);
-
-        ivIcon = findViewById(R.id.event_icon);
-        tiName = findViewById(R.id.ti_event_name);
-        tiDate = findViewById(R.id.ti_event_date);
-        tiExpense = findViewById(R.id.ti_event_expense);
+        createEventBinding = ActivityCreateEventBinding.inflate(getLayoutInflater());
+        setContentView(createEventBinding.getRoot());
 
         setRandomEventIcon();
 
-        Button saveBtn = findViewById(R.id.btn_save);
-        saveBtn.setOnClickListener(new View.OnClickListener() {
+        createEventBinding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createEvent();
             }
         });
 
-        //Cancel button will close ativity and return to main
-        Button cancelBtn = findViewById(R.id.btn_cancel);
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
+        //Cancel button will close activity and return to main
+        createEventBinding.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        eventDate.setOnClickListener(new View.OnClickListener() {
+        createEventBinding.editEventDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
@@ -85,7 +67,7 @@ public class CreateEventActivity extends AppCompatActivity{
         Log.e("EVENT_ICON", eventIcon);
         int resourceIdImage = this.getResources().getIdentifier(eventIcon, "drawable",
                 this.getPackageName());
-        ivIcon.setImageResource(resourceIdImage);
+        createEventBinding.eventIcon.setImageResource(resourceIdImage);
     }
 
     private void showDatePickerDialog() {
@@ -95,7 +77,7 @@ public class CreateEventActivity extends AppCompatActivity{
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String day;
-                if(dayOfMonth < 10){
+                if (dayOfMonth < 10) {
                     day = "0" + dayOfMonth;
                 } else {
                     day = String.valueOf(dayOfMonth);
@@ -108,7 +90,7 @@ public class CreateEventActivity extends AppCompatActivity{
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                eventDate.setText(DateFormat.getDateInstance(DateFormat.MEDIUM).format(date));
+                createEventBinding.editEventDate.setText(DateFormat.getDateInstance(DateFormat.MEDIUM).format(date));
             }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 
@@ -118,38 +100,38 @@ public class CreateEventActivity extends AppCompatActivity{
     }
 
     private void createEvent() {
-        String name = String.valueOf(eventName.getText());
-        String place = String.valueOf(eventPlace.getText());
-        String date = String.valueOf(eventDate.getText());
-        String expense = String.valueOf(eventExpense.getText());
+        String name = String.valueOf(createEventBinding.editEventName.getText());
+        String place = String.valueOf(createEventBinding.editEventPlace.getText());
+        String date = String.valueOf(createEventBinding.editEventDate.getText());
+        String expense = String.valueOf(createEventBinding.editEventExpense.getText());
 
         boolean ok = false;
-        if (name.isEmpty()){
-            tiName.setError(getString(R.string.error_empty_name));
+        if (name.isEmpty()) {
+            createEventBinding.tiEventName.setError(getString(R.string.error_empty_name));
         } else {
-            tiName.setError(null);
+            createEventBinding.tiEventName.setError(null);
         }
 
         if (date.isEmpty()) {
-            tiDate.setError(getString(R.string.error_empty_date));
+            createEventBinding.tiEventDate.setError(getString(R.string.error_empty_date));
         } else {
-            tiDate.setError(null);
+            createEventBinding.tiEventDate.setError(null);
         }
 
-        if (expense.isEmpty()){
-            tiExpense.setError(getString(R.string.error_empty_expense));
+        if (expense.isEmpty()) {
+            createEventBinding.tiEventExpense.setError(getString(R.string.error_empty_expense));
         } else {
-            tiExpense.setError(null);
+            createEventBinding.tiEventExpense.setError(null);
         }
 
-        if (place.isEmpty()){
+        if (place.isEmpty()) {
             place = "No place selected";
         }
         if ((!name.isEmpty()) && (!date.isEmpty()) && (!expense.isEmpty())) {
             ok = true;
         }
-        
-        if(ok) {
+
+        if (ok) {
             Intent output = new Intent();
             output.putExtra("name", name);
             output.putExtra("place", place);
@@ -159,12 +141,10 @@ public class CreateEventActivity extends AppCompatActivity{
             setResult(RESULT_OK, output);
             finish();
         }
-
     }
 
     //Sets a random avatar every time the activity is opened
     private String getRandomIcon() {
-
         Random random = new Random();
         int rndm = random.nextInt(6);
         //Log.e("RANDOM_NUMBER", String.valueOf(rndm));
@@ -187,7 +167,6 @@ public class CreateEventActivity extends AppCompatActivity{
             default:
                 eventIcon = "ic_christmas_tree";
         }
-
         return eventIcon;
     }
 }

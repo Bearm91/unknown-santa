@@ -9,12 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,13 +22,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bearm.unknownsanta.Activities.AddParticipantActivity;
 import com.bearm.unknownsanta.Activities.EmailCreatorActivity;
 import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
+import com.bearm.unknownsanta.databinding.ActivityMainBinding;
 import com.bearm.unknownsanta.eMailSender.EmailCreator;
-import com.bearm.unknownsanta.Activities.EventsActivity;
 import com.bearm.unknownsanta.Activities.ParticipantShuffleActivity;
 import com.bearm.unknownsanta.Adapters.ParticipantAdapter;
-import com.bearm.unknownsanta.Model.Event;
+import com.bearm.unknownsanta.model.Event;
 import com.bearm.unknownsanta.ViewModels.EventViewModel;
-import com.bearm.unknownsanta.Model.Participant;
+import com.bearm.unknownsanta.model.Participant;
 import com.bearm.unknownsanta.ViewModels.ParticipantViewModel;
 import com.bearm.unknownsanta.eMailSender.GMailSender;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,18 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_ADDPARTICIPANT = 2;
 
-    ImageView btnAddParticipant;
-    LinearLayout lyEventInfo;
-    LinearLayout lyParticipantInfo;
-    TextView tvEventName;
-    TextView tvEventPlace;
-    TextView tvEventDate;
-    TextView tvEventExpense;
-    ImageView ivEmail;
-    ImageView ivEventIcon;
-
-    FloatingActionButton fabEditEvent;
-    RecyclerView recyclerView;
     ParticipantAdapter mParticipantAdapter;
     List<Participant> participantList;
     MutableLiveData<List<Participant>> liveDataParticipantList;
@@ -66,29 +52,18 @@ public class MainActivity extends AppCompatActivity {
     Observer<List<Participant>> participantObserver;
     SharedPreferencesHelper sharedPreferencesHelper;
     ParticipantShuffleActivity participantShuffleActivity;
+    ActivityMainBinding mainBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(mainBinding.getRoot());
+        setSupportActionBar(mainBinding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-        lyParticipantInfo = findViewById(R.id.layout_participant_data);
-        lyEventInfo = findViewById(R.id.layout_event_data);
-
-        tvEventName = findViewById(R.id.tv_event_name);
-        tvEventPlace = findViewById(R.id.tv_event_place);
-        tvEventDate = findViewById(R.id.tv_event_date);
-        tvEventExpense = findViewById(R.id.tv_event_money);
-        ivEmail = findViewById(R.id.iv_email);
-        ivEventIcon = findViewById(R.id.iv_event_icon);
-
-        btnAddParticipant = findViewById(R.id.btn_add);
         //Opens AddParticipantActivity activity
-        btnAddParticipant.setOnClickListener(new View.OnClickListener() {
+        mainBinding.layoutActivityMain.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("New Participant", "ADD");
@@ -113,17 +88,15 @@ public class MainActivity extends AppCompatActivity {
         participantList = new ArrayList<>();
         liveDataParticipantList = new MutableLiveData<>();
 
-        recyclerView = findViewById(R.id.rv_participants_list);
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        mainBinding.layoutActivityMain.rvParticipantsList.setLayoutManager(layoutManager);
 
         //ViewModels init
         ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
         participantViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(ParticipantViewModel.class);
 
-        mParticipantAdapter = new ParticipantAdapter(participantList, participantViewModel,this);
-        recyclerView.setAdapter(mParticipantAdapter);
+        mParticipantAdapter = new ParticipantAdapter(participantList, participantViewModel, this);
+        mainBinding.layoutActivityMain.rvParticipantsList.setAdapter(mParticipantAdapter);
 
         participantObserver = new Observer<List<Participant>>() {
             @Override
@@ -170,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Before the tasks execution
-        protected void onPreExecute(){
+        protected void onPreExecute() {
             //mTextView.setText(mTextView.getText() + "\nStarting task....");
         }
 
@@ -203,14 +176,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateEmailStatus(boolean success, boolean inform) {
         if (success) {
-            ivEmail.setVisibility(View.VISIBLE);
+            mainBinding.layoutActivityMain.ivEmail.setVisibility(View.VISIBLE);
             SharedPreferencesHelper.updateCurrentEventEmailStatus(true);
-            if(inform){
+            if (inform) {
                 Toast.makeText(getApplicationContext(), "An email has been sent to all participants.", Toast.LENGTH_LONG).show();
             }
         } else {
-            ivEmail.setVisibility(View.INVISIBLE);
-            if(inform){
+            mainBinding.layoutActivityMain.ivEmail.setVisibility(View.INVISIBLE);
+            if (inform) {
                 Toast.makeText(getApplicationContext(), "The email could not be sent. Please, try again", Toast.LENGTH_LONG).show();
             }
         }
@@ -246,10 +219,10 @@ public class MainActivity extends AppCompatActivity {
     public void loadEventInfo() {
         //Checks if there is an event selected (0 = no event)
         if (Integer.parseInt(SharedPreferencesHelper.getCurrentEventId()) > 0) {
-            tvEventName.setText(SharedPreferencesHelper.getCurrentEventName());
-            tvEventPlace.setText(SharedPreferencesHelper.getCurrentEventPlace());
-            tvEventDate.setText(SharedPreferencesHelper.getCurrentEventDate());
-            tvEventExpense.setText(SharedPreferencesHelper.getCurrentEventExpense());
+            mainBinding.layoutActivityMain.tvEventName.setText(SharedPreferencesHelper.getCurrentEventName());
+            mainBinding.layoutActivityMain.tvEventPlace.setText(SharedPreferencesHelper.getCurrentEventPlace());
+            mainBinding.layoutActivityMain.tvEventDate.setText(SharedPreferencesHelper.getCurrentEventDate());
+            mainBinding.layoutActivityMain.tvEventExpense.setText(SharedPreferencesHelper.getCurrentEventExpense());
             updateEmailStatus(SharedPreferencesHelper.getCurrentEventEmailStatus(), false);
 
             String iconName = SharedPreferencesHelper.getCurrentEventIconName();
@@ -257,9 +230,9 @@ public class MainActivity extends AppCompatActivity {
             if (!iconName.equals("")) {
                 int resourceIdImage = this.getResources().getIdentifier(iconName, "drawable",
                         this.getPackageName());
-                ivEventIcon.setImageResource(resourceIdImage);
+                mainBinding.layoutActivityMain.ivEventIcon.setImageResource(resourceIdImage);
             } else {
-                ivEventIcon.setImageResource(R.drawable.ic_christmas_tree);
+                mainBinding.layoutActivityMain.ivEventIcon.setImageResource(R.drawable.ic_christmas_tree);
             }
         }
 
@@ -302,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Updates Event object in database with Email status (sent or not sent)
-    public void updateDBEmailStatus(boolean isSent){
+    public void updateDBEmailStatus(boolean isSent) {
         Event currentE = SharedPreferencesHelper.getCurrentEvent();
         ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
@@ -311,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Updates Event object in database with Assignation status (done or not)
-    public void updateDBAssignationStatus(boolean isDone){
+    public void updateDBAssignationStatus(boolean isDone) {
         Event currentE = SharedPreferencesHelper.getCurrentEvent();
         ViewModelProvider.AndroidViewModelFactory myViewModelProviderFactory = new ViewModelProvider.AndroidViewModelFactory(getApplication());
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
