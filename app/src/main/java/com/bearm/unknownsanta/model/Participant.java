@@ -1,4 +1,4 @@
-package com.bearm.unknownsanta.Model;
+package com.bearm.unknownsanta.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -9,7 +9,6 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
-import static androidx.room.ForeignKey.SET_NULL;
 
 @Entity(tableName = "participant",
         foreignKeys = @ForeignKey(entity = Event.class,

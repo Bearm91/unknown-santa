@@ -1,4 +1,4 @@
-package com.bearm.unknownsanta.Repositories;
+package com.bearm.unknownsanta.repositories;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -6,8 +6,8 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.bearm.unknownsanta.DAO.ParticipantDao;
-import com.bearm.unknownsanta.Database.AppDatabase;
-import com.bearm.unknownsanta.Model.Participant;
+import com.bearm.unknownsanta.database.AppDatabase;
+import com.bearm.unknownsanta.model.Participant;
 
 import java.util.ArrayList;
 import java.util.List;

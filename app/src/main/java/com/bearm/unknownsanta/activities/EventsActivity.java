@@ -1,4 +1,4 @@
-package com.bearm.unknownsanta.Activities;
+package com.bearm.unknownsanta.activities;
 
 
 import android.content.Intent;
@@ -16,10 +16,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bearm.unknownsanta.Adapters.EventAdapter;
+import com.bearm.unknownsanta.adapters.EventAdapter;
 import com.bearm.unknownsanta.model.Event;
 import com.bearm.unknownsanta.R;
-import com.bearm.unknownsanta.ViewModels.EventViewModel;
+import com.bearm.unknownsanta.viewModels.EventViewModel;
 import com.bearm.unknownsanta.databinding.ActivityEventsBinding;
 
 import java.util.ArrayList;

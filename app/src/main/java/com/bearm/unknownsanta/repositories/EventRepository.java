@@ -1,14 +1,13 @@
-package com.bearm.unknownsanta.Repositories;
+package com.bearm.unknownsanta.repositories;
 
 import android.app.Application;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
 import com.bearm.unknownsanta.DAO.EventDao;
-import com.bearm.unknownsanta.Database.AppDatabase;
-import com.bearm.unknownsanta.Model.Event;
+import com.bearm.unknownsanta.database.AppDatabase;
+import com.bearm.unknownsanta.model.Event;
 
 import java.util.List;
 

@@ -8,8 +8,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,25 +17,21 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bearm.unknownsanta.Activities.AddParticipantActivity;
-import com.bearm.unknownsanta.Activities.EmailCreatorActivity;
-import com.bearm.unknownsanta.Helpers.SharedPreferencesHelper;
+import com.bearm.unknownsanta.activities.AddParticipantActivity;
+import com.bearm.unknownsanta.activities.EmailCreatorActivity;
+import com.bearm.unknownsanta.helpers.SharedPreferencesHelper;
 import com.bearm.unknownsanta.databinding.ActivityMainBinding;
-import com.bearm.unknownsanta.eMailSender.EmailCreator;
-import com.bearm.unknownsanta.Activities.ParticipantShuffleActivity;
-import com.bearm.unknownsanta.Adapters.ParticipantAdapter;
+import com.bearm.unknownsanta.activities.ParticipantShuffleActivity;
+import com.bearm.unknownsanta.adapters.ParticipantAdapter;
 import com.bearm.unknownsanta.model.Event;
-import com.bearm.unknownsanta.ViewModels.EventViewModel;
+import com.bearm.unknownsanta.viewModels.EventViewModel;
 import com.bearm.unknownsanta.model.Participant;
-import com.bearm.unknownsanta.ViewModels.ParticipantViewModel;
+import com.bearm.unknownsanta.viewModels.ParticipantViewModel;
 import com.bearm.unknownsanta.eMailSender.GMailSender;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -258,6 +252,19 @@ public class MainActivity extends AppCompatActivity {
             shuffleParticipants();
             return true;
         }
+
+        if (id == R.id.action_sendEmail) {
+            if (!SharedPreferencesHelper.getCurrentEventEmailStatus()) {
+                //sendEmails();
+            } else {
+                Toast.makeText(getApplicationContext(), "Email already sent.", Toast.LENGTH_LONG).show();
+            }
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void shuffleParticipants() {
         if (participantList.size() > 2) {
             participantShuffleActivity.setParticipants(participantList);
@@ -272,6 +279,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "You need more than 2 participants.", Toast.LENGTH_LONG).show();
         }
+
     }
 
     //Updates Event object in database with Email status (sent or not sent)

@@ -1,9 +1,9 @@
-package com.bearm.unknownsanta.Helpers;
+package com.bearm.unknownsanta.helpers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.bearm.unknownsanta.Model.Event;
+import com.bearm.unknownsanta.model.Event;
 
 public class SharedPreferencesHelper {
 
@@ -79,6 +79,7 @@ public class SharedPreferencesHelper {
     }
 
     public static void updateCurrentEventEmailStatus(boolean isSent) {
+        currentEventData.edit().putBoolean("eventIsEmailSent", isSent).apply();
 
     }
 

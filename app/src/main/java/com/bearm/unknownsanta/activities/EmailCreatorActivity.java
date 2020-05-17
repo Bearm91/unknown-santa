@@ -1,13 +1,13 @@
-package com.bearm.unknownsanta.Activities;
+package com.bearm.unknownsanta.activities;
 
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bearm.unknownsanta.Model.Event;
-import com.bearm.unknownsanta.Model.Participant;
-import com.bearm.unknownsanta.ViewModels.ParticipantViewModel;
+import com.bearm.unknownsanta.model.Event;
+import com.bearm.unknownsanta.model.Participant;
+import com.bearm.unknownsanta.viewModels.ParticipantViewModel;
 
 import java.util.HashMap;
 import java.util.List;
