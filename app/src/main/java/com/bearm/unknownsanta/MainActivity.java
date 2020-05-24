@@ -145,8 +145,8 @@ public class MainActivity extends AppCompatActivity {
         protected Boolean doInBackground(HashMap<String, String>... hashMaps) {
             boolean isSent;
             try {
-                GMailSender mailSender = new GMailSender(getString(R.string.account_email), getString(R.string.account_password));
-                //mailSender.sendMail(emailData);
+                GMailSender mailSender = new GMailSender(BuildConfig.account_email, BuildConfig.account_password);
+                mailSender.sendMail(information);
                 isSent = true;
             } catch (Exception e) {
                 isSent = false;
@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_sendEmail) {
             if (!SharedPreferencesHelper.getCurrentEventEmailStatus()) {
-                //sendEmails();
+                sendEmails();
             } else {
                 Toast.makeText(getApplicationContext(), "Email already sent.", Toast.LENGTH_LONG).show();
             }

@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def accountPropertiesFile = rootProject.file("account.properties")
+def accountProperties = new Properties()
+accountProperties.load(new FileInputStream(accountPropertiesFile))
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -10,13 +14,15 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        resValue "string", "account_email", ACCOUNT_EMAIL
-        resValue "string", "account_password", ACCOUNT_PASSWORD
+        buildConfigField ("String", "account_email", accountProperties['ACCOUNT_EMAIL'])
+        buildConfigField ("String", "account_password", accountProperties['ACCOUNT_PASSWORD'])
+
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
         }
     }
     viewBinding.enabled = true
