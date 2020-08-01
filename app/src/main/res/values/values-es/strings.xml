@@ -1,0 +1,50 @@
+<resources>
+    <!--General-->
+    <string name="app_name">UnknownSanta</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="event_creation_error">¡Vaya! Hay campos vacíos.</string>
+    <string name="cancelButton">Cancelar</string>
+    <string name="saveButton">Guardar</string>
+
+    <!--Main screen-->
+    <string name="MainEventInfoTitle">Información del evento</string>
+    <string name="MainEventInfoSubtitle">Aún no hay ningún evento.</string>
+    <string name="createEventButton">Nuevo evento</string>
+    <string name="MainParticipantTitle">Participantes</string>
+    <string name="dateFieldColon">Fecha:</string>
+    <string name="placeFieldColon">Dónde:</string>
+    <string name="expenseFieldColon">Límite de gasto:</string>
+    <string name="SelectEventMainButton">Mis eventos</string>
+    <string name="SelectEventButton">Seleccionar</string>
+
+
+    <!--Event form screen-->
+    <string name="createEventFormTitle">Crear evento</string>
+    <string name="nameField">Nombre</string>
+    <string name="dateField">Fecha</string>
+    <string name="placeField">Lugar</string>
+    <string name="expenseField">Gasto límite</string>
+    <string name="christmasTree">Dibujo de árbol de navidad</string>
+    <string name="error_empty_name">El nombre no puede estar vacío</string>
+    <string name="error_format_email">El formato del email no es correcto</string>
+    <string name="error_emtpy_email">El email no puede estar vacío</string>
+    <string name="error_empty_date">La fecha no puede estar vacía</string>
+    <string name="error_empty_expense">El campo \'gasto\' no puede estar vacío</string>
+
+    <!--Event list screen-->
+    <string name="event_list">Mis eventos</string>
+    <string name="no_data_available">No hay información disponible.</string>
+
+    <!--Participant form screen-->
+    <string name="AddParticipantFormTitle">Añadir participante</string>
+    <string name="avatarFormContentDescription">Avatar del participante</string>
+    <string name="emailField">Email</string>
+
+    <!--Menu-->
+    <string name="menu_close_event">Cerrar evento</string>
+    <string name="menu_delete_all">Eliminar todos los eventos</string>
+    <string name="menu_about_unknownsanta">Acerca de UnknownSanta</string>
+    <string name="menu_shuffle_participants">Asignar Santas</string>
+    <string name="Home">Inicio</string>
+    <string name="menu_search">Buscar</string>
+</resources>
