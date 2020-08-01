@@ -148,7 +148,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="@string/cancelButton" />
+            android:text="@string/cancel_button" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_save"
@@ -156,7 +156,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="@string/saveButton" />
+            android:text="@string/save_button" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

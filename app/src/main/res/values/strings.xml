@@ -1,10 +1,9 @@
 <resources>
     <!--General-->
     <string name="app_name">UnknownSanta</string>
-    <string name="action_settings">Settings</string>
     <string name="event_creation_error">Oh! There are still empty fields.</string>
-    <string name="cancelButton">Cancel</string>
-    <string name="saveButton">Save</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="save_button">Save</string>
 
     <!--Main screen-->
     <string name="MainEventInfoTitle">Event info</string>
@@ -14,8 +13,6 @@
     <string name="dateFieldColon">Date:</string>
     <string name="placeFieldColon">Place:</string>
     <string name="expenseFieldColon">Expense limit:</string>
-    <string name="SelectEventMainButton">My events</string>
-    <string name="SelectEventButton">Select</string>
 
 
     <!--Event form screen-->
