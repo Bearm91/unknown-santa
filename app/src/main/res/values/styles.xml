@@ -15,13 +15,13 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
 
     <style name="PopupOverlay" parent="Theme.MaterialComponents">
-        <item name="android:backgroundTint">@color/colorAccent</item>
+        <item name="backgroundTint">@color/colorAccent</item>
         <item name="tint">@color/white_color</item>
     </style>
 
 
     <style name="AppTheme.myMenu">
-        <item name="android:backgroundTint">@color/white_color</item>
+        <item name="backgroundTint">@color/white_color</item>
         <item name="android:textColorPrimary">@color/colorPrimaryText</item>
     </style>
 
@@ -30,10 +30,10 @@
             @animator/mtrl_btn_unelevated_state_list_anim
         </item>
         <item name="elevation">0dp</item>
-        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/colorPrimaryText</item>
     </style>
 
@@ -64,7 +64,7 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -123,7 +123,7 @@
 
     <style name="myMainButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textSize">20sp</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="textAllCaps">true</item>
     </style>
 
     <style name="myAcceptButton" parent="@style/myMainButton">

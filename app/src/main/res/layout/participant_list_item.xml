@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -31,7 +32,7 @@
                 android:layout_height="@dimen/height_list_item_avatar"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="participant avatar"
-                android:src="@drawable/ic_elf" />
+                app:srcCompat="@drawable/ic_elf" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -62,7 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/circle_shape"
-                        android:src="@drawable/check_circle"
+                        app:srcCompat="@drawable/check_circle"
                         android:tint="@color/colorPrimary" />
 
                 </LinearLayout>
@@ -83,7 +84,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:layout_weight="0.05"
-                android:src="@drawable/ic_delete" />
+                app:srcCompat="@drawable/ic_delete" />
 
         </LinearLayout>
 

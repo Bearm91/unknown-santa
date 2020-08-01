@@ -31,7 +31,7 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="4dp"
                 android:contentDescription="Event icon"
-                android:src="@drawable/ic_christmas_tree" />
+                app:srcCompat="@drawable/ic_christmas_tree" />
 
             <LinearLayout
                 android:id="@+id/layout_event_data"
@@ -59,7 +59,7 @@
                         android:layout_width="30dp"
                         android:layout_height="40dp"
                         android:layout_marginLeft="12dp"
-                        android:src="@drawable/ic_email_24dp"
+                        app:srcCompat="@drawable/ic_email_24dp"
                         android:visibility="visible" />
 
                 </LinearLayout>
@@ -169,7 +169,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.4"
-                    android:src="@drawable/ic_greenplus" />
+                    app:srcCompat="@drawable/ic_greenplus" />
 
             </LinearLayout>
 
