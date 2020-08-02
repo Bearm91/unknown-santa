@@ -1,6 +1,7 @@
 package com.bearm.unknownsanta.activities;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -110,10 +112,27 @@ public class EventsActivity extends AppCompatActivity {
 
         //TODO Displays info about the app
         if (id == R.id.action_about) {
+            showAboutInfo();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //Shows a dialog with info about the app
+    private void showAboutInfo() {
+        String aboutMessageVersion = getString(R.string.about_current_version);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.about_title)
+                .setMessage(getString(R.string.abbout_info, aboutMessageVersion))
+                .setIcon(R.mipmap.ic_unknown_launcher)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        builder.show();
     }
 
     @Override
