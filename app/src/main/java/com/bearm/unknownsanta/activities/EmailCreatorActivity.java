@@ -36,30 +36,22 @@ public class EmailCreatorActivity extends AppCompatActivity {
         }
     }
 
+    //Creates the body of the email with the information about the participants and the event
     public void createEmailBody(String receiver) {
         emailBody = getEventInfo();
-        emailBody = emailBody.concat("Your mission is getting something nice for: " + receiver);
+        emailBody = emailBody.concat(getString(R.string.email_body_receiver, receiver));
     }
 
-
+    //Adds the information of the event to the body of the email
     public String getEventInfo() {
-        eventInfo = "You have been invited to participate in a Secret Santa game for " + myEvent.getName() + " event";
-        //if (!myEvent.getDate().isEmpty()){
-        eventInfo = eventInfo.concat(", which will take place next " + myEvent.getDate());
-        //}
-        //if (!myEvent.getPlace().isEmpty()) {
-        eventInfo = eventInfo.concat(" at " + myEvent.getPlace() + ". ");
-        //}
-        //if (!myEvent.getExpense().isEmpty()){
-        eventInfo = eventInfo.concat("Remember that the expense limit is: " + myEvent.getExpense() + ". ");
-        //}
-
+        eventInfo = getString(R.string.email_body_event_name,myEvent.getName(), myEvent.getDate(), myEvent.getPlace(), myEvent.getExpense());
         Log.e("EMAILBODY", eventInfo);
-
-
+        //TODO return styled message
+        Spanned eventInfoStyled = Html.fromHtml(eventInfo);
         return eventInfo;
     }
 
+    //Links email body with receiver
     public HashMap<String, String> createEmailContent() {
 
         HashMap<String, String> emailData = new HashMap<>();

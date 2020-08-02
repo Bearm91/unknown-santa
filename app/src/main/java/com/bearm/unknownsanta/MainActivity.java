@@ -173,12 +173,12 @@ public class MainActivity extends AppCompatActivity {
             mainBinding.layoutActivityMain.ivEmail.setVisibility(View.VISIBLE);
             SharedPreferencesHelper.updateCurrentEventEmailStatus(true);
             if (inform) {
-                Toast.makeText(getApplicationContext(), "An email has been sent to all participants.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.toast_email_sent, Toast.LENGTH_LONG).show();
             }
         } else {
             mainBinding.layoutActivityMain.ivEmail.setVisibility(View.INVISIBLE);
             if (inform) {
-                Toast.makeText(getApplicationContext(), "The email could not be sent. Please, try again", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.toast_email_sent_error, Toast.LENGTH_LONG).show();
             }
         }
 
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
 
                 participantViewModel.insert(newParticipant);
                 SharedPreferencesHelper.updateCurrentEventAssignationStatus(false);
-                Toast.makeText(getApplicationContext(), "Yay! A new participant joined the event!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.toast_paticipant_created, Toast.LENGTH_LONG).show();
             }
         }
 
@@ -211,6 +211,8 @@ public class MainActivity extends AppCompatActivity {
 
     //Adds info about the selected event to Home screen
     public void loadEventInfo() {
+        //TODO get event info from database
+        //Event myEvent = eventViewModel.getEvent(SharedPreferencesHelper.getCurrentEventId());
         //Checks if there is an event selected (0 = no event)
         if (Integer.parseInt(SharedPreferencesHelper.getCurrentEventId()) > 0) {
             mainBinding.layoutActivityMain.tvEventName.setText(SharedPreferencesHelper.getCurrentEventName());
@@ -257,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
             if (!SharedPreferencesHelper.getCurrentEventEmailStatus()) {
                 sendEmails();
             } else {
-                Toast.makeText(getApplicationContext(), "Email already sent.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.toast_email_already_sent, Toast.LENGTH_LONG).show();
             }
 
             return true;
@@ -277,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
                 updateDBEmailStatus(false);
             }
         } else {
-            Toast.makeText(getApplicationContext(), "You need more than 2 participants.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.toast_shuffle_error, Toast.LENGTH_LONG).show();
         }
 
     }

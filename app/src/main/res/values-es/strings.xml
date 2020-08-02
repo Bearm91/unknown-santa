@@ -42,4 +42,24 @@
     <string name="menu_shuffle_participants">Asignar Santas</string>
     <string name="Home">Inicio</string>
     <string name="menu_search">Buscar</string>
+
+    <!--Emails-->
+    <string name="no_place_selected">Aún por decidir.</string>
+    <string name="email_body_receiver">Has sido elegido para ser el amigo invisible de <u>%1$s</u></string>
+    <string name="email_body_event_name">Te han invitado a participar en el juego de amigo invisible de <b>%1$s</b>, que tendrá lugar el próximo %2$s en %3$s. El límite de gasto se ha puesto en %4$s.</string>
+    <string name="error_email_title">No se pudo enviar el email</string>
+    <string name="error_email_message">Aún hay participantes sin asignación. Comprueba que todos los participantes tienen el check verde. Si alguno no lo tiene, ve al menú y selecciona "Assignar Santas".</string>
+    <string name="about_title">Acerca de UnknownSanta</string>
+    <string name="about_current_version">Version v1.0</string>
+    <string name="abbout_info">UnknownSanta (%1$s) es una aplicación Android desarrollada por Beatriz Ruiz(@Bearm91 en Github) en 2019–2020</string>
+    <string name="dialog_confirmation_title">Confirmación</string>
+    <string name="dialog_delete_event_message">Se va a eliminar el evento. ¿Desea continuar?</string>
+    <string name="dialog_delete_participant">Se va a eliminar el participante. ¿Desea continuar?</string>
+    <string name="menu_tutorial">Tutorial</string>
+    <string name="toast_email_sent">Se ha enviado un email a todos los participantes con la información del evento.</string>
+    <string name="toast_email_sent_error">Ha habido un error en el envío de emails. Por favor, inténtalo de nuevo más tarde.</string>
+    <string name="toast_email_already_sent">Los emails para este evento ya fueron enviados.</string>
+    <string name="toast_shuffle_error">Se necesitan al menos 3 participantes para asignar amigos invisibles.</string>
+    <string name="toast_paticipant_created">Un participante nuevo se ha unido al evento.</string>
+
 </resources>

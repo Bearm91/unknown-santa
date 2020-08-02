@@ -121,7 +121,7 @@ public class CreateEventActivity extends AppCompatActivity {
         }
 
         if (place.isEmpty()) {
-            place = "No place selected";
+            place = getString(R.string.no_place_selected);
         }
         if ((!name.isEmpty()) && (!date.isEmpty()) && (!expense.isEmpty())) {
             ok = true;
