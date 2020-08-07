@@ -39,4 +39,8 @@ public class EventViewModel extends AndroidViewModel {
     public LiveData<List<Event>> getEventList() {
         return eventList;
     }
+
+    public void deleteAllEvents() {
+        eventRepository.deleteAll();
+    }
 }

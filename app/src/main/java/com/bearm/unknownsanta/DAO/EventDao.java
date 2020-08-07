@@ -22,6 +22,9 @@ public interface EventDao {
     @Query("DELETE FROM event WHERE id = :id")
     void delete(int id);
 
+    @Query("DELETE FROM event")
+    void deleteAll();
+
     @Update (onConflict = OnConflictStrategy.REPLACE)
     void update (Event event);
 }

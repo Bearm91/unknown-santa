@@ -35,6 +35,10 @@ public class EventRepository {
         new InsertEventAsyncTask(eventDao, event).execute();
     }
 
+    public void deleteAll() {
+        new DeleteEventAsyncTask(eventDao, 0).execute();
+    }
+
     private class InsertEventAsyncTask extends AsyncTask<EventDao, Event, String> {
 
         InsertEventAsyncTask(EventDao eDao, Event eventSave) {
@@ -62,8 +66,12 @@ public class EventRepository {
 
         @Override
         protected String doInBackground(EventDao... eventDaos) {
-            eventDao.delete(eventId);
-            return null;
+            if(eventId == 0){
+                eventDao.deleteAll();
+            } else {
+                eventDao.delete(eventId);
+            }
+           return null;
         }
     }
 

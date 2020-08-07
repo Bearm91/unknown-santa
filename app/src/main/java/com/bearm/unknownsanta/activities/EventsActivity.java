@@ -26,6 +26,7 @@ import com.bearm.unknownsanta.databinding.ActivityEventsBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class EventsActivity extends AppCompatActivity {
 
@@ -100,13 +101,13 @@ public class EventsActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //Search among events
-        if (id == R.id.action_search) {
+        //TODO: Search among events
+        /*if (id == R.id.action_search) {
             return true;
-        }
+        }*/
 
-        //Delete all events
         if (id == R.id.action_delete_all) {
+            showDeleteConfirmationDialog();
             return true;
         }
 
@@ -121,6 +122,25 @@ public class EventsActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.dialog_confirmation_title)
+                .setMessage(R.string.dialog_delete_events_message)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        eventViewModel.deleteAllEvents();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        builder.show();
     }
 
     private void showTutorialScreen() {
