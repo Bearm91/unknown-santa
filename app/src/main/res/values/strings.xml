@@ -1,6 +1,6 @@
 <resources>
     <!--General-->
-    <string name="app_name">UnknownSanta</string>
+    <string name="app_name" translatable="false">UnknownSanta</string>
     <string name="event_creation_error">Oh! There are still empty fields.</string>
     <string name="cancel_button">Cancel</string>
     <string name="save_button">Save</string>
@@ -52,18 +52,25 @@
     <!--Emails-->
     <string name="no_place_selected">To be decided</string>
     <string name="email_body_receiver">You have been chosen to be %1$s\'s Secret Santa! </string>
-    <string name="email_body_event_name">You have been invited to participate in a Secret Santa game for <b>%1$s</b>, which will take place next %2$s in %3$s. The expense limit has been set at %4$s. Enjoy!</string>
+    <string name="email_body_event_name">You have been invited to participate in a Secret Santa game for %1$s, which will take place next %2$s in %3$s. The expense limit has been set at %4$s. Enjoy!</string>
     <string name="error_email_title">Sorry, the email cannot be sent</string>
     <string name="error_email_message">Sorry, there are still participants with no assignation. Check that all participants have the green mark next to their names, and press on \'Assign Santas\' in the menu below if anyone doesn\'t.</string>
 
     <!--About screen-->
     <string name="about_title">About UnknownSanta app</string>
-    <string name="about_current_version">v1.0</string>
+    <string name="about_current_version">Version 1.0</string>
     <string name="abbout_info">UnknownSanta (%1$s) is an Android app developed by Beatriz Ruiz (@Bearm91 in Github) during 2019–2020</string>
     <string name="toast_email_sent">An email has been sent to all participants with the event information.</string>
     <string name="toast_email_sent_error">The emails could not be sent. Please, try again</string>
     <string name="toast_paticipant_created">Yay! A new participant joined the event!</string>
     <string name="toast_email_already_sent">The email have already been sent for this event.</string>
     <string name="toast_shuffle_error">You need at least 3 participants to assign secret santas.</string>
+    <string name="tutorial_title">UnknownSanta tutorial</string>
+    <string name="under_development_message">This feature is still under development</string>
+    <string name="email_subject_title">Secret Santa Event Information - UnknownSanta App</string>
+    <string name="edit_event_title">Edit Event info</string>
+    <string name="all_events_deleted">All events were deleted correctly.</string>
+    <string name="delete_event_error">The events could not be deleted. Please, try again later.</string>
+    <string name="dialog_delete_events_message">All events will be deleted. Do you want to continue?</string>
 
 </resources>

@@ -1,6 +1,5 @@
 <resources>
     <!--General-->
-    <string name="app_name">UnknownSanta</string>
     <string name="event_creation_error">¡Vaya! Aún hay campos vacíos.</string>
     <string name="cancel_button">Cancelar</string>
     <string name="save_button">Guardar</string>
@@ -50,7 +49,7 @@
     <string name="error_email_title">No se pudo enviar el email</string>
     <string name="error_email_message">Aún hay participantes sin asignación. Comprueba que todos los participantes tienen el check verde. Si alguno no lo tiene, ve al menú y selecciona "Assignar Santas".</string>
     <string name="about_title">Acerca de UnknownSanta</string>
-    <string name="about_current_version">Version v1.0</string>
+    <string name="about_current_version">Versión 1.0</string>
     <string name="abbout_info">UnknownSanta (%1$s) es una aplicación Android desarrollada por Beatriz Ruiz(@Bearm91 en Github) en 2019–2020</string>
     <string name="dialog_confirmation_title">Confirmación</string>
     <string name="dialog_delete_event_message">Se va a eliminar el evento. ¿Desea continuar?</string>
@@ -61,5 +60,12 @@
     <string name="toast_email_already_sent">Los emails para este evento ya fueron enviados.</string>
     <string name="toast_shuffle_error">Se necesitan al menos 3 participantes para asignar amigos invisibles.</string>
     <string name="toast_paticipant_created">Un participante nuevo se ha unido al evento.</string>
+    <string name="tutorial_title">Tutorial de UnknownSanta</string>
+    <string name="under_development_message">Esta funcionalidad está desarrollo.</string>
+    <string name="email_subject_title">Información sobre tu Secret Santa - UnknownSanta App</string>
+    <string name="edit_event_title">Edición del evento</string>
+    <string name="all_events_deleted">Se han eliminado todos los eventos.</string>
+    <string name="delete_event_error">No se han podido eliminar los eventos.</string>
+    <string name="dialog_delete_events_message">Se van a eliminar todos los eventos. ¿Desea continuar?</string>
 
 </resources>
