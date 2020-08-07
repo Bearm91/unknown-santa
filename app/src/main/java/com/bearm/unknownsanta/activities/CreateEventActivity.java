@@ -57,7 +57,7 @@ public class CreateEventActivity extends AppCompatActivity {
         });
 
     }
-
+    //Sets the random icon for the new event
     private void setRandomEventIcon() {
         eventIcon = getRandomIcon();
         Log.e("EVENT_ICON", eventIcon);
@@ -66,6 +66,7 @@ public class CreateEventActivity extends AppCompatActivity {
         createEventBinding.eventIcon.setImageResource(resourceIdImage);
     }
 
+    //Opens a date picker dialog to select the date of the new event
     private void showDatePickerDialog() {
         final Calendar c = Calendar.getInstance();
 
@@ -95,6 +96,7 @@ public class CreateEventActivity extends AppCompatActivity {
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.colorPrimary));
     }
 
+    //Checks form data and sends it to EventsActivity to be saved in the database
     private void createEvent() {
         String name = String.valueOf(createEventBinding.editEventName.getText());
         String place = String.valueOf(createEventBinding.editEventPlace.getText());
@@ -139,11 +141,10 @@ public class CreateEventActivity extends AppCompatActivity {
         }
     }
 
-    //Sets a random avatar every time the activity is opened
+    //Sets a random avatar for the event every time the activity is opened
     private String getRandomIcon() {
         Random random = new Random();
         int rndm = random.nextInt(6);
-        //Log.e("RANDOM_NUMBER", String.valueOf(rndm));
         switch (rndm) {
             case 1:
                 eventIcon = "ic_snow";
