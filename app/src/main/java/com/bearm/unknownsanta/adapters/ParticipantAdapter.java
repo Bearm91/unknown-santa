@@ -99,20 +99,19 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
     //Asks for confirmation before deleting the participant
     private void showAlertDialogConfirmation(final int pos) {
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.myAlertDialogs));
-        builder.setTitle("Confirmation")
-                .setMessage("Are you sure you want to delete this participant?")
+        builder.setTitle(R.string.dialog_confirmation_title)
+                .setMessage(R.string.dialog_delete_participant)
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteParticipant(participantList.get(pos));
                         participantList.remove(participantList.get(pos));
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 });
         builder.show();

@@ -133,10 +133,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     //Asks for confirmation before deleting the event
     private void showAlertDialogConfirmation(final int pos) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Confirmation")
-                .setMessage("Are you sure you want to delete this event?")
+        builder.setTitle(R.string.dialog_confirmation_title)
+                .setMessage(R.string.dialog_delete_event_message)
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteEvent(eventList.get(pos));
@@ -144,7 +144,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
                         notifyDataSetChanged();
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

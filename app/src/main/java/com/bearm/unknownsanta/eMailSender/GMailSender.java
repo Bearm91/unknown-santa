@@ -15,7 +15,6 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -54,8 +53,7 @@ public class GMailSender extends javax.mail.Authenticator {
     }
 
     public synchronized void sendMail(HashMap<String, String> emailData) {
-        //TODO extract strings
-        String subject = "Secret Santa Information";
+        String subject = context.getString(R.string.email_subject_title);
         String sender= BuildConfig.account_email;
 
         for (Map.Entry<String, String> entry : emailData.entrySet()) {

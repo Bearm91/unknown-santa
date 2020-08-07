@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bearm.unknownsanta.R;
 import com.bearm.unknownsanta.model.Event;
 import com.bearm.unknownsanta.model.Participant;
 
@@ -32,31 +33,19 @@ public class EmailCreator extends AppCompatActivity {
     public void createEmailBody(String receiver){
         emailBody = getEventInfo();
         emailBody = emailBody.concat(getReceiverInfo(receiver));
+        Log.i("EMAIL_BODY", emailBody);
     }
 
-    //TODO extract string
     public String getReceiverInfo(String receiver){
-        String presentReceiverInfo = "Your mission is getting something nice for: " + receiver;
-        return presentReceiverInfo;
+        return getString(R.string.email_body_receiver, receiver);
     }
 
-    //TODO extract strings
     public String getEventInfo(){
-        String eventInfo = "You have been invited to participate in a Secret Santa game for "+ myEvent.getName() + " event";
-        //if (!myEvent.getDate().isEmpty()){
-            eventInfo = eventInfo.concat(", which will take place next " + myEvent.getDate());
-        //}
-        //if (!myEvent.getPlace().isEmpty()) {
-            eventInfo = eventInfo.concat(" at " + myEvent.getPlace() + ". ");
-        //}
-        //if (!myEvent.getExpense().isEmpty()){
-            eventInfo = eventInfo.concat("Remember that the expense limit is: " + myEvent.getExpense() + ". ");
-        //}
-
-        Log.e("EMAILBODY", eventInfo);
-
-
-        return eventInfo;
+        return getString(R.string.email_body_event_name,
+                myEvent.getName(),
+                myEvent.getDate(),
+                myEvent.getPlace(),
+                myEvent.getExpense());
     }
 
 }
