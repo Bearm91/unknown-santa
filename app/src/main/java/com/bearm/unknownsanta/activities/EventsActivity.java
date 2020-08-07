@@ -110,13 +110,30 @@ public class EventsActivity extends AppCompatActivity {
             return true;
         }
 
-        //TODO Displays info about the app
+        //TODO Display the instructions
+        if (id == R.id.action_tutorial) {
+            showTutorialScreen();
+            return true;
+        }
         if (id == R.id.action_about) {
             showAboutInfo();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showTutorialScreen() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.tutorial_title)
+                .setMessage(getString(R.string.under_development_message))
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        builder.show();
     }
 
     //Shows a dialog with info about the app
@@ -137,12 +154,10 @@ public class EventsActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request it is that we're responding to
         super.onActivityResult(requestCode, resultCode, data);
 
         //CREATE EVENT IN DATABASE
         if (requestCode == REQUEST_CODE_CREATEVENT) {
-            // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 Event newEvent = new Event(data.getStringExtra("name"),
                         data.getStringExtra("place"),
