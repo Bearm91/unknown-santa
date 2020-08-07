@@ -1,6 +1,7 @@
 package com.bearm.unknownsanta;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -28,6 +30,7 @@ import com.bearm.unknownsanta.viewModels.EventViewModel;
 import com.bearm.unknownsanta.model.Participant;
 import com.bearm.unknownsanta.viewModels.ParticipantViewModel;
 import com.bearm.unknownsanta.eMailSender.GMailSender;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,14 +69,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*fabEditEvent = findViewById(R.id.fab);
+        FloatingActionButton fabEditEvent = findViewById(R.id.fab);
         fabEditEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
+                //TODO Edit event info functionality
+                showInfoDialog();
             }
 
-        });*/
+        });
 
         //SharedPreferences Helper init
         sharedPreferencesHelper = new SharedPreferencesHelper(this);
@@ -112,6 +116,19 @@ public class MainActivity extends AppCompatActivity {
 
         //Checks selected event info
         loadEventInfo();
+    }
+
+    private void showInfoDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.edit_event_title)
+                .setMessage(getString(R.string.under_development_message))
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        builder.show();
     }
 
 
