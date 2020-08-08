@@ -63,7 +63,12 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
         int idReceiver = participantList.get(position).getIdReceiver();
 
         if (avatarName != null) {
-            holder.itemBinding.ivRndmAvatar.setImageResource(Integer.parseInt(avatarName));
+            int resourceIdImage = context.getResources().getIdentifier(avatarName, "drawable",
+                    context.getPackageName());
+            //use this id to set the image anywhere
+            holder.itemBinding.ivRndmAvatar.setImageResource(resourceIdImage);
+        } else {
+            holder.itemBinding.ivRndmAvatar.setImageResource(R.drawable.ic_deer);
         }
 
         if (idReceiver != 0) {

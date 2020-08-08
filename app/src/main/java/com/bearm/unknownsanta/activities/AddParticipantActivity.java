@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.bearm.unknownsanta.R;
@@ -16,7 +17,7 @@ public class AddParticipantActivity extends AppCompatActivity {
     //ViewBinding
     ActivityAddParticipantsBinding addParticipantsBinding;
 
-    int avatarId;
+    String avatarId;
     static final String EMAIL_REGEX = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
 
     @Override
@@ -25,8 +26,7 @@ public class AddParticipantActivity extends AppCompatActivity {
         addParticipantsBinding = ActivityAddParticipantsBinding.inflate(getLayoutInflater());
         setContentView(addParticipantsBinding.getRoot());
 
-        avatarId = getRandomAvatar();
-        addParticipantsBinding.ivRndmAvatar.setImageResource(avatarId);
+        setParticipantIcon();
 
         addParticipantsBinding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,32 +45,43 @@ public class AddParticipantActivity extends AppCompatActivity {
     }
 
     //Sets a random avatar every time the activity is opened
-    private int getRandomAvatar() {
+    private String getRandomAvatar() {
         Random random = new Random();
-        avatarId = random.nextInt(7);
-        switch (avatarId) {
+        int rndavatarId = random.nextInt(7);
+        switch (rndavatarId) {
             case 1:
-                avatarId = R.drawable.ic_deer;
+                avatarId = "ic_deer";
                 break;
             case 2:
-                avatarId = R.drawable.ic_elf;
+                avatarId = "ic_elf";
                 break;
             case 3:
-                avatarId = R.drawable.ic_gingerbread_man;
+                avatarId = "ic_gingerbread_man";
                 break;
             case 4:
-                avatarId = R.drawable.ic_snowman;
+                avatarId = "ic_snowman";
                 break;
             case 5:
-                avatarId = R.drawable.ic_gift;
+                avatarId = "ic_gift";
                 break;
             case 6:
-                avatarId = R.drawable.ic_milk;
+                avatarId = "ic_milk";
                 break;
             default:
-                avatarId = R.drawable.ic_angel;
+                avatarId = "ic_angel";
         }
         return avatarId;
+    }
+
+    //Sets the random icon for the new event
+    private void setParticipantIcon() {
+        avatarId = getRandomAvatar();
+
+        int resourceIdImage = this.getResources().getIdentifier(avatarId, "drawable",
+                this.getPackageName());
+        addParticipantsBinding.ivRndmAvatar.setImageResource(resourceIdImage);
+        Log.e("EVENT_ICON", avatarId);
+
     }
 
     //Sends the name and email of the participant to MainActivity
