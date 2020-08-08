@@ -73,4 +73,18 @@
     <string name="delete_event_error">The events could not be deleted. Please, try again later.</string>
     <string name="dialog_delete_events_message">All events will be deleted. Do you want to continue?</string>
 
+    <!--DB prepopulation values-->
+    <string name="participant1_name_example">Peter</string>
+    <string name="participant2_name_example">Susan</string>
+    <string name="participant3_name_example">Charles</string>
+    <string name="participant4_name_example">Grace</string>
+    <string name="participant1_email_example">peter@mail.com</string>
+    <string name="participant2_email_example">susan@mail.com</string>
+    <string name="participant3_email_example">charles@mail.com</string>
+    <string name="participant4_email_example">grace@mail.com</string>
+    <string name="event_name_example">Event example</string>
+    <string name="event_date_example">9 ago. 2020</string>
+    <string name="event_place_example">Our fav restaurant</string>
+    <string name="event_expense_example">20€ aprox</string>
+
 </resources>
