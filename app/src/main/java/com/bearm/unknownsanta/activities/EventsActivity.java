@@ -66,11 +66,11 @@ public class EventsActivity extends AppCompatActivity {
             public void onChanged(List<Event> events) {
                 //Changes layout to show a message when there are no events to list
                 if (events.isEmpty()) {
-                    eventsBinding.layoutSelectEventActivity.noDataMessage.setVisibility(View.VISIBLE);
-                    eventsBinding.layoutSelectEventActivity.rvEventsList.setVisibility(View.GONE);
+                    //eventsBinding.noDataMessage.setVisibility(View.VISIBLE);
+                    eventsBinding.rvEventsList.setVisibility(View.GONE);
                 } else {
-                    eventsBinding.layoutSelectEventActivity.noDataMessage.setVisibility(View.GONE);
-                    eventsBinding.layoutSelectEventActivity.rvEventsList.setVisibility(View.VISIBLE);
+                    //eventsBinding.noDataMessage.setVisibility(View.GONE);
+                    eventsBinding.rvEventsList.setVisibility(View.VISIBLE);
 
                     mEventAdapter.setEvents(events);
                 }
@@ -81,9 +81,9 @@ public class EventsActivity extends AppCompatActivity {
         mEventAdapter = new EventAdapter(eventList, eventViewModel, this);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        eventsBinding.layoutSelectEventActivity.rvEventsList.setLayoutManager(layoutManager);
+        eventsBinding.rvEventsList.setLayoutManager(layoutManager);
 
-        eventsBinding.layoutSelectEventActivity.rvEventsList.setAdapter(mEventAdapter);
+        eventsBinding.rvEventsList.setAdapter(mEventAdapter);
 
     }
 
