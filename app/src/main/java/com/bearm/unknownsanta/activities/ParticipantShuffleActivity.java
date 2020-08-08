@@ -25,6 +25,7 @@ public class ParticipantShuffleActivity extends AppCompatActivity {
         this.context = context;
     }
 
+    //Shuffles the participant list
     public void shuffleList() {
         int loops = 1;
         //Log.e("ORIGINAL_LIST", "List before shuffle: " + participants.toString());
@@ -42,6 +43,7 @@ public class ParticipantShuffleActivity extends AppCompatActivity {
 
     }
 
+    //Randomly assignes participant with other participants (receivers)
     public void assignGivers() {
         for (int i = 0; i < participants.size(); i++) {
             originalList.get(i).setIdReceiver(participants.get(i).getId());
