@@ -122,12 +122,12 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="10dp" />
+                android:layout_height="@dimen/height_space_10" />
 
             <ImageView
                 android:id="@+id/event_icon"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="@dimen/imageview_event_icon_height"
                 android:contentDescription="@string/christmasTree"
                 app:srcCompat="@drawable/ic_christmas_tree" />
         </LinearLayout>
@@ -145,7 +145,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cancel"
             style="@style/myCancelButton"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="@string/cancel_button" />
@@ -153,7 +153,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_save"
             style="@style/myAcceptButton"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="@string/save_button" />

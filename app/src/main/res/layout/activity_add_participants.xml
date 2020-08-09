@@ -55,9 +55,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_name"
                     android:drawableStart="@drawable/ic_part_name"
-                    android:drawablePadding="@dimen/drawablePadding_form_icons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/drawablePadding_form_icons"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -100,7 +100,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cancel"
             style="@style/myCancelButton"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/cancel_button" />
@@ -108,7 +108,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_save"
             style="@style/myAcceptButton"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_weight="1"

@@ -27,14 +27,14 @@
 
             <ImageView
                 android:id="@+id/iv_event_icon"
-                android:layout_width="60dp"
-                android:layout_height="70dp"
+                android:layout_width="@dimen/imageview_eventlist_item_width"
+                android:layout_height="@dimen/imageview_eventlist_item_height"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="Event icon"
                 app:srcCompat="@drawable/ic_christmas_tree" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero_dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
@@ -60,7 +60,7 @@
                         android:id="@+id/iv_email_sent"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:paddingStart="8dp"
+                        android:paddingStart="@dimen/imageview_envelope_eventlist_item_paddingStart"
                         app:srcCompat="@drawable/ic_email_24dp" />
 
                 </LinearLayout>
@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:padding="6dp"
+                android:padding="@dimen/imageview_delete_eventlist_item_padding"
                 app:srcCompat="@drawable/ic_delete"
                 android:visibility="visible" />
 
