@@ -31,7 +31,7 @@
                 android:layout_width="@dimen/width_list_item_avatar"
                 android:layout_height="@dimen/height_list_item_avatar"
                 android:layout_gravity="center_vertical"
-                android:contentDescription="participant avatar"
+                android:contentDescription="@string/participant_icon_content_description"
                 app:srcCompat="@drawable/ic_elf" />
 
             <LinearLayout
@@ -56,14 +56,14 @@
                         android:layout_height="wrap_content"
                         android:paddingEnd="@dimen/name_participantlist_item_paddintEnd"
                         android:text="@{participant.name}"
-                        tool:text="Bea R" />
+                        tool:text="@string/participant1_name_example" />
 
                     <ImageView
                         android:id="@+id/iv_assigned"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/circle_shape"
-                        app:srcCompat="@drawable/check_circle"
+                        android:contentDescription="@string/checkmark_contentDescription"
                         android:tint="@color/colorPrimary" />
 
                 </LinearLayout>
@@ -74,7 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{participant.email}"
-                    tool:text="beabea@bea.com" />
+                    tool:text="@string/participant1_email_example" />
 
             </LinearLayout>
 
@@ -84,6 +84,7 @@
                 android:layout_height="@dimen/imageview_delete_participantlist_item_height"
                 android:layout_gravity="center"
                 android:layout_weight="0.05"
+                android:contentDescription="@string/delete_icon_contentDescription"
                 app:srcCompat="@drawable/ic_delete" />
 
         </LinearLayout>

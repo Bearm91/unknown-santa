@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
     private void showInfoDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.edit_event_title)
-                .setMessage(getString(R.string.under_development_message))
+                .setMessage(getString(R.string.dialog_under_development_message))
                 .setCancelable(false)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override

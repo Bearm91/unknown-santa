@@ -3,6 +3,11 @@
     <string name="event_creation_error">¡Vaya! Aún hay campos vacíos.</string>
     <string name="cancel_button">Cancelar</string>
     <string name="save_button">Guardar</string>
+    <string name="event_icon_content_description">Icono del evento</string>
+    <string name="participant_icon_content_description">Avatar del participante</string>
+    <string name="delete_icon_contentDescription">Icono de borrado</string>
+    <string name="checkmark_contentDescription">Icono que indica que la asociación del secret santa se ha realizado.</string>
+
 
     <!--Main screen-->
     <string name="MainEventInfoTitle">Información del evento</string>
@@ -12,6 +17,7 @@
     <string name="dateFieldColon">Fecha:</string>
     <string name="placeFieldColon">Dónde:</string>
     <string name="expenseFieldColon">Gasto límite:</string>
+    <string name="edit_event_title">Edición del evento</string>
 
     <!--Event form screen-->
     <string name="createEventFormTitle">Crear evento</string>
@@ -41,6 +47,8 @@
     <string name="menu_shuffle_participants">Asignar Santas</string>
     <string name="Home">Inicio</string>
     <string name="menu_search">Buscar</string>
+    <string name="menu_tutorial">Tutorial</string>
+    <string name="tutorial_title">Tutorial de UnknownSanta</string>
 
     <!--Emails-->
     <string name="no_place_selected">Aún por decidir.</string>
@@ -48,24 +56,42 @@
     <string name="email_body_event_name">Te han invitado a participar en el juego de amigo invisible de <b>%1$s</b>, que tendrá lugar el próximo %2$s en %3$s. El límite de gasto se ha puesto en %4$s.</string>
     <string name="error_email_title">No se pudo enviar el email</string>
     <string name="error_email_message">Aún hay participantes sin asignación. Comprueba que todos los participantes tienen el check verde. Si alguno no lo tiene, ve al menú y selecciona "Assignar Santas".</string>
+    <string name="email_subject_title">Información sobre tu Secret Santa - UnknownSanta App</string>
+
+    <!--About-->
     <string name="about_title">Acerca de UnknownSanta</string>
     <string name="about_current_version">Versión 1.0</string>
     <string name="abbout_info">UnknownSanta (%1$s) es una aplicación Android desarrollada por Beatriz Ruiz(@Bearm91 en Github) en 2019–2020</string>
+
+    <!--Dialog and toast messages-->
     <string name="dialog_confirmation_title">Confirmación</string>
     <string name="dialog_delete_event_message">Se va a eliminar el evento. ¿Desea continuar?</string>
     <string name="dialog_delete_participant">Se va a eliminar el participante. ¿Desea continuar?</string>
-    <string name="menu_tutorial">Tutorial</string>
+
     <string name="toast_email_sent">Se ha enviado un email a todos los participantes con la información del evento.</string>
     <string name="toast_email_sent_error">Ha habido un error en el envío de emails. Por favor, inténtalo de nuevo más tarde.</string>
     <string name="toast_email_already_sent">Los emails para este evento ya fueron enviados.</string>
     <string name="toast_shuffle_error">Se necesitan al menos 3 participantes para asignar amigos invisibles.</string>
     <string name="toast_paticipant_created">Un participante nuevo se ha unido al evento.</string>
-    <string name="tutorial_title">Tutorial de UnknownSanta</string>
-    <string name="under_development_message">Esta funcionalidad está desarrollo.</string>
-    <string name="email_subject_title">Información sobre tu Secret Santa - UnknownSanta App</string>
-    <string name="edit_event_title">Edición del evento</string>
-    <string name="all_events_deleted">Se han eliminado todos los eventos.</string>
-    <string name="delete_event_error">No se han podido eliminar los eventos.</string>
+    <string name="toast_all_events_deleted">Se han eliminado todos los eventos.</string>
+    <string name="toast_delete_event_error">No se han podido eliminar los eventos.</string>
+    <string name="assigment_success_message">¡Bien! La asociación aleatoria se ha realizado correctamente.</string>
+
+    <string name="dialog_under_development_message">Esta funcionalidad está desarrollo.</string>
     <string name="dialog_delete_events_message">Se van a eliminar todos los eventos. ¿Desea continuar?</string>
+
+    <!--DB prepopulation values-->
+    <string name="participant1_name_example">Pedro</string>
+    <string name="participant2_name_example">Susana</string>
+    <string name="participant3_name_example">Carlos</string>
+    <string name="participant4_name_example">Carolina</string>
+    <string name="participant1_email_example">pedro@mail.com</string>
+    <string name="participant2_email_example">susana@mail.com</string>
+    <string name="participant3_email_example">carlos@mail.com</string>
+    <string name="participant4_email_example">carolina@mail.com</string>
+    <string name="event_name_example">Evento ejemplo</string>
+    <string name="event_date_example">9 ago. 2020</string>
+    <string name="event_place_example">La playa</string>
+    <string name="event_expense_example">20€ aprox.</string>
 
 </resources>

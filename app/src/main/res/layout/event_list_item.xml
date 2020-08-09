@@ -30,7 +30,7 @@
                 android:layout_width="@dimen/imageview_eventlist_item_width"
                 android:layout_height="@dimen/imageview_eventlist_item_height"
                 android:layout_gravity="center_vertical"
-                android:contentDescription="Event icon"
+                android:contentDescription="@string/event_icon_content_description"
                 app:srcCompat="@drawable/ic_christmas_tree" />
 
             <LinearLayout
@@ -53,8 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="@{Event.name}"
-                        android:textStyle="bold"
-                        tool:text="Christmas 2020" />
+                        tool:text="@string/event_name_example" />
 
                     <ImageView
                         android:id="@+id/iv_email_sent"
@@ -71,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{Event.date}"
-                    tool:text="25 January 2020" />
+                    tool:text="@string/event_date_example" />
             </LinearLayout>
 
             <ImageView

@@ -146,7 +146,7 @@ public class EventsActivity extends AppCompatActivity {
     private void showTutorialScreen() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.tutorial_title)
-                .setMessage(getString(R.string.under_development_message))
+                .setMessage(getString(R.string.dialog_under_development_message))
                 .setCancelable(false)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override

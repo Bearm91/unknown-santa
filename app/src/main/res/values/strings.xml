@@ -7,6 +7,10 @@
     <string name="dialog_confirmation_title">Confirmation</string>
     <string name="dialog_delete_event_message">Are you sure you want to delete this event?</string>
     <string name="dialog_delete_participant">Are you sure you want to delete this participant?</string>
+    <string name="event_icon_content_description">Event icon</string>
+    <string name="participant_icon_content_description">Participant avatar</string>
+    <string name="checkmark_contentDescription">Checkmark that indicates that a secret santa has been asigned</string>
+    <string name="delete_icon_contentDescription">Delete icon</string>
 
 
     <!--Main screen-->
@@ -17,6 +21,7 @@
     <string name="dateFieldColon">Date:</string>
     <string name="placeFieldColon">Place:</string>
     <string name="expenseFieldColon">Expense limit:</string>
+    <string name="edit_event_title">Edit Event info</string>
 
 
     <!--Event form screen-->
@@ -48,6 +53,7 @@
     <string name="Home">Home</string>
     <string name="menu_search">Search</string>
     <string name="menu_tutorial">Tutorial</string>
+    <string name="tutorial_title">UnknownSanta tutorial</string>
 
     <!--Emails-->
     <string name="no_place_selected">To be decided</string>
@@ -55,22 +61,24 @@
     <string name="email_body_event_name">You have been invited to participate in a Secret Santa game for %1$s, which will take place next %2$s in %3$s. The expense limit has been set at %4$s. Enjoy!</string>
     <string name="error_email_title">Sorry, the email cannot be sent</string>
     <string name="error_email_message">Sorry, there are still participants with no assignation. Check that all participants have the green mark next to their names, and press on \'Assign Santas\' in the menu below if anyone doesn\'t.</string>
+    <string name="email_subject_title">Secret Santa Event Information - UnknownSanta App</string>
+    <string name="toast_email_sent">An email has been sent to all participants with the event information.</string>
+    <string name="toast_email_sent_error">The emails could not be sent. Please, try again</string>
 
     <!--About screen-->
     <string name="about_title">About UnknownSanta app</string>
     <string name="about_current_version">Version 1.0</string>
     <string name="abbout_info">UnknownSanta (%1$s) is an Android app developed by Beatriz Ruiz (@Bearm91 in Github) during 2019–2020</string>
-    <string name="toast_email_sent">An email has been sent to all participants with the event information.</string>
-    <string name="toast_email_sent_error">The emails could not be sent. Please, try again</string>
+
+    <!--Dialog and toast messages-->
     <string name="toast_paticipant_created">Yay! A new participant joined the event!</string>
     <string name="toast_email_already_sent">The email have already been sent for this event.</string>
     <string name="toast_shuffle_error">You need at least 3 participants to assign secret santas.</string>
-    <string name="tutorial_title">UnknownSanta tutorial</string>
-    <string name="under_development_message">This feature is still under development</string>
-    <string name="email_subject_title">Secret Santa Event Information - UnknownSanta App</string>
-    <string name="edit_event_title">Edit Event info</string>
-    <string name="all_events_deleted">All events were deleted correctly.</string>
-    <string name="delete_event_error">The events could not be deleted. Please, try again later.</string>
+
+    <string name="dialog_under_development_message">This feature is still under development</string>
+    <string name="assigment_success_message">Yay! The association is made!</string>
+    <string name="toast_all_events_deleted">All events were deleted correctly.</string>
+    <string name="toast_delete_event_error">The events could not be deleted. Please, try again later.</string>
     <string name="dialog_delete_events_message">All events will be deleted. Do you want to continue?</string>
 
     <!--DB prepopulation values-->
@@ -83,7 +91,7 @@
     <string name="participant3_email_example">charles@mail.com</string>
     <string name="participant4_email_example">grace@mail.com</string>
     <string name="event_name_example">Event example</string>
-    <string name="event_date_example">9 ago. 2020</string>
+    <string name="event_date_example">9 Aug 2020</string>
     <string name="event_place_example">Our fav restaurant</string>
     <string name="event_expense_example">20€ aprox</string>
 

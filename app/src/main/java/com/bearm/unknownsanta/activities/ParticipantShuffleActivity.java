@@ -52,7 +52,7 @@ public class ParticipantShuffleActivity extends AppCompatActivity {
         }
         participantViewModel.update(originalList);
 
-        Toast.makeText(context, "Yay! The association is made!", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, R.string.assigment_success_message, Toast.LENGTH_LONG).show();
 
     }
 

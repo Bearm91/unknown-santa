@@ -52,7 +52,7 @@
                         style="@style/myEventTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Christmas 2019" />
+                        android:text="@string/event_name_example" />
 
                     <ImageView
                         android:id="@+id/iv_email"
@@ -86,7 +86,7 @@
                         style="@style/myMainSubTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="20 December 2019" />
+                        android:text="@string/event_date_example" />
 
                 </LinearLayout>
 
@@ -111,7 +111,7 @@
                         style="@style/myMainSubTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="My house near the beach in Malaga" />
+                        android:text="@string/event_place_example" />
 
                 </LinearLayout>
 
@@ -136,7 +136,7 @@
                         style="@style/myMainSubTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="20€" />
+                        android:text="@string/event_expense_example" />
 
                 </LinearLayout>
             </LinearLayout>
