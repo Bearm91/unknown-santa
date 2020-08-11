@@ -21,10 +21,12 @@ public class EmailCreatorActivity extends AppCompatActivity {
     List<Participant> myParticipants;
     Event myEvent;
     ParticipantViewModel participantViewModel;
+    Context context;
 
-    public EmailCreatorActivity(Event event, List<Participant> participants) {
+    public EmailCreatorActivity(Context context, Event event, List<Participant> participants) {
         this.myParticipants = participants;
         this.myEvent = event;
+        this.context = context;
     }
 
 
@@ -38,16 +40,21 @@ public class EmailCreatorActivity extends AppCompatActivity {
 
     //Creates the body of the email with the information about the participants and the event
     public void createEmailBody(String receiver) {
+        emailBody = "";
         emailBody = getEventInfo();
-        emailBody = emailBody.concat(getString(R.string.email_body_receiver, receiver));
+        emailBody = emailBody.concat(context.getString(R.string.email_body_receiver, receiver));
     }
 
     //Adds the information of the event to the body of the email
     public String getEventInfo() {
-        eventInfo = getString(R.string.email_body_event_name,myEvent.getName(), myEvent.getDate(), myEvent.getPlace(), myEvent.getExpense());
-        Log.e("EMAILBODY", eventInfo);
+        try {
+            eventInfo = context.getString(R.string.email_body_event_name, myEvent.getName(), myEvent.getDate(), myEvent.getExpense());
+        } catch(Exception npe){
+            Log.e("ERROR", npe.getMessage());
+        }
+        //Log.e("EMAILBODY", eventInfo);
         //TODO return styled message
-        Spanned eventInfoStyled = Html.fromHtml(eventInfo);
+        //Spanned eventInfoStyled = Html.fromHtml(eventInfo);
         return eventInfo;
     }
 

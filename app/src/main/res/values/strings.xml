@@ -57,8 +57,8 @@
 
     <!--Emails-->
     <string name="no_place_selected">To be decided</string>
-    <string name="email_body_receiver">You have been chosen to be %1$s\'s Secret Santa! </string>
-    <string name="email_body_event_name">You have been invited to participate in a Secret Santa game for %1$s, which will take place next %2$s in %3$s. The expense limit has been set at %4$s. Enjoy!</string>
+    <string name="email_body_receiver">You are %1$s\'s Secret Santa! </string>
+    <string name="email_body_event_name">You have been invited to participate in a Secret Santa game for %1$s, which will take place next %2$s. The expense limit has been set at %3$s.</string>
     <string name="error_email_title">Sorry, the email cannot be sent</string>
     <string name="error_email_message">Sorry, there are still participants with no assignation. Check that all participants have the green mark next to their names, and press on \'Assign Santas\' in the menu below if anyone doesn\'t.</string>
     <string name="email_subject_title">Secret Santa Event Information - UnknownSanta App</string>

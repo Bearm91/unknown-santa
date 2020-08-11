@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void sendEmails() {
-        EmailCreatorActivity ecreator = new EmailCreatorActivity(SharedPreferencesHelper.getCurrentEvent(), participantList);
+        EmailCreatorActivity ecreator = new EmailCreatorActivity(getApplicationContext(), SharedPreferencesHelper.getCurrentEvent(), participantList);
         ecreator.setParticipantViewModel(participantViewModel);
 
         HashMap<String, String> emailData = new HashMap<>();
