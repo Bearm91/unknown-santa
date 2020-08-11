@@ -75,6 +75,7 @@
     <string name="toast_email_already_sent">The email have already been sent for this event.</string>
     <string name="toast_shuffle_error">You need at least 3 participants to assign secret santas.</string>
     <string name="toast_email_no_assignation">Emails cannot be sent until the assignation of secret santas is made.</string>
+    <string name="dialog_send_email_message">An email will be sent to all the participants with the event information. Do you want to continue?</string>
 
     <string name="dialog_under_development_message">This feature is still under development</string>
     <string name="assigment_success_message">Yay! The association is made!</string>

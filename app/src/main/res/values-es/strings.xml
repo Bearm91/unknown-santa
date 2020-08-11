@@ -67,6 +67,7 @@
     <string name="dialog_confirmation_title">Confirmación</string>
     <string name="dialog_delete_event_message">Se va a eliminar el evento. ¿Desea continuar?</string>
     <string name="dialog_delete_participant">Se va a eliminar el participante. ¿Desea continuar?</string>
+    <string name="dialog_send_email_message">Se va a enviar un email a todos los participantes con la información del evento. ¿Desea continuar?</string>
 
     <string name="toast_email_sent">Se ha enviado un email a todos los participantes con la información del evento.</string>
     <string name="toast_email_sent_error">Ha habido un error en el envío de emails. Por favor, inténtalo de nuevo más tarde.</string>

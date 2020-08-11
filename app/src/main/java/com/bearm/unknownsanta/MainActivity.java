@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_sendEmail) {
             if(SharedPreferencesHelper.getCurrentEventAssignationStatus()) {
                 if (!SharedPreferencesHelper.getCurrentEventEmailStatus()) {
-                    sendEmails();
+                    showSendEmailConfirmation();
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.toast_email_already_sent, Toast.LENGTH_LONG).show();
                 }
@@ -318,4 +318,24 @@ public class MainActivity extends AppCompatActivity {
         currentE.setAssignationDone(isDone);
         eventViewModel.update(currentE);
     }
-}
+
+    //Opens a dialog with information to confirm before sending the emails
+    private void showSendEmailConfirmation() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.dialog_confirmation_title)
+                .setMessage(R.string.dialog_send_email_message)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        sendEmails();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.show();
+    }
