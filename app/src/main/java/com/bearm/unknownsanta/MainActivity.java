@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             boolean isSent;
             try {
                 GMailSender mailSender = new GMailSender(BuildConfig.account_email, BuildConfig.account_password);
-                mailSender.sendMail(information);
+                //mailSender.sendMail(information);
                 isSent = true;
             } catch (Exception e) {
                 isSent = false;
