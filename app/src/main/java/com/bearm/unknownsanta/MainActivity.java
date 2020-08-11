@@ -134,9 +134,7 @@ public class MainActivity extends AppCompatActivity {
         EmailCreatorActivity ecreator = new EmailCreatorActivity(getApplicationContext(), SharedPreferencesHelper.getCurrentEvent(), participantList);
         ecreator.setParticipantViewModel(participantViewModel);
 
-        HashMap<String, String> emailData = new HashMap<>();
-        emailData = ecreator.createEmailContent();
-
+        HashMap<String, String> emailData = ecreator.createEmailContent();
 
         if (!emailData.isEmpty()) {
             new sendEmailsAsyncTask(emailData).execute();
@@ -271,10 +269,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_sendEmail) {
-            if (!SharedPreferencesHelper.getCurrentEventEmailStatus()) {
-                sendEmails();
+            if(SharedPreferencesHelper.getCurrentEventAssignationStatus()) {
+                if (!SharedPreferencesHelper.getCurrentEventEmailStatus()) {
+                    sendEmails();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.toast_email_already_sent, Toast.LENGTH_LONG).show();
+                }
             } else {
-                Toast.makeText(getApplicationContext(), R.string.toast_email_already_sent, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.toast_email_no_assignation, Toast.LENGTH_LONG).show();
             }
 
             return true;

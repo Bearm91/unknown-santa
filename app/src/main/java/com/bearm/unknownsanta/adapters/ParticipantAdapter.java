@@ -12,6 +12,7 @@ import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.databinding.ParticipantListItemBinding;
+import com.bearm.unknownsanta.helpers.SharedPreferencesHelper;
 import com.bearm.unknownsanta.model.Participant;
 import com.bearm.unknownsanta.viewModels.ParticipantViewModel;
 import com.bearm.unknownsanta.R;
@@ -99,6 +100,7 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
     //Deletes participant from database
     private void deleteParticipant(Participant participant) {
         participantViewModel.delete(participant);
+        SharedPreferencesHelper.updateCurrentEventAssignationStatus(false);
     }
 
     //Asks for confirmation before deleting the participant

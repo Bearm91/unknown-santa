@@ -76,6 +76,7 @@
     <string name="toast_all_events_deleted">Se han eliminado todos los eventos.</string>
     <string name="toast_delete_event_error">No se han podido eliminar los eventos.</string>
     <string name="assigment_success_message">¡Bien! La asociación aleatoria se ha realizado correctamente.</string>
+    <string name="toast_email_no_assignation">Los emails no se pueden enviar hasta que se asignen los amigos invisibles.</string>
 
     <string name="dialog_under_development_message">Esta funcionalidad está desarrollo.</string>
     <string name="dialog_delete_events_message">Se van a eliminar todos los eventos. ¿Desea continuar?</string>

@@ -1,10 +1,16 @@
 package com.bearm.unknownsanta.activities;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bearm.unknownsanta.R;
 import com.bearm.unknownsanta.model.Event;
 import com.bearm.unknownsanta.model.Participant;
 import com.bearm.unknownsanta.viewModels.ParticipantViewModel;
@@ -121,7 +127,21 @@ public class EmailCreatorActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "2Sorry, there are still participants with no assignation. Check that all participants have the green mark next to their names, and press on 'Assign Santas' in the menu below if anyone doesn't.", Toast.LENGTH_LONG).show();
             }
         }
+
         return emailData;
+    }
+    //Opens a dialog with information and instructions for the error that occurs when there are participants with no assignation.
+    private void showError() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getApplicationContext());
+        builder.setTitle(R.string.error_email_title)
+                .setMessage(R.string.error_email_message)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        builder.show();
     }
 
 }
