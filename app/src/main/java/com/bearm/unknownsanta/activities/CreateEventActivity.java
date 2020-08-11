@@ -3,7 +3,6 @@ package com.bearm.unknownsanta.activities;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 
@@ -18,6 +17,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+
+import static android.content.DialogInterface.BUTTON_NEGATIVE;
+import static android.content.DialogInterface.BUTTON_POSITIVE;
 
 
 public class CreateEventActivity extends AppCompatActivity {
@@ -57,10 +59,11 @@ public class CreateEventActivity extends AppCompatActivity {
         });
 
     }
+
     //Sets the random icon for the new event
     private void setRandomEventIcon() {
         eventIcon = getRandomIcon();
-        Log.e("EVENT_ICON", eventIcon);
+        //Log.e("EVENT_ICON", eventIcon);
         int resourceIdImage = this.getResources().getIdentifier(eventIcon, "drawable",
                 this.getPackageName());
         createEventBinding.eventIcon.setImageResource(resourceIdImage);
@@ -92,8 +95,8 @@ public class CreateEventActivity extends AppCompatActivity {
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 
         datePickerDialog.show();
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getColor(R.color.colorPrimary));
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.colorPrimary));
+        datePickerDialog.getButton(BUTTON_NEGATIVE).setTextColor(getColor(R.color.colorPrimary));
+        datePickerDialog.getButton(BUTTON_POSITIVE).setTextColor(getColor(R.color.colorPrimary));
     }
 
     //Checks form data and sends it to EventsActivity to be saved in the database

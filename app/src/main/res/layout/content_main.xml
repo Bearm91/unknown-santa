@@ -59,8 +59,8 @@
                         android:layout_width="@dimen/cardview_envelope_icon_width"
                         android:layout_height="@dimen/cardview_envelope_icon_height"
                         android:layout_marginStart="@dimen/cardview_envelope_icon_marginStart"
-                        app:srcCompat="@drawable/ic_email_24dp"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        app:srcCompat="@drawable/ic_email_24dp" />
 
                 </LinearLayout>
 
@@ -155,7 +155,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="@dimen/linearlayout_participant_padding">
-                android:paddingBottom="4dp">
 
                 <TextView
                     style="@style/myMainTitle"
@@ -169,7 +168,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.4"
-                    app:srcCompat="@drawable/ic_greenplus" />
+                    app:srcCompat="@drawable/ic_add_circle_green" />
 
             </LinearLayout>
 

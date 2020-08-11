@@ -1,11 +1,11 @@
 package com.bearm.unknownsanta.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bearm.unknownsanta.R;
 import com.bearm.unknownsanta.databinding.ActivityAddParticipantsBinding;
@@ -80,7 +80,7 @@ public class AddParticipantActivity extends AppCompatActivity {
         int resourceIdImage = this.getResources().getIdentifier(avatarId, "drawable",
                 this.getPackageName());
         addParticipantsBinding.ivRndmAvatar.setImageResource(resourceIdImage);
-        Log.e("EVENT_ICON", avatarId);
+        //Log.e("EVENT_ICON", avatarId);
 
     }
 

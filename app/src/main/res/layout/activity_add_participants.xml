@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -54,9 +51,9 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_name"
-                    android:drawableStart="@drawable/ic_part_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_part_name"
                     android:drawablePadding="@dimen/drawablePadding_form_icons"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -72,16 +69,16 @@
                 style="@style/myFormEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true"
-                android:hint="@string/emailField">
+                android:hint="@string/emailField"
+                app:errorEnabled="true">
 
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_email"
-                    android:drawableStart="@drawable/ic_part_email"
-                    android:drawablePadding="@dimen/drawablePadding_form_icons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_part_email"
+                    android:drawablePadding="@dimen/drawablePadding_form_icons"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -113,8 +110,6 @@
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:text="@string/save_button" />
-
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -98,8 +98,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             }
         });
 
-        Log.e("RV_ITEM", String.valueOf(position));
-
     }
 
     private void deleteEvent(Event event) {

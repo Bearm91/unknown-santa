@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Participant> participants) {
                 if (participants != null) {
-                    Log.e("Select participant size", String.valueOf(participants.size()));
                     mParticipantAdapter.setParticipants(participants);
                     participantList = participants;
                 }
@@ -112,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         eventViewModel = new ViewModelProvider(this, myViewModelProviderFactory).get(EventViewModel.class);
 
         participantShuffleActivity = new ParticipantShuffleActivity(participantViewModel, getApplicationContext());
-
 
         //Checks selected event info
         loadEventInfo();

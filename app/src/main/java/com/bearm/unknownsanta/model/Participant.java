@@ -41,9 +41,6 @@ public class Participant {
     @ColumnInfo
     int idReceiver;
 
-    @ColumnInfo
-    int idGiver;
-
     @Ignore
     public Participant(String name, String email, String avatarName, int eventId) {
         this.name = name;
@@ -81,14 +78,6 @@ public class Participant {
         this.idReceiver = idReceiver;
     }
 
-    public int getIdGiver() {
-        return idGiver;
-    }
-
-    public void setIdGiver(int idGiver) {
-        this.idGiver = idGiver;
-    }
-
     @NonNull
     public String getEmail() {
         return email;
@@ -115,7 +104,6 @@ public class Participant {
                 ", avatarName='" + avatarName + '\'' +
                 ", eventId=" + eventId +
                 ", idReceiver=" + idReceiver +
-                ", idGiver=" + idGiver +
                 '}';
     }
 }

@@ -26,7 +26,6 @@ import com.bearm.unknownsanta.databinding.ActivityEventsBinding;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class EventsActivity extends AppCompatActivity {
 
