@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), R.string.toast_email_already_sent, Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(getApplicationContext(), R.string.toast_email_no_assignation, Toast.LENGTH_LONG).show();
+                showSendEmailErrorInformation();
             }
 
             return true;
@@ -339,3 +339,18 @@ public class MainActivity extends AppCompatActivity {
                 });
         builder.show();
     }
+
+    private void showSendEmailErrorInformation() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.error_email_title)
+                .setMessage(R.string.error_email_message)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.show();
+    }
+}
