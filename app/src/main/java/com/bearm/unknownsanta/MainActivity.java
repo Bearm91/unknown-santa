@@ -3,7 +3,6 @@ package com.bearm.unknownsanta;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -21,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bearm.unknownsanta.activities.AddParticipantActivity;
 import com.bearm.unknownsanta.activities.EmailCreatorActivity;
+import com.bearm.unknownsanta.asyncTasks.SendEmailAsyncTask;
 import com.bearm.unknownsanta.helpers.SharedPreferencesHelper;
 import com.bearm.unknownsanta.databinding.ActivityMainBinding;
 import com.bearm.unknownsanta.activities.ParticipantShuffleActivity;
@@ -29,12 +29,12 @@ import com.bearm.unknownsanta.model.Event;
 import com.bearm.unknownsanta.viewModels.EventViewModel;
 import com.bearm.unknownsanta.model.Participant;
 import com.bearm.unknownsanta.viewModels.ParticipantViewModel;
-import com.bearm.unknownsanta.eMailSender.GMailSender;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -130,56 +130,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void sendEmails() {
-        EmailCreatorActivity ecreator = new EmailCreatorActivity(getApplicationContext(), SharedPreferencesHelper.getCurrentEvent(), participantList);
-        ecreator.setParticipantViewModel(participantViewModel);
+    private void sendEmails() throws ExecutionException, InterruptedException {
+        EmailCreatorActivity eCreator = new EmailCreatorActivity(getApplicationContext(), SharedPreferencesHelper.getCurrentEvent(), participantList);
+        eCreator.setParticipantViewModel(participantViewModel);
 
-        HashMap<String, String> emailData = ecreator.createEmailContent();
+        HashMap<String, String> emailData = eCreator.createEmailContent();
 
         if (!emailData.isEmpty()) {
-            new sendEmailsAsyncTask(emailData).execute();
-        }
-    }
-
-    public class sendEmailsAsyncTask extends AsyncTask<HashMap<String, String>, String, Boolean> {
-
-        HashMap<String, String> information;
-
-        public sendEmailsAsyncTask(HashMap<String, String> emailData) {
-            this.information = emailData;
-        }
-
-        // Before the tasks execution
-        protected void onPreExecute() {
-            //mTextView.setText(mTextView.getText() + "\nStarting task....");
-        }
-
-        @Override
-        protected Boolean doInBackground(HashMap<String, String>... hashMaps) {
-            boolean isSent;
-            try {
-                GMailSender mailSender = new GMailSender(BuildConfig.account_email, BuildConfig.account_password);
-                //mailSender.sendMail(information);
-                isSent = true;
-            } catch (Exception e) {
-                isSent = false;
-                Log.e("SendMail", e.getMessage(), e);
-
-
-            }
-            return isSent;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            super.onPostExecute(result);
+            boolean result = new SendEmailAsyncTask(emailData)
+                    .execute()
+                    .get();
             SharedPreferencesHelper.updateCurrentEventEmailStatus(result);
             updateEmailStatus(result, true);
             updateDBEmailStatus(result);
-            Log.e("SendMail", String.valueOf(result));
-
         }
     }
+
+
 
     private void updateEmailStatus(boolean success, boolean inform) {
         if (success) {
@@ -328,7 +295,11 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        sendEmails();
+                        try {
+                            sendEmails();
+                        } catch (ExecutionException | InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
