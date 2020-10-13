@@ -157,12 +157,13 @@ public class EventsActivity extends AppCompatActivity {
 
     //Shows a dialog with info about the app
     private void showAboutInfo() {
-        String aboutMessageVersion = getString(R.string.about_current_version);
+        View view = getLayoutInflater().inflate( R.layout.about_layout, null);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(view);
         builder.setTitle(R.string.about_title)
-                .setMessage(getString(R.string.abbout_info, aboutMessageVersion))
                 .setIcon(R.mipmap.ic_unknown_launcher)
-                .setCancelable(false)
+                .setCancelable(true)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

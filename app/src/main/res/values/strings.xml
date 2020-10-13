@@ -67,8 +67,12 @@
 
     <!--About screen-->
     <string name="about_title">About UnknownSanta app</string>
-    <string name="about_current_version">Version 1.0</string>
-    <string name="abbout_info">UnknownSanta (%1$s) is an Android app developed by Beatriz Ruiz (@Bearm91 in Github) during 2019–2020</string>
+    <string name="about_current_version">Current version: 1.0</string>
+    <string name="about_info">UnknownSanta is an Android app developed since 2019. </string>
+    <string name="about_info_developer"> Developer: @Bearm91 in Github.</string>
+    <string name="about_info_contact">Contact: unknownsantaapp@gmail.com</string>
+
+    <string name="about_info_icons"><div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></string>
 
     <!--Dialog and toast messages-->
     <string name="toast_paticipant_created">Yay! A new participant joined the event!</string>

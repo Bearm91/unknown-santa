@@ -60,8 +60,12 @@
 
     <!--About-->
     <string name="about_title">Acerca de UnknownSanta</string>
-    <string name="about_current_version">Versión 1.0</string>
-    <string name="abbout_info">UnknownSanta (%1$s) es una aplicación Android desarrollada por Beatriz Ruiz(@Bearm91 en Github) en 2019–2020</string>
+    <string name="about_current_version">Versión actual: 1.0</string>
+    <string name="about_info_developer">Desarrolladora: @Bearm91 en Github.</string>
+    <string name="about_info_contact">Email de contato: unknownsantaapp@gmail.com</string>
+    <string name="about_info">UnknownSanta es una aplicación para Android en desarrollo desde 2019.</string>
+
+    <string name="about_info_icons"><div>Iconos: <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></string>
 
     <!--Dialog and toast messages-->
     <string name="dialog_confirmation_title">Confirmación</string>
