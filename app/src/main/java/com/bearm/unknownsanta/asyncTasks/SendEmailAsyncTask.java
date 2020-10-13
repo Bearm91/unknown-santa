@@ -1,5 +1,6 @@
 package com.bearm.unknownsanta.asyncTasks;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -11,9 +12,11 @@ import java.util.HashMap;
 public class SendEmailAsyncTask extends AsyncTask<HashMap<String, String>, String, Boolean> {
 
     HashMap<String, String> information;
+    Context context;
 
-    public SendEmailAsyncTask(HashMap<String, String> emailData) {
+    public SendEmailAsyncTask(HashMap<String, String> emailData, Context context) {
         this.information = emailData;
+        this.context = context;
     }
 
     // Before the tasks execution
@@ -25,8 +28,8 @@ public class SendEmailAsyncTask extends AsyncTask<HashMap<String, String>, Strin
     protected Boolean doInBackground(HashMap<String, String>... hashMaps) {
         boolean isSent;
         try {
-            GMailSender mailSender = new GMailSender(BuildConfig.account_email, BuildConfig.account_password);
-            //mailSender.sendMail(information);
+            GMailSender mailSender = new GMailSender(BuildConfig.account_email, BuildConfig.account_password, context);
+            mailSender.sendMail(information);
             isSent = true;
         } catch (Exception e) {
             isSent = false;
