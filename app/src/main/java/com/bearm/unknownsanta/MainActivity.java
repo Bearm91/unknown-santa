@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         HashMap<String, String> emailData = eCreator.createEmailContent();
 
         if (!emailData.isEmpty()) {
-            boolean result = new SendEmailAsyncTask(emailData, getApplicationContext())
+            boolean result = new SendEmailAsyncTask(emailData, getApplicationContext(), this)
                     .execute()
                     .get();
             SharedPreferencesHelper.updateCurrentEventEmailStatus(result);

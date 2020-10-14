@@ -49,6 +49,7 @@ public class EmailCreatorActivity extends AppCompatActivity {
         emailBody = "";
         emailBody = getEventInfo();
         emailBody = emailBody.concat(context.getString(R.string.email_body_receiver, receiver));
+        //emailBody = emailBody.concat(context.getString(R.string.email_footer));
     }
 
     //Adds the information of the event to the body of the email
@@ -121,10 +122,10 @@ public class EmailCreatorActivity extends AppCompatActivity {
 
                 emailData.put(participantEmail, emailMessage);
             } catch (NullPointerException npe) {
-                Toast.makeText(getApplicationContext(), "1Sorry, there are still participants with no assignation.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Sorry, there are still participants with no assignation.", Toast.LENGTH_LONG).show();
             } catch (ArrayIndexOutOfBoundsException aioob) {
                 //TODO change toast for alert dialog
-                Toast.makeText(getApplicationContext(), "2Sorry, there are still participants with no assignation. Check that all participants have the green mark next to their names, and press on 'Assign Santas' in the menu below if anyone doesn't.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Sorry, there are still participants with no assignation. Check that all participants have the green mark next to their names, and press on 'Assign Santas' in the menu below if anyone doesn't.", Toast.LENGTH_LONG).show();
             }
         }
 

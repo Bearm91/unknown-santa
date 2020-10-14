@@ -60,11 +60,12 @@ public class GMailSender extends javax.mail.Authenticator {
             String body = entry.getValue();
             String recipients = entry.getKey();
             try {
-                MimeMessage message = new MimeMessage(session);
-                DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
-                message.setSender(new InternetAddress(sender));
+                Message message = new MimeMessage(session);
+                //DataHandler handler = new DataHandler(body, "text/html");
+                //message.setSender(new InternetAddress(sender));
                 message.setSubject(subject);
-                message.setDataHandler(handler);
+                message.setContent(body, "text/html");
+                //message.setDataHandler(handler);
 
                 if (recipients.indexOf(',') > 0)
                     message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
